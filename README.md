@@ -1,6 +1,10 @@
 # Campers-Android
 
 ## 일과
+- 2021.11.02</br>
+     로그인 액티비티, xml 파일 추가</br>
+     네이버 지도 api 조사
+     
 - 2021.11.01</br>
     BottomNavigation 구현, `app:labelVisibilityMode="labeled"`은 item의 라벨을 무조건 보이게한다.
 
