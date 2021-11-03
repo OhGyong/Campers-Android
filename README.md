@@ -1,6 +1,9 @@
 # Campers-Android
 
 ## 일과
+- 2021.11.03</br>
+    campingzone 프래그먼트에 네이버 지도 추가
+    
 - 2021.11.02</br>
      로그인 액티비티, xml 파일 추가</br>
      네이버 지도 api 조사
