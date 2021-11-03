@@ -11,6 +11,11 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Campers">
 
+        <!-- 네이버 클라이언트 ID 지정 -->
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="5v90s3nwtv" />
+
         <activity android:name="com.example.campers.ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
