@@ -1,7 +1,7 @@
 package com.example.campers
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.campers.ui.campingzone.CampingzoneFragment
 import com.example.campers.ui.community.CommunityFragment

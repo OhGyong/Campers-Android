@@ -1,6 +1,10 @@
 # Campers-Android
 
 ## 일과
+
+- 2021.11.04</br>
+    campingzone naverMap 객체 등록 마커 생성까지 확인
+
 - 2021.11.03</br>
     campingzone 프래그먼트에 네이버 지도 추가
     

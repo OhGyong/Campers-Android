@@ -6,19 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.campers.R
+import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
+import com.naver.maps.map.MapView
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 
 class CampingzoneFragment: Fragment(), OnMapReadyCallback {
 
-    private lateinit var naverMap: NaverMap // naverMap 선언
-    private lateinit var locationSource: FusedLocationSource // 런타임 권한 처리
+    private lateinit var naverMap: NaverMap // naverMap API를 호출하기 위한 인터페이스 역할의 NaverMap 객체 선언
+    private lateinit var mapView: MapView
+    private lateinit var locationSource: FusedLocationSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
         super.onCreate(savedInstanceState)
+        locationSource =
+                FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
     }
 
@@ -30,18 +35,30 @@ class CampingzoneFragment: Fragment(), OnMapReadyCallback {
         return inflater.inflate(R.layout.fragment_campingzone, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // MapView의 getMapAsync() 메서드로 OnMapReadyCallboack을 등록하여 비동기로 NaverMap 객체를 얻게한다.
+        mapView = view.findViewById(R.id.naver_map)
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync(this)
+    }
+
     override fun onMapReady(naverMap: NaverMap) {
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
-        naverMap.locationTrackingMode = LocationTrackingMode.Follow
+
+        val marker = Marker()
+        marker.position = LatLng(37.5670135, 126.9783740)
+        marker.map = naverMap
     }
 
     /**
      * 권한 설정
      */
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>,
+                                            grantResults: IntArray) {
         if (locationSource.onRequestPermissionsResult(requestCode, permissions,
-                grantResults)) {
+                        grantResults)) {
             if (!locationSource.isActivated) { // 권한 거부됨
                 naverMap.locationTrackingMode = LocationTrackingMode.None
             }
