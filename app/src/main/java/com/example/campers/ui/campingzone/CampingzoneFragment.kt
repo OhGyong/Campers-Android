@@ -63,7 +63,6 @@ class CampingzoneFragment: Fragment(), OnMapReadyCallback {
             }
             return
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     companion object {
