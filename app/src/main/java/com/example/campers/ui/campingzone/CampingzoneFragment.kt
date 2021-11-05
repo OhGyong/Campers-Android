@@ -44,9 +44,10 @@ class CampingzoneFragment: Fragment(), OnMapReadyCallback {
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
 
+        // UI 관련 설정
         val uiSettings = naverMap.uiSettings
-        uiSettings.isLocationButtonEnabled = true
-        uiSettings.isLogoClickEnabled = false
+        uiSettings.isLocationButtonEnabled = true // 현재위치로 이동하는 컨트롤러 설정
+        uiSettings.isLogoClickEnabled = false // naver 로고 버튼 이벤트 제거 설정
 
     }
 
