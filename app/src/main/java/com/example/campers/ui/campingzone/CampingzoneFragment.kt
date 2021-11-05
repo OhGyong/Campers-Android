@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.campers.R
-import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapView
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
-import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 
 class CampingzoneFragment: Fragment(), OnMapReadyCallback {
@@ -46,9 +44,10 @@ class CampingzoneFragment: Fragment(), OnMapReadyCallback {
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
 
-        val marker = Marker()
-        marker.position = LatLng(37.5670135, 126.9783740)
-        marker.map = naverMap
+        val uiSettings = naverMap.uiSettings
+        uiSettings.isLocationButtonEnabled = true
+        uiSettings.isLogoClickEnabled = false
+
     }
 
     /**
