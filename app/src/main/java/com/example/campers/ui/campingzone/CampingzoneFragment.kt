@@ -16,7 +16,8 @@ class CampingzoneFragment: Fragment(), OnMapReadyCallback {
 
     private lateinit var naverMap: NaverMap // naverMap API를 호출하기 위한 인터페이스 역할의 NaverMap 객체 선언
     private lateinit var mapView: MapView
-    private lateinit var locationSource: FusedLocationSource
+    private lateinit var locationSource: FusedLocationSource // 위치 권한 변수
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,9 @@ class CampingzoneFragment: Fragment(), OnMapReadyCallback {
         val uiSettings = naverMap.uiSettings
         uiSettings.isLocationButtonEnabled = true // 현재위치로 이동하는 컨트롤러 설정
         uiSettings.isLogoClickEnabled = false // naver 로고 버튼 이벤트 제거 설정
+
+        naverMap.locationTrackingMode = LocationTrackingMode.Follow // 위치 추적 모드를 Follow로 설정(캠핑존 진입시 현재 위치로 이동)
+
 
     }
 
