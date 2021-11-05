@@ -1,6 +1,10 @@
 # Campers-Android
 
 ## 일과
+- 2021.11.05</br>
+    campingzone 현재위치 이동 컨트롤러 추가</br>
+    naver 로고 클릭 이벤트 비활성화</br>
+    앱 다크모드 비활성화 설정
 
 - 2021.11.04</br>
     campingzone naverMap 객체 등록 마커 생성까지 확인
