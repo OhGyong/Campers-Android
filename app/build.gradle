@@ -44,6 +44,10 @@ dependencies {
 
     // 네이버 maps api 등록
     implementation('com.naver.maps:map-sdk:3.13.0')
+
+    // 네이버 로그인 등록
+    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
+
     // 위치 정보 의존성 등록
     implementation('com.google.android.gms:play-services-location:18.0.0')
 
