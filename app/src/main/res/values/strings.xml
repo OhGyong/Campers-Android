@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Campers</string>
+
+    <!-- 네이버 지도 클라이언트 id -->
+    <string name="naver_maps_id">5v90s3nwtv</string>
+
+    <!-- 네이버 로그인 클라이언트 id, secret -->
+    <string name="naver_login_id">CwxpLPOr98553BhMlnQT</string>
+    <string name="naver_login_secret">Y5fr4qtbpW</string>
+
 </resources>
