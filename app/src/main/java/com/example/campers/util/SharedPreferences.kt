@@ -25,6 +25,6 @@ class SharedPreferences(context: Context) {
      * 로그아웃 했을때 토큰을 날리는 함수
      */
     fun clearPreferences() {
-        preferences.edit().clear()
+        preferences.edit().clear().apply()
     }
 }
