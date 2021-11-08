@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.example.campers.MainActivity
 import com.example.campers.R
+import com.example.campers.util.SharedPreferences
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton
@@ -19,6 +19,9 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
+/**
+ * 소셜 로그인
+ */
 class LoginActivity : Activity() {
 
     lateinit var mOAuthLoginInstance: OAuthLogin
@@ -43,8 +46,9 @@ class LoginActivity : Activity() {
     object : OAuthLoginHandler() {
         override fun run(success: Boolean) {
             if (success) {
-                Log.d("로그인 accesstoken", mOAuthLoginInstance.getAccessToken(applicationContext))
-                Log.d("로그인 refreshtoken", mOAuthLoginInstance.getRefreshToken(applicationContext))
+
+                // accessToken 저장
+                SharedPreferences(this@LoginActivity).accessToken = mOAuthLoginInstance.getAccessToken(applicationContext)
 
                 val thread = Thread {
                     loginInform(mOAuthLoginInstance.getAccessToken(applicationContext))
