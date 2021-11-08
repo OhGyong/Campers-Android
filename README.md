@@ -2,6 +2,12 @@
 
 ## 일과
 
+- 2021.11.08</br>
+    SharedPreferences 클래스 생성 → SharedPreference를 사용하여 accessToken을 앱에 저장
+    View-Tool Windows-Device File Explorer에서 data/data/com.example.campers/shared_prefs에 accessToken 저장
+    마이페이지에 로그아웃 버튼 추가하여 accessToken 삭제 구현
+    스플래시에서 shared_prefs에 저장된 accessToken 유무에 따라 로그인화면/메인화면으로 이동 다르게 처리
+
 - 2021.11.07</br>
     naver 로그인 테스트, 로그인 정보 불러오는 것까지(정보 불러올 때 스레드 사용 안하면 에러)
     
