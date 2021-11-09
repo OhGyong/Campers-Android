@@ -30,6 +30,9 @@ class LoginActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        /**
+         * 네이버 로그인 라이브러리 애플리케이션 적용(네이버 로그인 인스턴스 초기화)
+         */
         val naverClientId = getString(R.string.naver_login_id)
         val naverClientSecret = getString(R.string.naver_login_secret)
         val naverClientName = getString(R.string.naver_login_name)
@@ -39,26 +42,32 @@ class LoginActivity : Activity() {
 
         val buttonOAuthLoginImg = findViewById<OAuthLoginButton>(R.id.naverLoginButton)
 
+        // 네이버 로그인 버튼 클릭 시 로그인 핸들러 실행
         buttonOAuthLoginImg.setOAuthLoginHandler(mOAuthLoginHandler)
     }
 
+    /**
+     * 로그인이 완료되거나 취소될 때 호출되는 메서드(로그인 핸들러)
+     */
     private val mOAuthLoginHandler: OAuthLoginHandler = @SuppressLint("HandlerLeak")
     object : OAuthLoginHandler() {
         override fun run(success: Boolean) {
+
+            // 로그인 성공시
             if (success) {
 
                 // accessToken 저장
-                SharedPreferences(this@LoginActivity).accessToken = mOAuthLoginInstance.getAccessToken(applicationContext)
+                SharedPreferences(this@LoginActivity).accessToken =
+                    mOAuthLoginInstance.getAccessToken(applicationContext)
 
-                val thread = Thread {
+                // 네이버 오픈 API를 사용하기 위해 accessToken으로 접근(로그인 정보 가져오기)
+                Thread {
                     loginInform(mOAuthLoginInstance.getAccessToken(applicationContext))
                 }.start()
 
-
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
+                // 메인화면으로 이동동
+                successLogin()
+            } else { // 로그인 실패시
                 val errorCode: String =
                     mOAuthLoginInstance.getLastErrorCode(this@LoginActivity).code
                 val errorDesc = mOAuthLoginInstance.getLastErrorDesc(this@LoginActivity)
@@ -71,6 +80,9 @@ class LoginActivity : Activity() {
         }
     }
 
+    /**
+     * 현재 로그인된 정보를 가져오는 메서드
+     */
     fun loginInform(accessToken: String) {
         val header = "Bearer $accessToken"
         val apiUrl = "https://openapi.naver.com/v1/nid/me"
@@ -81,8 +93,11 @@ class LoginActivity : Activity() {
         println("로그인 정보 $responseBody")
     }
 
+    /**
+     * 네이버 회원 api 호출하여 정보 가져오는 메서드
+     */
     private fun get(apiUrl: String, requestHeaders: Map<String, String>): String {
-        val con = connect(apiUrl)
+        val con = connect("https://openapi.naver.com/v1/nid/me")
         try {
             con.requestMethod = "GET"
 
@@ -93,12 +108,12 @@ class LoginActivity : Activity() {
             val responseCode = con.responseCode
             return if (responseCode == HttpURLConnection.HTTP_OK) {
                 readBody(con.inputStream)
-            }else{
+            } else {
                 readBody(con.errorStream)
             }
-        }catch (error: IOException){
+        } catch (error: IOException) {
             throw RuntimeException("API 요청과 응답 실패 $error")
-        }finally {
+        } finally {
             con.disconnect()
         }
 
@@ -115,6 +130,10 @@ class LoginActivity : Activity() {
         }
     }
 
+
+    /**
+     * 서버에서 가져오는 데이터를 json 텍스트로 변환해주는 메서드
+     */
     private fun readBody(body: InputStream): String {
         val streamReader = InputStreamReader(body)
         try {
@@ -129,5 +148,14 @@ class LoginActivity : Activity() {
         } catch (e: IOException) {
             throw java.lang.RuntimeException("API 응답을 읽는데 실패했습니다.", e)
         }
+    }
+
+    /**
+     * 로그인 성공했을 경우 메인화면으로 이동하는 메서드
+     */
+    fun successLogin() {
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
