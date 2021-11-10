@@ -2,10 +2,14 @@
 
 ## 일과
 
+- 2021.11.10</br>
+    MVVM 공부(api, data, repository 패키지 생성) → 계층구조 업데이트
+    로그인 api, data 작성 (@SerializedName의 반응 확인)
+
 - 2021.11.08</br>
-    SharedPreferences 클래스 생성 → SharedPreference를 사용하여 accessToken을 앱에 저장
-    View-Tool Windows-Device File Explorer에서 data/data/com.example.campers/shared_prefs에 accessToken 저장
-    마이페이지에 로그아웃 버튼 추가하여 accessToken 삭제 구현
+    SharedPreferences 클래스 생성 → SharedPreference를 사용하여 accessToken을 앱에 저장</br>
+    View-Tool Windows-Device File Explorer에서 data/data/com.example.campers/shared_prefs에 accessToken 저장</br>
+    마이페이지에 로그아웃 버튼 추가하여 accessToken 삭제 구현</br>
     스플래시에서 shared_prefs에 저장된 accessToken 유무에 따라 로그인화면/메인화면으로 이동 다르게 처리
 
 - 2021.11.07</br>
