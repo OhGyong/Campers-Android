@@ -34,6 +34,24 @@
     홈, 캠핑존, 모닥불, 알람, 마이페이지 패키지 생성
 
 ## MVVM 클래스 계층 구조
-- data : Model, 데이터 작업을 수행하는 곳.
+- api : retrofit을 사용한 서버와의 통신
+- data : data 클래스
+- repository : data의 추상화
 - ui : 사용자에게 데이터를 표시하는데 도움이 되는 Activity, Fragment, ViewModel.
 - util : 도우미 클래스 및 함수.
+
+<pre>
+  .
+  ├── api
+  ├── data
+  ├── repository
+  ├── ui
+  │   ├── campingzone
+  │   ├── community
+  │   ├── home
+  │   ├── login
+  │   ├── mypage
+  │   ├── notification
+  │   ├── splash
+  ├── util
+</pre>
