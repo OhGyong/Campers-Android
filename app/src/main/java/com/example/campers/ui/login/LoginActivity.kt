@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.campers.MainActivity
 import com.example.campers.R
+import com.example.campers.repository.login.LoginRepository
 import com.example.campers.util.SharedPreferences
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -62,10 +64,10 @@ class LoginActivity : Activity() {
 
                 // 네이버 오픈 API를 사용하기 위해 accessToken으로 접근(로그인 정보 가져오기)
                 Thread {
-                    loginInform(mOAuthLoginInstance.getAccessToken(applicationContext))
+                    LoginRepository().getLoginData(loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)))
                 }.start()
 
-                // 메인화면으로 이동동
+                // 메인화면으로 이동
                 successLogin()
             } else { // 로그인 실패시
                 val errorCode: String =
@@ -83,20 +85,23 @@ class LoginActivity : Activity() {
     /**
      * 현재 로그인된 정보를 가져오는 메서드
      */
-    fun loginInform(accessToken: String) {
+    fun loginInform(accessToken: String): JSONObject {
         val header = "Bearer $accessToken"
         val apiUrl = "https://openapi.naver.com/v1/nid/me"
         val requestHeaders = mutableMapOf<String, String>()
         requestHeaders["Authorization"] = header
         val responseBody = get(apiUrl, requestHeaders)
 
+        // api를 호출하여 얻어온 결과에서 id, email, name 가져오는 과정
+        val response = responseBody.getJSONObject("response")
         println("로그인 정보 $responseBody")
+        return response
     }
 
     /**
      * 네이버 회원 api 호출하여 정보 가져오는 메서드
      */
-    private fun get(apiUrl: String, requestHeaders: Map<String, String>): String {
+    private fun get(apiUrl: String, requestHeaders: Map<String, String>): JSONObject {
         val con = connect("https://openapi.naver.com/v1/nid/me")
         try {
             con.requestMethod = "GET"
@@ -134,8 +139,9 @@ class LoginActivity : Activity() {
     /**
      * 서버에서 가져오는 데이터를 json 텍스트로 변환해주는 메서드
      */
-    private fun readBody(body: InputStream): String {
+    private fun readBody(body: InputStream): JSONObject {
         val streamReader = InputStreamReader(body)
+
         try {
             BufferedReader(streamReader).use { lineReader ->
                 val responseBody = StringBuilder()
@@ -143,7 +149,7 @@ class LoginActivity : Activity() {
                 while (lineReader.readLine().also { line = it } != null) {
                     responseBody.append(line)
                 }
-                return responseBody.toString()
+                return JSONObject(responseBody.toString())
             }
         } catch (e: IOException) {
             throw java.lang.RuntimeException("API 응답을 읽는데 실패했습니다.", e)
