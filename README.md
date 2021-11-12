@@ -2,6 +2,9 @@
 
 ## 일과
 
+- 2021.11.11</br>
+    Json 사용을 위해서 Gson Convertor, kotlinx serialization 공부 
+
 - 2021.11.10</br>
     MVVM 공부(api, data, repository 패키지 생성) → 계층구조 업데이트
     로그인 api, data 작성 (@SerializedName의 반응 확인)
