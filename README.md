@@ -2,11 +2,18 @@
 
 ## 일과
 
+- 2021.11.13</br>
+    MVVM 구조에 맞춰서 Login 구현(서버와 통신해서 발급받은 accessToken을 shared_prefs에 저장)</br>
+
+- 2021.11.12</br>
+    네이버 로그인 api 권한에서 name 속성 추가로 읽도록 수정</br>
+    retrofit으로 데이터 넘어오는 것 확인(문제는 데이터 형식이였음 Gson의 JsonObject으로 해결)
+
 - 2021.11.11</br>
     Json 사용을 위해서 Gson Convertor, kotlinx serialization 공부 
 
 - 2021.11.10</br>
-    MVVM 공부(api, data, repository 패키지 생성) → 계층구조 업데이트
+    MVVM 공부(api, data, repository 패키지 생성) → 계층구조 업데이트</br>
     로그인 api, data 작성 (@SerializedName의 반응 확인)
 
 - 2021.11.08</br>
