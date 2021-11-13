@@ -58,13 +58,14 @@ class LoginActivity : Activity() {
             // 로그인 성공시
             if (success) {
 
-                // accessToken 저장
-                SharedPreferences(this@LoginActivity).accessToken =
-                    mOAuthLoginInstance.getAccessToken(applicationContext)
-
-                // 네이버 오픈 API를 사용하기 위해 accessToken으로 접근(로그인 정보 가져오기)
+                /**
+                 * 서버통신을 하기 때문에 스레드 사용.
+                 * 네이버 오픈 API를 사용하기 위해 mOAuthLoginInstance에 오픈 API의 accessToken을 넘겨줌.
+                 * 얻은 데이터를 LoginRepository()에 넘겨주고 서버와 연결하여 유저의 accessToken을 발급받음.
+                 */
                 Thread {
-                    LoginRepository().getLoginData(loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)))
+                    val userAccessToken = LoginRepository().getLoginData(loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)))
+                    SharedPreferences(this@LoginActivity).accessToken = userAccessToken
                 }.start()
 
                 // 메인화면으로 이동

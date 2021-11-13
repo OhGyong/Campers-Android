@@ -2,12 +2,14 @@ package com.example.campers.repository.login
 
 import com.example.campers.api.CommonService.service
 import com.example.campers.data.login.LoginRequest
-import com.example.campers.data.login.LoginResponse
 import org.json.JSONObject
 
+/**
+ * Login 결과의 accessToken을 반환
+ */
 class LoginRepository {
 
-    fun getLoginData(loginData: JSONObject){
+    fun getLoginData(loginData: JSONObject): String{
 
         // 요청데이터 작성
         val request = LoginRequest(loginData.getString("id"), loginData.getString("email"), 2, loginData.getString("name"),0)
@@ -15,13 +17,13 @@ class LoginRepository {
         // 응답데이터 처리
         val response = service.signIn(request).execute()
 
-        if(response.isSuccessful){
-            val data: LoginResponse? = response.body()
+        val loginData = response.body()?.data
+        println("로그인 데이터 확인 $loginData")
 
-//            println("응답 데이터 ${Gson().toJson(data)}")
-            println("응답 데이터 ${data.toString()}")
-        }else{
-            println("에러")
-        }
+        // gson의 JsonObject의 jsonElement로 데이터를 꺼내옴
+        val accessToken = loginData?.get("accessToken")
+        println("액세스 토큰 확인 $accessToken")
+
+        return accessToken.toString()
     }
 }
