@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import com.example.campers.MainActivity
 import com.example.campers.R
 import com.example.campers.repository.login.LoginRepository
 import com.example.campers.util.SharedPreferences
+import com.google.android.gms.common.SignInButton
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton
@@ -31,6 +33,10 @@ class LoginActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        // 구글 로그인 버튼 텍스트 변경
+        val googleLoginButton = findViewById<SignInButton>(R.id.googleLoginButton)
+        setGoogleButtonText(googleLoginButton, "구글 아이디로 로그인")
 
         /**
          * 네이버 로그인 라이브러리 애플리케이션 적용(네이버 로그인 인스턴스 초기화)
@@ -164,5 +170,20 @@ class LoginActivity : Activity() {
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    /**
+     * 구글 로그인 버튼 Text 변경
+     */
+    private fun setGoogleButtonText(loginButton: SignInButton, buttonText: String){
+        var i = 0
+        while( i < loginButton.childCount){
+            var v = loginButton.getChildAt(i)
+            if(v is TextView){
+                v.text = buttonText
+                return
+            }
+            i++
+        }
     }
 }
