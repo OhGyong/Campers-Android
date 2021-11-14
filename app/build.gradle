@@ -32,6 +32,8 @@ android {
     }
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 dependencies {
     //noinspection GradleDependency
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -49,6 +51,14 @@ dependencies {
 
     // 네이버 로그인 등록
     implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
+
+    // 구글 로그인 등록
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+    // Firebase SDK 추가
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation platform('com.google.firebase:firebase-bom:29.0.0')
 
     // 위치 정보 의존성 등록
     implementation('com.google.android.gms:play-services-location:18.0.0')
