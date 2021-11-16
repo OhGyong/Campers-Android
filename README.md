@@ -2,6 +2,14 @@
 
 ## 일과
 
+- 2021.11.15~16</br>
+    구글 로그인 오류 해결중
+
+- 2021.11.14</br>
+    구글 로그인 버튼 추가 및 Text 변경</br>
+    multidex 의존성 추가</br>
+    Firebase, 구글 로그인 의존성 추가
+    
 - 2021.11.13</br>
     MVVM 구조에 맞춰서 Login 구현(서버와 통신해서 발급받은 accessToken을 shared_prefs에 저장)</br>
 
