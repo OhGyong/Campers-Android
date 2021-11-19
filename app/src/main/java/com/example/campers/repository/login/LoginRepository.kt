@@ -9,16 +9,17 @@ import org.json.JSONObject
  */
 class LoginRepository {
 
-    fun getLoginData(loginData: JSONObject): String{
+    fun getLoginData(loginData: JSONObject, socialPlatform: Int): String{
 
         // 요청데이터 작성
-        val request = LoginRequest(loginData.getString("id"), loginData.getString("email"), 2, loginData.getString("name"),0)
+        val request = LoginRequest(loginData.getString("id"), loginData.getString("email"), socialPlatform, loginData.getString("name"))
+        println("요청데이터 $request")
 
         // 응답데이터 처리
         val response = service.signIn(request).execute()
 
         val loginData = response.body()?.data
-        println("로그인 데이터 확인 $loginData")
+        println("로그인 데이터 확인 ${response.body()}")
 
         // gson의 JsonObject의 jsonElement로 데이터를 꺼내옴
         val accessToken = loginData?.get("accessToken")

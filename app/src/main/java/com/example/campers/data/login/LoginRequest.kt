@@ -10,7 +10,5 @@ data class LoginRequest(
     @SerializedName("socialPlatform")
     val socialPlatform: Int,
     @SerializedName("nickName")
-    val nickName: String,
-    @SerializedName("rank")
-    val rank: Int
+    val nickName: String
 )
