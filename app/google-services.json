@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "778132304461",
-    "project_id": "campers-16d4c",
-    "storage_bucket": "campers-16d4c.appspot.com"
+    "project_number": "462976893387",
+    "project_id": "campers-c3ad2",
+    "storage_bucket": "campers-c3ad2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:778132304461:android:edcf083da8379f64b66204",
+        "mobilesdk_app_id": "1:462976893387:android:1a140c8003cca640fd364e",
         "android_client_info": {
           "package_name": "com.example.campers"
         }
       },
       "oauth_client": [
         {
-          "client_id": "778132304461-uouhhtn6p8k3n8mtthjgi3v8a09km7ad.apps.googleusercontent.com",
+          "client_id": "462976893387-i4f41308dslq10ah4go2pt9q3tre7ajf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.campers",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "778132304461-5ieriuukcurel3kja2ujib2vfbvlcu8s.apps.googleusercontent.com",
+          "client_id": "462976893387-cct674fg42c1qg4fh3a11q4r8atveia4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAcD3nWY5J78oP988CP6Tu7a6pje34SHjc"
+          "current_key": "AIzaSyDPk4aoN6cjDAWfX0LcqJ1jmg1rS-zj_fk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "778132304461-5ieriuukcurel3kja2ujib2vfbvlcu8s.apps.googleusercontent.com",
+              "client_id": "462976893387-cct674fg42c1qg4fh3a11q4r8atveia4.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
