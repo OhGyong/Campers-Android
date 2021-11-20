@@ -25,6 +25,12 @@
 
 ## 일과
 
+- 2021.11.20</br>
+    'startActivityForResult(Intent!, Int): Unit' is deprecated. Deprecated in Java 해결 → registerForActivityResult 사용
+
+- 2021.11.19</br>
+    ViewModel, LiveData 의존성 추가    
+
 - 2021.11.17~18</br>
     구글 로그인 해결, LoginResponse에서 응답이 안넘어와서 JsonPrimitive로 바꾸고 해결.</br>
     
