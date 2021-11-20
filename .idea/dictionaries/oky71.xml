@@ -2,6 +2,9 @@
   <dictionary name="oky71">
     <words>
       <w>accesstoken</w>
+      <w>activity로</w>
+      <w>activity에</w>
+      <w>activity에서</w>
       <w>api를</w>
       <w>api와</w>
       <w>callboack을</w>
@@ -18,6 +21,7 @@
       <w>instance에</w>
       <w>item의</w>
       <w>kotlinx</w>
+      <w>model을</w>
       <w>moshi</w>
       <w>multidex</w>
       <w>mvvm</w>
