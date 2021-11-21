@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.example.campers.MainActivity
 import com.example.campers.R
 import com.example.campers.repository.login.LoginRepository
@@ -21,6 +23,9 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
@@ -33,7 +38,7 @@ import java.net.URL
 /**
  * 소셜 로그인
  */
-class LoginActivity : Activity() {
+class LoginActivity : AppCompatActivity() {
 
     // 네이버 로그인 설정
     lateinit var mOAuthLoginInstance: OAuthLogin
@@ -42,8 +47,10 @@ class LoginActivity : Activity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
-    private lateinit var userAccessToken: String
+    // 서버에서 받아온 accessToken
+    lateinit var userAccessToken: String
 
+    @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -59,57 +66,76 @@ class LoginActivity : Activity() {
         googleLoginInit()
     }
 
-
     /**
      * 구글 로그인
-     * 구글 startActivityForResult로 입력된 데이터를 받고 실행되는 메서드
+     * startActivityForeResult 대신 사용. 전역변수로 사용해야 가능
+     * googleSignInClient.signInIntent로 입력된 데이터를 받고 실행하는 변수
      */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)!!
-                firebaseAuthWithGoogle(account)
-            } catch (error: ApiException) {
-                println("onActivity 실패 $error")
+    @DelicateCoroutinesApi
+    private val googleResultListener =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+                try {
+                    val account = task.getResult(ApiException::class.java)!!
+                    firebaseAuthWithGoogle(account)
+//                    GoogleLogin().firebaseAuthWithGoogle(auth, account, this@LoginActivity)
+                } catch (error: ApiException) {
+                    println("onActivity 실패 $error")
+                }
             }
-        }else{
-            println("느낌이 여기")
         }
-    }
+
 
     /**
      * 구글 로그인
      * 입력받은 토큰으로 유저의 정보를 가져오는 메서드
      * 유저의 정보가 받아지면 메인화면으로 이동.
      */
+    @DelicateCoroutinesApi
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val googleLoginInform = JSONObject()
-                    googleLoginInform.put("id", account.id)
-                    googleLoginInform.put("email", account.email)
-                    googleLoginInform.put("name", account.displayName)
-                    println("구글 로그인 정보 $googleLoginInform")
-                    Thread{
+            .addOnCompleteListener(Activity()) { task ->
+                GlobalScope.launch {
+                    if (task.isSuccessful) {
+                        val googleLoginInform = JSONObject()
+                        googleLoginInform.put("id", account.id)
+                        googleLoginInform.put("email", account.email)
+                        googleLoginInform.put("name", account.displayName)
+                        println("구글 로그인 정보 $googleLoginInform")
                         userAccessToken = LoginRepository().getLoginData(googleLoginInform, 1)
                         SharedPreferences(this@LoginActivity).accessToken = userAccessToken
-                    }.start()
-
-                    successLogin()
-                } else {
-                    println("로그인 실패 $task")
+                        successLogin()
+                    } else {
+                        println("로그인 실패 $task")
+                    }
                 }
             }
+    }
+
+
+    /**
+     * 구글 로그인
+     * 구글 로그인 버튼 Text 변경
+     */
+    private fun setGoogleButtonText(loginButton: SignInButton, buttonText: String) {
+        var i = 0
+        while (i < loginButton.childCount) {
+            val v = loginButton.getChildAt(i)
+            if (v is TextView) {
+                v.text = buttonText
+                return
+            }
+            i++
+        }
     }
 
     /**
      * 네이버 로그인
      * 로그인이 완료되거나 취소될 때 호출되는 메서드(로그인 핸들러)
      */
+    @DelicateCoroutinesApi
     private val mOAuthLoginHandler: OAuthLoginHandler = @SuppressLint("HandlerLeak")
     object : OAuthLoginHandler() {
         override fun run(success: Boolean) {
@@ -121,10 +147,14 @@ class LoginActivity : Activity() {
                  * 네이버 오픈 API를 사용하기 위해 mOAuthLoginInstance에 오픈 API의 accessToken을 넘겨줌.
                  * 얻은 데이터를 LoginRepository()에 넘겨주고 서버와 연결하여 유저의 accessToken을 발급받음.
                  */
-                Thread {
-                    userAccessToken = LoginRepository().getLoginData(loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)),2)
+                GlobalScope.launch {
+                    userAccessToken = LoginRepository().getLoginData(
+                        loginInform(
+                            mOAuthLoginInstance.getAccessToken(applicationContext)
+                        ), 2
+                    )
                     SharedPreferences(this@LoginActivity).accessToken = userAccessToken
-                }.start()
+                }
 
                 // 메인화면으로 이동
                 successLogin()
@@ -147,10 +177,9 @@ class LoginActivity : Activity() {
      */
     fun loginInform(accessToken: String): JSONObject {
         val header = "Bearer $accessToken"
-        val apiUrl = "https://openapi.naver.com/v1/nid/me"
         val requestHeaders = mutableMapOf<String, String>()
         requestHeaders["Authorization"] = header
-        val responseBody = get(apiUrl, requestHeaders)
+        val responseBody = get(requestHeaders)
 
         // api를 호출하여 얻어온 결과에서 id, email, name 가져오는 과정
         val response = responseBody.getJSONObject("response")
@@ -162,7 +191,7 @@ class LoginActivity : Activity() {
      * 네이버 로그인
      * 네이버 회원 api 호출하여 정보 가져오는 메서드
      */
-    private fun get(apiUrl: String, requestHeaders: Map<String, String>): JSONObject {
+    private fun get(requestHeaders: Map<String, String>): JSONObject {
         val con = connect("https://openapi.naver.com/v1/nid/me")
         try {
             con.requestMethod = "GET"
@@ -185,6 +214,9 @@ class LoginActivity : Activity() {
 
     }
 
+    /**
+     * 네이버 로그인
+     */
     private fun connect(apiUrl: String): HttpURLConnection {
         try {
             val url = URL(apiUrl)
@@ -219,8 +251,10 @@ class LoginActivity : Activity() {
     }
 
     /**
+     * 네이버 로그인
      * 네이버 로그인 라이브러리 애플리케이션 적용(네이버 로그인 인스턴스 초기화) 메서드
      */
+    @DelicateCoroutinesApi
     private fun naverLoginInit() {
         val naverClientId = getString(R.string.naver_login_id)
         val naverClientSecret = getString(R.string.naver_login_secret)
@@ -234,9 +268,12 @@ class LoginActivity : Activity() {
         buttonOAuthLoginImg.setOAuthLoginHandler(mOAuthLoginHandler)
     }
 
+
     /**
+     * 구글 로그인
      * 구글 로그인 인스턴스 초기화 메서드
      */
+    @DelicateCoroutinesApi
     private fun googleLoginInit() {
 
         // 구글 로그인 구성
@@ -254,41 +291,17 @@ class LoginActivity : Activity() {
         // 구글 로그인 버튼 클릭 시 실행
         val googleLoginButton = findViewById<SignInButton>(R.id.googleLoginButton)
         googleLoginButton.setOnClickListener {
-            // 구글 로그인 화면을 startActivityForResult로 열기
-            startActivityForResult(googleSignInClient.signInIntent, RC_SIGN_IN)
-//            startActivityForResult(googleSignInClient.signInIntent, RC_SIGN_IN)
+            googleResultListener.launch(googleSignInClient.signInIntent)
         }
     }
 
 
-
     /**
-     * 네이버 로그인
      * 로그인 성공했을 경우 메인화면으로 이동하는 메서드
      */
     fun successLogin() {
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    /**
-     * 구글 로그인
-     * 구글 로그인 버튼 Text 변경
-     */
-    private fun setGoogleButtonText(loginButton: SignInButton, buttonText: String) {
-        var i = 0
-        while (i < loginButton.childCount) {
-            var v = loginButton.getChildAt(i)
-            if (v is TextView) {
-                v.text = buttonText
-                return
-            }
-            i++
-        }
-    }
-
-    companion object {
-        private const val RC_SIGN_IN = 9001
     }
 }
