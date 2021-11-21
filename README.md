@@ -24,6 +24,9 @@
 </pre>
 
 ## 일과
+- 2021.11.20</br>
+    LoginRepository suspend 정지함수 처리.</br>
+    LoginActivity에서 Thread 대신 GlobalScope 사용.
 
 - 2021.11.20</br>
     'startActivityForResult(Intent!, Int): Unit' is deprecated. Deprecated in Java 해결 → registerForActivityResult 사용
