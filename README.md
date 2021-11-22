@@ -24,7 +24,11 @@
 </pre>
 
 ## 일과
-- 2021.11.20</br>
+
+- 2021.11.22</br>
+    다이얼로그 공부
+
+- 2021.11.21</br>
     LoginRepository suspend 정지함수 처리.</br>
     LoginActivity에서 Thread 대신 GlobalScope 사용.
 
