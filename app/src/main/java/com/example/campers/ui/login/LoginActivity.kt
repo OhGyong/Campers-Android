@@ -4,13 +4,17 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.campers.MainActivity
 import com.example.campers.R
+import com.example.campers.data.login.LoginResponse
 import com.example.campers.repository.login.LoginRepository
+import com.example.campers.util.AlertDialog
 import com.example.campers.util.SharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -18,6 +22,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.nhn.android.naverlogin.OAuthLogin
@@ -26,6 +33,7 @@ import com.nhn.android.naverlogin.ui.view.OAuthLoginButton
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
@@ -49,6 +57,9 @@ class LoginActivity : AppCompatActivity() {
 
     // 서버에서 받아온 accessToken
     lateinit var userAccessToken: String
+
+    // 서버에서 받아온 응답 데이터
+    private lateinit var userData: LoginResponse
 
     @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,19 +108,107 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(Activity()) { task ->
-                GlobalScope.launch {
-                    if (task.isSuccessful) {
-                        val googleLoginInform = JSONObject()
-                        googleLoginInform.put("id", account.id)
-                        googleLoginInform.put("email", account.email)
-                        googleLoginInform.put("name", account.displayName)
-                        println("구글 로그인 정보 $googleLoginInform")
-                        userAccessToken = LoginRepository().getLoginData(googleLoginInform, 1)
-                        SharedPreferences(this@LoginActivity).accessToken = userAccessToken
-                        successLogin()
-                    } else {
-                        println("로그인 실패 $task")
+                if (task.isSuccessful) {
+                    val googleLoginInform = JSONObject()
+                    googleLoginInform.put("id", account.id)
+                    googleLoginInform.put("email", account.email)
+                    googleLoginInform.put("name", account.displayName)
+                    println("구글 로그인 정보 $googleLoginInform")
+                    runBlocking {
+                        val k = GlobalScope.launch {
+                            userData = LoginRepository().getLoginData(0, googleLoginInform, 1)
+                            println("11")
+                        }
+                        k.join()
+                        if (userData.status == 301) {
+                            AlertDialog().materialAlertDialogBuilder(this@LoginActivity)
+                            val builder = MaterialAlertDialogBuilder(this@LoginActivity)
+                            builder.setTitle("닉네임을 입력해주세요.")
+
+                            val constraintLayout =
+                                AlertDialog().getEditTextLayout(this@LoginActivity)
+                            builder.setView(constraintLayout)
+
+                            val textInputLayout =
+                                constraintLayout.findViewWithTag<TextInputLayout>("textInputLayoutTag")
+                            val textInputEditText =
+                                constraintLayout.findViewWithTag<TextInputEditText>("textInputEditTextTag")
+
+                            builder.setPositiveButton("Submit") { _, _ ->
+                                val newGoogleLoginInform = JSONObject()
+                                newGoogleLoginInform.put("id", googleLoginInform.get("id"))
+                                newGoogleLoginInform.put("email", googleLoginInform.get("email"))
+                                newGoogleLoginInform.put("name", textInputEditText.text.toString())
+                                runBlocking {
+                                    val a = GlobalScope.launch {
+                                        userData =
+                                            LoginRepository().getLoginData(1, newGoogleLoginInform, 1)
+                                    }
+                                    a.join()
+                                    println("유저데이터 확인")
+                                    userAccessToken = (userData.data.get("accessToken")).toString()
+                                    SharedPreferences(this@LoginActivity).accessToken = userAccessToken
+                                    successLogin()
+                                }
+                            }
+
+                            // alert dialog other buttons
+                            builder.setNeutralButton("Cancel", null)
+
+                            // set dialog non cancelable
+                            builder.setCancelable(false)
+
+                            // finally, create the alert dialog and show it
+                            val dialog = builder.create()
+
+                            dialog.show()
+
+                            // initially disable the positive button
+                            dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).isEnabled =
+                                false
+
+                            // edit text text change listener
+                            textInputEditText.addTextChangedListener(object : TextWatcher {
+                                override fun afterTextChanged(p0: Editable?) {
+                                }
+
+                                override fun beforeTextChanged(
+                                    p0: CharSequence?, p1: Int,
+                                    p2: Int, p3: Int
+                                ) {
+                                }
+
+                                override fun onTextChanged(
+                                    p0: CharSequence?, p1: Int,
+                                    p2: Int, p3: Int
+                                ) {
+                                    if (p0.isNullOrBlank()) {
+                                        textInputLayout.error = "Name is required."
+                                        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
+                                            .isEnabled = false
+                                    } else {
+                                        textInputLayout.error = ""
+                                        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
+                                            .isEnabled = true
+                                    }
+                                }
+                            })
+                            println("22")
+                        } else {
+                            userAccessToken = (userData.data.get("accessToken")).toString()
+                            SharedPreferences(this@LoginActivity).accessToken = userAccessToken
+                            successLogin()
+                        }
+//                            userAccessToken = (userData.data.get("accessToken")).toString()
+                        println("33")
+//                        userAccessToken =
+//                            LoginRepository().getLoginData(googleLoginInform, 1)
+//                            SharedPreferences(this@LoginActivity).accessToken = userAccessToken
+//                            successLogin()
                     }
+
+                } else {
+                    println("로그인 실패 $task")
                 }
             }
     }
@@ -148,12 +247,8 @@ class LoginActivity : AppCompatActivity() {
                  * 얻은 데이터를 LoginRepository()에 넘겨주고 서버와 연결하여 유저의 accessToken을 발급받음.
                  */
                 GlobalScope.launch {
-                    userAccessToken = LoginRepository().getLoginData(
-                        loginInform(
-                            mOAuthLoginInstance.getAccessToken(applicationContext)
-                        ), 2
-                    )
-                    SharedPreferences(this@LoginActivity).accessToken = userAccessToken
+//                    userAccessToken = LoginRepository().getLoginData(loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)),2)
+//                    SharedPreferences(this@LoginActivity).accessToken = userAccessToken
                 }
 
                 // 메인화면으로 이동
