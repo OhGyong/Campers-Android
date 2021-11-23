@@ -25,6 +25,12 @@
 
 ## 일과
 
+- 2021.11.23</br>
+    AlertDialog 클래스 생성</br>
+    sign-up api 생성하여 다이얼로그로 닉네임 입력후 넘어가게 처리 → 문제 발생: 로그인일 때는 payload가 JsonPrimitive, 회원가입일 때는 JsonObject → 해결: 서버에서 payload 부분을 다 JsonPrimitive로 변경</br>
+    다이얼로그 끝나고 메인화면으로 넘어가는 부분에서 Activity has leaked window 에러 발생</br>
+    wysiwyg 갤러리 사진 삽입 테스트
+
 - 2021.11.22</br>
     다이얼로그 공부
 
