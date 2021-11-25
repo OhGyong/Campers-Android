@@ -40,9 +40,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     //noinspection GradleDependency
     implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 
     // bottomNavigation 등로
     implementation 'com.google.android.material:material:1.4.0'
@@ -85,6 +85,19 @@ dependencies {
     
     // LiveData 의존성 추가
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+
+    // Circle ImageView 의존성 추가
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+
+    // Navigation Component 의존성 추가
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+
+    // WYSIWYG 의존성 추가
+    implementation 'jp.wasabeef:richeditor-android:2.0.0'
+
 
 
     testImplementation 'junit:junit:'
