@@ -9,4 +9,11 @@
     <string name="naver_login_secret">Y5fr4qtbpW</string>
     <string name="naver_login_name">Campers</string>
 
+    <!-- 각 Fragment name 지정 -->
+    <string name="HomeFragment">홈</string>
+    <string name="CampingzoneFragment">캠핑존</string>
+    <string name="CommunityFragment">모닥불</string>
+    <string name="NotificationFragment">알림</string>
+    <string name="MypageFragment">마이페이지</string>
+
 </resources>
