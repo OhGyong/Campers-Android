@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.campers.ui.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/campingzoneFragment"
+        android:name="com.example.campers.ui.campingzone.CampingzoneFragment"
+        android:label="CampingzoneFragment" >
+        <action
+            android:id="@+id/action_campingzoneFragment_to_campingzoneOptionFragment"
+            app:destination="@id/campingzoneOptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/campingzoneOptionFragment"
+        android:name="com.example.campers.ui.campingzone.CampingzoneOptionFragment"
+        android:label="CampingzoneOptionFragment" >
+        <action
+            android:id="@+id/action_campingzoneOptionFragment_to_campingzoneListFragment"
+            app:destination="@id/campingzoneListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/campingzoneListFragment"
+        android:name="com.example.campers.ui.campingzone.CampingzoneListFragment"
+        android:label="CampingzoneListFragment" >
+        <action
+            android:id="@+id/action_campingzoneListFragment_to_campingzoneDetailFragment"
+            app:destination="@id/campingzoneDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.example.campers.ui.community.CommunityFragment"
+        android:label="CommunityFragment" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.campers.ui.notification.NotificationFragment"
+        android:label="NotificationFragment" />
+    <fragment
+        android:id="@+id/mypageFragment"
+        android:name="com.example.campers.ui.mypage.MypageFragment"
+        android:label="MypageFragment" />
+    <fragment
+        android:id="@+id/campingzoneDetailFragment"
+        android:name="com.example.campers.ui.campingzone.CampingzoneDetailFragment"
+        android:label="CampingzoneDetailFragment" />
+    <fragment
+        android:id="@+id/communityRegistFragment"
+        android:name="com.example.campers.ui.community.CommunityRegistFragment"
+        android:label="CommunityRegistFragment" />
+    <fragment
+        android:id="@+id/communityDetailFragment"
+        android:name="com.example.campers.ui.community.CommunityDetailFragment"
+        android:label="CommunityDetailFragment" />
+
+</navigation>
