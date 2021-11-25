@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.campers.R
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapView
@@ -23,7 +25,6 @@ class CampingzoneFragment: Fragment(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         locationSource =
                 FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
-
     }
 
     override fun onCreateView(
@@ -35,6 +36,15 @@ class CampingzoneFragment: Fragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val mapOptionBtn = view.findViewById<ImageView>(R.id.map_option)
+
+        mapOptionBtn.setOnClickListener {
+            findNavController().navigate(R.id.campingzoneOptionFragment)
+
+        }
+
+
         // MapView의 getMapAsync() 메서드로 OnMapReadyCallboack을 등록하여 비동기로 NaverMap 객체를 얻게한다.
         mapView = view.findViewById(R.id.naver_map)
         mapView.onCreate(savedInstanceState)
