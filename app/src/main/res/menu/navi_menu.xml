@@ -2,33 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/first"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/home"
-        android:title="홈"
+        android:title="@string/HomeFragment"
         android:enabled="true"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/second"
+        android:id="@+id/campingzoneFragment"
         android:icon="@drawable/map"
-        android:title="캠핑존"
+        android:title="@string/CampingzoneFragment"
         android:enabled="true"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/third"
+        android:id="@+id/communityFragment"
         android:icon="@drawable/community"
-        android:title="모닥불"
+        android:title="@string/CommunityFragment"
         android:enabled="true"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/fourth"
+        android:id="@+id/notificationFragment"
         android:icon="@drawable/alarm"
-        android:title="알림"
+        android:title="@string/NotificationFragment"
         android:enabled="true"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/fifth"
+        android:id="@+id/mypageFragment"
         android:icon="@drawable/myinform"
-        android:title="마이페이지"
+        android:title="@string/MypageFragment"
         android:enabled="true"
         app:showAsAction="ifRoom" />
+
 </menu>
