@@ -25,6 +25,10 @@
 
 ## 일과
 
+- 2021.11.27</br>
+    네이버 검색 API 연습
+    고캠핑 API 연습
+
 - 2021.11.24</br>
     캡스톤 결과물 보여주기 위한 작업</br>
     fragment to fragment를 위해서 MainActivity에서 changeFragment 대신 navController를 등록해서 사용.</br>
