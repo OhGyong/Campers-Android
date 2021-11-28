@@ -24,8 +24,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/gallery"
             app:layout_constraintStart_toStartOf="@+id/richEditor"
-            app:layout_constraintTop_toBottomOf="@+id/richEditor"
-            android:contentDescription="@string/todo" />
+            app:layout_constraintTop_toBottomOf="@+id/richEditor"/>
 
         <Button
             android:id="@+id/saveButton"
