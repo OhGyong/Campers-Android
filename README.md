@@ -25,15 +25,21 @@
 
 ## 일과
 
+- 2021.11.28</br>
+    campingzone 검색 searchView를 EditText와 ImageView로 변경</br>
+    고캠핑 API로 네이버 지도에 marker 생성</br>
+    campingzone 검색 시 카메라 이동 및 키보드 내리기</br>
+    현재 마커가 열려있으면 닫고, 닫혀있으면 열어주는 처리</br>
+    검색으로 마커를 띄우고 다른 검색어로 입력하면 기존에 있던 마커 삭제
+
 - 2021.11.27</br>
-    네이버 검색 API 연습
+    네이버 검색 API 연습</br>
     고캠핑 API 연습
 
 - 2021.11.24</br>
     캡스톤 결과물 보여주기 위한 작업</br>
-    fragment to fragment를 위해서 MainActivity에서 changeFragment 대신 navController를 등록해서 사용.</br>
+    fragment to fragment를 위해서 MainActivity에서 changeFragment 대신 navController를 등록해서 사용.
     
-
 - 2021.11.23</br>
     AlertDialog 클래스 생성</br>
     sign-up api 생성하여 다이얼로그로 닉네임 입력후 넘어가게 처리 → 문제 발생: 로그인일 때는 payload가 JsonPrimitive, 회원가입일 때는 JsonObject → 해결: 서버에서 payload 부분을 다 JsonPrimitive로 변경</br>
