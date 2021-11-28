@@ -1,19 +1,18 @@
 package com.example.campers.ui.campingzone
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.campers.R
 import com.naver.maps.geometry.LatLng
-import com.naver.maps.map.LocationTrackingMode
-import com.naver.maps.map.MapView
-import com.naver.maps.map.NaverMap
-import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
@@ -81,6 +80,10 @@ class CampingzoneFragment : Fragment(), OnMapReadyCallback {
             }
             searchText = searchBtn.text.toString()
             goCampingMark()
+
+            // 키보드 내리기
+            var imm: InputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
 
         // MapView의 getMapAsync() 메서드로 OnMapReadyCallboack을 등록하여 비동기로 NaverMap 객체를 얻게한다.
@@ -195,10 +198,22 @@ class CampingzoneFragment : Fragment(), OnMapReadyCallback {
                     )
                     markerOption(i, responseItem, null)
                 }
+                val cameraUpdate = CameraUpdate.scrollAndZoomTo(
+                    LatLng(
+                        responseItem.getJSONObject(0).getDouble("mapY"),
+                        responseItem.getJSONObject(0).getDouble("mapX")
+                    ), 9.0
+                )
+                naverMap.moveCamera(cameraUpdate)
             } else {
                 val responseItem = responseItems.getJSONObject("item")
                 println("고캠핑 api 데이터 확인 ${responseItem.get("mapY")}  ${responseItem.get("mapX")}")
                 markerOption(null, null, responseItem)
+
+                val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(responseItem.getDouble("mapY"), responseItem.getDouble("mapX")),
+                    9.0
+                )
+                naverMap.moveCamera(cameraUpdate)
             }
         }
 
