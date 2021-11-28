@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.campers.R
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
+import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
@@ -111,24 +112,56 @@ class CampingzoneFragment : Fragment(), OnMapReadyCallback {
     /**
      * 마커 설정
      */
-    private fun markerOption(
-        i: Int?,
-        responseItemArray: JSONArray?,
-        responseItemObject: JSONObject?
-    ) {
+    private fun markerOption(i: Int?, responseItemArray: JSONArray?, responseItemObject: JSONObject?) {
         val marker = Marker()
         markerList.add(marker)
-        println("마커테스트 $markerList")
+
+
         if (responseItemObject == null) {
+            val infoWindow = InfoWindow()
             marker.position = LatLng(
                 responseItemArray!!.getJSONObject(i!!).getDouble("mapY"),
                 responseItemArray.getJSONObject(i).getDouble("mapX")
             )
             marker.captionText = responseItemArray.getJSONObject(i).getString("facltNm")
+            marker.tag = responseItemArray.getJSONObject(i).getString("induty")
+            marker.setOnClickListener {
+                if (marker.infoWindow == null) {
+                    // 현재 마커에 정보 창이 열려있지 않을 경우 엶
+                    infoWindow.open(marker)
+                } else {
+                    // 이미 현재 마커에 정보 창이 열려있을 경우 닫음
+                    infoWindow.close()
+                }
+                true
+            }
+
+            infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(requireContext()) {
+                override fun getText(infoWindow: InfoWindow): CharSequence {
+                    return infoWindow.marker?.tag as CharSequence? ?: ""
+                }
+            }
         } else {
+            val infoWindow = InfoWindow()
             marker.position =
                 LatLng(responseItemObject.getDouble("mapY"), responseItemObject.getDouble("mapX"))
             marker.captionText = responseItemObject.getString("facltNm")
+            marker.tag = responseItemObject.getString("induty")
+            marker.setOnClickListener {
+                if (marker.infoWindow == null) {
+                    // 현재 마커에 정보 창이 열려있지 않을 경우 엶
+                    infoWindow.open(marker)
+                } else {
+                    // 이미 현재 마커에 정보 창이 열려있을 경우 닫음
+                    infoWindow.close()
+                }
+                true
+            }
+            infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(requireContext()) {
+                override fun getText(infoWindow: InfoWindow): CharSequence {
+                    return infoWindow.marker?.tag as CharSequence? ?: ""
+                }
+            }
         }
         marker.icon = OverlayImage.fromResource(R.drawable.campingzone_location)
         marker.width = 70
@@ -191,28 +224,21 @@ class CampingzoneFragment : Fragment(), OnMapReadyCallback {
             if (responseItems.get("item") is JSONArray) {
                 val responseItem = responseItems.getJSONArray("item")
                 for (i in 0 until responseItem.length()) {
-                    println(
-                        "고캠핑 api 데이터 확인 " + responseItem.getJSONObject(i)
-                            .getString("mapY") + "  " + responseItem.getJSONObject(i)
-                            .getString("mapX")
-                    )
+                    println("고캠핑 api 데이터 확인 " + responseItem.getJSONObject(i).getString("mapY") + "  " + responseItem.getJSONObject(i).getString("mapX"))
                     markerOption(i, responseItem, null)
                 }
-                val cameraUpdate = CameraUpdate.scrollAndZoomTo(
-                    LatLng(
-                        responseItem.getJSONObject(0).getDouble("mapY"),
-                        responseItem.getJSONObject(0).getDouble("mapX")
-                    ), 9.0
-                )
+
+                // 카메라 이동
+                val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(responseItem.getJSONObject(0).getDouble("mapY"), responseItem.getJSONObject(0).getDouble("mapX")), 9.0)
                 naverMap.moveCamera(cameraUpdate)
             } else {
                 val responseItem = responseItems.getJSONObject("item")
                 println("고캠핑 api 데이터 확인 ${responseItem.get("mapY")}  ${responseItem.get("mapX")}")
+                println(responseItem.get("lineIntro"))
                 markerOption(null, null, responseItem)
 
-                val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(responseItem.getDouble("mapY"), responseItem.getDouble("mapX")),
-                    9.0
-                )
+                // 카메라 이동
+                val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(responseItem.getDouble("mapY"), responseItem.getDouble("mapX")), 9.0)
                 naverMap.moveCamera(cameraUpdate)
             }
         }
