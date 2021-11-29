@@ -104,8 +104,6 @@ class CampingzoneFragment : Fragment(), OnMapReadyCallback {
 
         naverMap.locationTrackingMode =
             LocationTrackingMode.Follow // 위치 추적 모드를 Follow로 설정(캠핑존 진입시 현재 위치로 이동)
-
-
     }
 
 
@@ -114,60 +112,44 @@ class CampingzoneFragment : Fragment(), OnMapReadyCallback {
      */
     private fun markerOption(i: Int?, responseItemArray: JSONArray?, responseItemObject: JSONObject?) {
         val marker = Marker()
+        val infoWindow = InfoWindow()
         markerList.add(marker)
 
-
         if (responseItemObject == null) {
-            val infoWindow = InfoWindow()
             marker.position = LatLng(
                 responseItemArray!!.getJSONObject(i!!).getDouble("mapY"),
                 responseItemArray.getJSONObject(i).getDouble("mapX")
             )
             marker.captionText = responseItemArray.getJSONObject(i).getString("facltNm")
             marker.tag = responseItemArray.getJSONObject(i).getString("induty")
-            marker.setOnClickListener {
-                if (marker.infoWindow == null) {
-                    // 현재 마커에 정보 창이 열려있지 않을 경우 엶
-                    infoWindow.open(marker)
-                } else {
-                    // 이미 현재 마커에 정보 창이 열려있을 경우 닫음
-                    infoWindow.close()
-                }
-                true
-            }
 
-            infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(requireContext()) {
-                override fun getText(infoWindow: InfoWindow): CharSequence {
-                    return infoWindow.marker?.tag as CharSequence? ?: ""
-                }
-            }
         } else {
             val infoWindow = InfoWindow()
             marker.position =
                 LatLng(responseItemObject.getDouble("mapY"), responseItemObject.getDouble("mapX"))
             marker.captionText = responseItemObject.getString("facltNm")
             marker.tag = responseItemObject.getString("induty")
-            marker.setOnClickListener {
-                if (marker.infoWindow == null) {
-                    // 현재 마커에 정보 창이 열려있지 않을 경우 엶
-                    infoWindow.open(marker)
-                } else {
-                    // 이미 현재 마커에 정보 창이 열려있을 경우 닫음
-                    infoWindow.close()
-                }
-                true
+        }
+        marker.setOnClickListener {
+            if (marker.infoWindow == null) {
+                // 현재 마커에 정보 창이 열려있지 않을 경우 엶
+                infoWindow.open(marker)
+            } else {
+                // 이미 현재 마커에 정보 창이 열려있을 경우 닫음
+                infoWindow.close()
             }
-            infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(requireContext()) {
-                override fun getText(infoWindow: InfoWindow): CharSequence {
-                    return infoWindow.marker?.tag as CharSequence? ?: ""
-                }
+            true
+        }
+        infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(requireContext()) {
+            override fun getText(infoWindow: InfoWindow): CharSequence {
+                return infoWindow.marker?.tag as CharSequence? ?: ""
             }
         }
         marker.icon = OverlayImage.fromResource(R.drawable.campingzone_location)
         marker.width = 70
         marker.height = 110
         marker.map = naverMap
-        naverMap.minZoom = 5.0
+        infoWindow.open(marker)
     }
 
     /**
@@ -229,7 +211,7 @@ class CampingzoneFragment : Fragment(), OnMapReadyCallback {
                 }
 
                 // 카메라 이동
-                val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(responseItem.getJSONObject(0).getDouble("mapY"), responseItem.getJSONObject(0).getDouble("mapX")), 9.0)
+                val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(responseItem.getJSONObject(0).getDouble("mapY"), responseItem.getJSONObject(0).getDouble("mapX")), 10.0)
                 naverMap.moveCamera(cameraUpdate)
             } else {
                 val responseItem = responseItems.getJSONObject("item")
@@ -238,7 +220,7 @@ class CampingzoneFragment : Fragment(), OnMapReadyCallback {
                 markerOption(null, null, responseItem)
 
                 // 카메라 이동
-                val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(responseItem.getDouble("mapY"), responseItem.getDouble("mapX")), 9.0)
+                val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(responseItem.getDouble("mapY"), responseItem.getDouble("mapX")), 10.0)
                 naverMap.moveCamera(cameraUpdate)
             }
         }
