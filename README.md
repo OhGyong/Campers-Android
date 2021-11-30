@@ -25,6 +25,12 @@
 
 ## 일과
 
+- 2021.11.29</br>
+    drawable에 home_round.xml을 추가하여 위젯의 테두리를 둥글게 만드는 작업함 → 홈의 ConstraintLayout에 적용</br>
+    캠핑존 검색 시 정보 창 바로 띄어지도록 처리</br>
+    themes.xml에 액셕바 삭제 추가</br>
+    홈에 베스트 Camper 임시로 추가
+
 - 2021.11.28</br>
     campingzone 검색 searchView를 EditText와 ImageView로 변경</br>
     고캠핑 API로 네이버 지도에 marker 생성</br>
