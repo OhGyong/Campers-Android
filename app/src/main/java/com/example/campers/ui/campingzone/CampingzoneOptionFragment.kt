@@ -24,7 +24,7 @@ class CampingzoneOptionFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val optionImage = view?.findViewById<ImageView>(R.id.option_image)
+        val optionImage = view.findViewById<ImageView>(R.id.option_image)
         optionImage?.setOnClickListener {
             findNavController().navigate(R.id.campingzoneListFragment)
         }

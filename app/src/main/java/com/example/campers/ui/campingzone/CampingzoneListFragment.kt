@@ -22,7 +22,7 @@ class CampingzoneListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val campingzoneList = view?.findViewById<ImageView>(R.id.campinzone_list)
+        val campingzoneList = view.findViewById<ImageView>(R.id.campinzone_list)
         campingzoneList?.setOnClickListener {
             findNavController().navigate(R.id.campingzoneDetailFragment)
         }
