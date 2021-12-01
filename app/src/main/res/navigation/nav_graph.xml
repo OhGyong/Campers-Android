@@ -34,7 +34,11 @@
     <fragment
         android:id="@+id/communityFragment"
         android:name="com.example.campers.ui.community.CommunityFragment"
-        android:label="CommunityFragment" />
+        android:label="CommunityFragment" >
+        <action
+            android:id="@+id/action_communityFragment_to_communityListFragment"
+            app:destination="@id/communityListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.example.campers.ui.notification.NotificationFragment"
@@ -50,10 +54,22 @@
     <fragment
         android:id="@+id/communityRegistFragment"
         android:name="com.example.campers.ui.community.CommunityRegistFragment"
-        android:label="CommunityRegistFragment" />
+        android:label="CommunityRegistFragment" >
+        <action
+            android:id="@+id/action_communityRegistFragment_to_communityDetailFragment"
+            app:destination="@id/communityDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/communityDetailFragment"
         android:name="com.example.campers.ui.community.CommunityDetailFragment"
         android:label="CommunityDetailFragment" />
+    <fragment
+        android:id="@+id/communityListFragment"
+        android:name="com.example.campers.ui.community.CommunityListFragment"
+        android:label="CommunityListFragment" >
+        <action
+            android:id="@+id/action_communityListFragment_to_communityRegistFragment"
+            app:destination="@id/communityRegistFragment" />
+    </fragment>
 
 </navigation>
