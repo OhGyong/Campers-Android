@@ -25,6 +25,12 @@
 
 ## 일과
 
+- 2021.12.01</br>
+    키보드 올라올 때 EditText 가리는 거 해결
+
+- 2021.11.30</br>
+    community 리사이클러 뷰 추가
+
 - 2021.11.29</br>
     drawable에 home_round.xml을 추가하여 위젯의 테두리를 둥글게 만드는 작업함 → 홈의 ConstraintLayout에 적용</br>
     캠핑존 검색 시 정보 창 바로 띄어지도록 처리</br>
