@@ -6,20 +6,15 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.ui.setupWithNavController
-import com.example.campers.ui.campingzone.CampingzoneFragment
-import com.example.campers.ui.community.CommunityFragment
-import com.example.campers.ui.home.HomeFragment
-import com.example.campers.ui.mypage.MypageFragment
-import com.example.campers.ui.notification.NotificationFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private val homeFragment by lazy { HomeFragment() }
-    private val campingzoneFragment by lazy { CampingzoneFragment() }
-    private val communityFragment by lazy { CommunityFragment() }
-    private val notificationFragment by lazy { NotificationFragment() }
-    private val mypageFragment by lazy { MypageFragment() }
+//    private val homeFragment by lazy { HomeFragment() }
+//    private val campingzoneFragment by lazy { CampingzoneFragment() }
+//    private val communityFragment by lazy { CommunityFragment() }
+//    private val notificationFragment by lazy { NotificationFragment() }
+//    private val mypageFragment by lazy { MypageFragment() }
 
 
     private lateinit var navController: NavController
