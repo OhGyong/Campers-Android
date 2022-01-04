@@ -1,4 +1,4 @@
-package com.example.campers.ui.splash
+package com.example.campers.util
 
 import android.content.Context
 import android.text.Editable
@@ -67,7 +67,7 @@ class AlertDialog {
         })
     }
 
-    private fun getEditTextLayout(context: Context): ConstraintLayout {
+     fun getEditTextLayout(context: Context): ConstraintLayout {
         val constraintLayout = ConstraintLayout(context)
         val layoutParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
