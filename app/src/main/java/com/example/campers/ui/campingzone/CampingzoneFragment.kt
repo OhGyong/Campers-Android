@@ -124,7 +124,6 @@ class CampingzoneFragment : Fragment(), OnMapReadyCallback {
             marker.tag = responseItemArray.getJSONObject(i).getString("induty")
 
         } else {
-            val infoWindow = InfoWindow()
             marker.position =
                 LatLng(responseItemObject.getDouble("mapY"), responseItemObject.getDouble("mapX"))
             marker.captionText = responseItemObject.getString("facltNm")
