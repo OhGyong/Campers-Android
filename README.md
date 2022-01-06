@@ -25,6 +25,15 @@
 
 ## 일과
 
+- 2022.01.06</br>
+    뒤로가기 버튼 이벤트 처리, onBackPressed()를 사용(navController.currentDestination를 통해 홈 화면을 구분)
+    
+- 2021.12.31~2022.01.05</br>
+    안드로이드 버전 업데이트 해결 실패.</br>
+        - gradle(Project)에서 jcenter() 삭제하면 Naver SDK 인식 불가 오류</br>
+        - classpath "com.android.tools.build:gradle:4.1.3" 을 7.~로 업데이트하면 manifests에서 exported 에러 발생(명시해도 에러남) 
+  
+
 - 2021.12.01</br>
     키보드 올라올 때 EditText 가리는 거 해결
 
