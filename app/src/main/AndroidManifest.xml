@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:theme="@style/Theme.Campers">
+        android:theme="@style/Theme.Campers"
+        android:usesCleartextTraffic="true">
 
         <!-- 네이버 클라이언트 ID 지정 -->
         <meta-data
@@ -24,7 +25,8 @@
             android:value="@string/naver_maps_id" />
 
         <!-- 스플래시 Activity -->
-        <activity android:name="com.example.campers.ui.splash.SplashActivity">
+        <activity android:name="com.example.campers.ui.splash.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
