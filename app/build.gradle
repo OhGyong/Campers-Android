@@ -89,11 +89,11 @@ dependencies {
 
     // Circle ImageView 의존성 추가
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.0'
 
     // Navigation Component 의존성 추가
-    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+
 
     // WYSIWYG 의존성 추가
     implementation 'jp.wasabeef:richeditor-android:2.0.0'
