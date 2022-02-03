@@ -45,10 +45,9 @@ class HomeFragment: Fragment() {
             for(i in 0 until 1){
                 val payloadIndex = payload.get(i)
                 val id = payloadIndex.asJsonObject.get("id").asInt
-                val nickName = payloadIndex.asJsonObject.get("nickName").toString()
+                val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"')
                 val rank = payloadIndex.asJsonObject.get("rank").asInt
                 val totalFire = payloadIndex.asJsonObject.get("totalFire").asInt
-
                 rankList = arrayListOf(
                     Ranking(id, nickName, rank, totalFire)
                 )
@@ -56,7 +55,7 @@ class HomeFragment: Fragment() {
             for (i in 1 until payload.size()) {
                 val payloadIndex = payload.get(i)
                 val id = payloadIndex.asJsonObject.get("id").asInt
-                val nickName = payloadIndex.asJsonObject.get("nickName").toString()
+                val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"')
                 val rank = payloadIndex.asJsonObject.get("rank").asInt
                 val totalFire = payloadIndex.asJsonObject.get("totalFire").asInt
                 rankList.add(Ranking(id, nickName, rank, totalFire))
