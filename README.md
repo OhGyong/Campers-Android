@@ -25,6 +25,12 @@
 
 ## 일과
 
+- 2022.01.31</br>
+    MVVM 공부했던 내용을 적용 → 랭킹 리스트를 홈에 적용
+
+- 2022.01.07~-01.28</br>
+    MVVM(DataBinding, LiveData, ViewModel)의 사용법을 Android_Study 리포지토리에 정리하면서 공부.
+
 - 2022.01.06</br>
     뒤로가기 버튼 이벤트 처리, onBackPressed()를 사용(navController.currentDestination를 통해 홈 화면을 구분)
     
