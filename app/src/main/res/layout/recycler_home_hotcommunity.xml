@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="hotCommunityListItem"
+            type="com.example.campers.data.home.HotCommunityList" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/hotcommunity_board_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자유 게시판"
+            android:textColor="@color/black"
+            android:textSize="7dp"
+            android:textStyle="bold"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/hotcommunity_board_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{hotCommunityListItem.title}"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/hotcommunity_board_type"
+            app:layout_constraintTop_toBottomOf="@+id/hotcommunity_board_type" />
+
+        <TextView
+            android:id="@+id/hotcommunity_board_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{hotCommunityListItem.date}"
+            android:textColor="#A3A1A1"
+            android:textSize="7dp"
+            app:layout_constraintStart_toStartOf="@+id/hotcommunity_board_type"
+            app:layout_constraintTop_toBottomOf="@+id/hotcommunity_board_title" />
+
+        <ImageView
+            android:id="@+id/bonfire_num_image"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginStart="190dp"
+            android:src="@drawable/bonfire"
+            android:layout_marginEnd="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/hotcommunity_board_title"
+            app:layout_constraintEnd_toStartOf="@+id/bonfire_num"
+            app:layout_constraintTop_toBottomOf="@+id/hotcommunity_board_title" />
+
+        <TextView
+            android:id="@+id/bonfire_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40"
+            android:textColor="@color/black"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/comment_num_image"
+            app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+        <ImageView
+            android:id="@+id/comment_num_image"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="1dp"
+            android:src="@drawable/community_comment"
+            app:layout_constraintBottom_toBottomOf="@+id/hotcommunity_board_title"
+            app:layout_constraintEnd_toStartOf="@+id/comment_num"
+            app:layout_constraintTop_toBottomOf="@+id/hotcommunity_board_title" />
+
+        <TextView
+            android:id="@+id/comment_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40"
+            android:textColor="@color/black"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="5dp"
+            android:background="#9C9B9B"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/comment_num"
+            app:layout_constraintStart_toStartOf="@+id/hotcommunity_board_type"
+            app:layout_constraintTop_toBottomOf="@+id/hotcommunity_board_time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

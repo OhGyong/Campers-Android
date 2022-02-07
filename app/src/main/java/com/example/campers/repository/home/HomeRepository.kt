@@ -2,18 +2,30 @@ package com.example.campers.repository.home
 
 import com.example.campers.api.CommonService.retrofit
 import com.example.campers.api.HomeService
-import com.example.campers.data.home.RankingResponse
+import com.example.campers.data.home.HotCommunityListResponse
+import com.example.campers.data.home.RankingListResponse
+import com.example.campers.repository.home.HomeApi.homeResponse
 import kotlinx.coroutines.runBlocking
 
 class HomeRepository {
 
-    fun getRankingData(): RankingResponse {
-        var data: RankingResponse?
+    fun getRankingData(): RankingListResponse {
+        var data: RankingListResponse?
         runBlocking {
-            println("Repository")
+            println("Repository 랭킹 데이터")
 
             // 데이터 가져오기
-            data = RankingApi.rankingResponse.rankingDisplay().execute().body()
+            data = homeResponse.rankingList().execute().body()
+        }
+        return data!!
+    }
+
+    fun getHotCommunityListData(): HotCommunityListResponse {
+        var data: HotCommunityListResponse?
+        runBlocking {
+            println("Repository Hot 커뮤니티 데이터")
+
+            data = homeResponse.hotCommunityList().execute().body()
         }
         return data!!
     }
@@ -24,8 +36,8 @@ class HomeRepository {
  * create 함수 호출 시 리소스가 많이 들기 때문에
  * 싱글톤 객체 선언을 통해 한번만 생성되도록 설정
  */
-object RankingApi {
-    val rankingResponse: HomeService by lazy{
+object HomeApi {
+    val homeResponse: HomeService by lazy{
         retrofit.create(HomeService::class.java)
     }
 }

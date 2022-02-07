@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campers.R
-import com.example.campers.data.home.Ranking
+import com.example.campers.data.home.HotCommunityList
+import com.example.campers.data.home.RankingList
+import com.example.campers.ui.home.adapter.HotCommunityAdapter
 import com.example.campers.ui.home.adapter.RankingAdapter
 import com.example.campers.ui.home.viewmodel.HomeViewModel
 
@@ -19,9 +21,11 @@ class HomeFragment: Fragment() {
 
     // 리사이클러 뷰
     private lateinit var rankingRecyclerView: RecyclerView
+    private lateinit var hotCommunityRecyclerView: RecyclerView
 
     // observe에서 랭킹 데이터 리스트
-    private lateinit var rankList: ArrayList<Ranking>
+    private lateinit var rankList: ArrayList<RankingList>
+    private lateinit var hotCommunityList: ArrayList<HotCommunityList>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,8 +38,11 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        /**
+         * 홈 화면의 랭킹 리스트를 관측
+         */
         viewModel.rankingData.observe(viewLifecycleOwner, {
-            println("데이터 observe")
             val payload = it.payload
 
             /**
@@ -45,11 +52,11 @@ class HomeFragment: Fragment() {
             for(i in 0 until 1){
                 val payloadIndex = payload.get(i)
                 val id = payloadIndex.asJsonObject.get("id").asInt
-                val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"')
+                val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"') // 따옴표 지우기
                 val rank = payloadIndex.asJsonObject.get("rank").asInt
                 val totalFire = payloadIndex.asJsonObject.get("totalFire").asInt
                 rankList = arrayListOf(
-                    Ranking(id, nickName, rank, totalFire)
+                    RankingList(id, nickName, rank, totalFire)
                 )
             }
             for (i in 1 until payload.size()) {
@@ -58,11 +65,37 @@ class HomeFragment: Fragment() {
                 val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"')
                 val rank = payloadIndex.asJsonObject.get("rank").asInt
                 val totalFire = payloadIndex.asJsonObject.get("totalFire").asInt
-                rankList.add(Ranking(id, nickName, rank, totalFire))
+                rankList.add(RankingList(id, nickName, rank, totalFire))
             }
-            println(rankList)
-            rankingRecyclerView = view.findViewById(R.id.ranking_recyclerView)
+            rankingRecyclerView = view.findViewById(R.id.home_ranking_recyclerView)
             rankingRecyclerView.adapter = RankingAdapter(rankList)
+        })
+
+        /**
+         * 홈 화면의 핫한 게시글 리스트 관측
+         */
+        viewModel.hotCommunityData.observe(viewLifecycleOwner, {
+            val payload = it.payload
+            for(i in 0 until 1){
+                val payloadIndex = payload.get(i)
+                val id = payloadIndex.asJsonObject.get("id").asInt
+                val title = payloadIndex.asJsonObject.get("title").toString().trim('"')
+                val date = payloadIndex.asJsonObject.get("date").toString().trim('"')
+                val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"') // 따옴표 지우기
+                hotCommunityList = arrayListOf(
+                    HotCommunityList(id, title, date, nickName)
+                )
+            }
+            for (i in 1 until payload.size()) {
+                val payloadIndex = payload.get(i)
+                val id = payloadIndex.asJsonObject.get("id").asInt
+                val title = payloadIndex.asJsonObject.get("title").toString().trim('"')
+                val date = payloadIndex.asJsonObject.get("date").toString().trim('"')
+                val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"') // 따옴표 지우기
+                hotCommunityList.add(HotCommunityList(id,title,date,nickName))
+            }
+            hotCommunityRecyclerView = view.findViewById(R.id.home_hotcommunity_recyclerView)
+            hotCommunityRecyclerView.adapter = HotCommunityAdapter(hotCommunityList)
         })
     }
 
@@ -70,5 +103,6 @@ class HomeFragment: Fragment() {
         super.onResume()
         println("Fragment 데이터 호출")
         viewModel.getRanking()
+        viewModel.getHotCommunityList()
     }
 }
