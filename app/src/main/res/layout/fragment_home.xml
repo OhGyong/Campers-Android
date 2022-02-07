@@ -188,18 +188,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/home_bestcamper_constraint"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             app:layout_constraintTop_toBottomOf="@+id/home_constraint2">
 
             <ImageView
-                android:id="@+id/home_bestcamper_fire_image"
+                android:id="@+id/home_bestcamperfire_image"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/bonfire"
@@ -215,8 +212,8 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/home_bestcamper_fire_image"
-                app:layout_constraintTop_toTopOf="@+id/home_bestcamper_fire_image" />
+                app:layout_constraintStart_toEndOf="@+id/home_bestcamperfire_image"
+                app:layout_constraintTop_toTopOf="@+id/home_bestcamperfire_image" />
 
             <TextView
                 android:id="@+id/home_bestcamper_subtext"
@@ -231,7 +228,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
-                android:layout_height="165dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/home_round"
@@ -240,7 +237,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/home_bestcamper_subtext" >
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/ranking_recyclerView"
+                    android:id="@+id/home_ranking_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
@@ -252,222 +249,69 @@
                     tools:listitem="@layout/recycler_home_ranking"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/home_constraint4"
-            android:layout_width="300dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/home_round"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_bestcamper_constraint" >
+            android:id="@+id/home_hotcommunity_constraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="70dp"
+            app:layout_constraintTop_toBottomOf="@+id/home_bestcamper_constraint">
 
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/home_bestcommunity_image"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:text="Hot 한 게시글"
-                android:textColor="@color/app_text_color"
-                android:textSize="17dp"
-                android:textStyle="bold"
+                android:src="@drawable/community_user"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/home_bestcommunity_maintext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="15dp"
-                android:text="더보기"
-                android:textColor="@color/app_text_color"
-                android:textSize="12dp"
+                android:text="@string/home_hotcommunity_maintext"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/home_bestcommunity_image"
+                app:layout_constraintTop_toTopOf="@+id/home_bestcommunity_image" />
+
+            <TextView
+                android:id="@+id/home_bestcommunity_subtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_hotcommunity_subtext"
+                android:textColor="@color/purple_200"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/home_bestcommunity_maintext"
+                app:layout_constraintTop_toBottomOf="@+id/home_bestcommunity_maintext" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout10"
-                android:layout_width="250dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/textView22">
-
-                <TextView
-                    android:id="@+id/hot_board1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="자유게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="캠핑장 추천 좀 해주세요"
-                    android:textColor="#605959"
-                    android:textSize="12dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/hot_board1"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout11"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:layout_constraintStart_toStartOf="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
-
-                <TextView
-                    android:id="@+id/hot_board2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="정보게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10월 여행지 추천 장소"
-                    android:textColor="#605959"
-                    android:textSize="12dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/hot_board2"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:layout_constraintStart_toStartOf="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout11">
-
-                <TextView
-                    android:id="@+id/hot_board3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="홍보게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="캠핑 단원을 모집합니다."
-                    android:textColor="#605959"
-                    android:textSize="12dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/hot_board3"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/home_constraint5"
-            android:layout_width="300dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="100dp"
-            android:background="@drawable/home_round"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_constraint4">
-
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:text="캠핑 칼럼"
-                android:textColor="@color/app_text_color"
-                android:textSize="17dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="15dp"
-                android:text="더보기"
-                android:textColor="@color/app_text_color"
-                android:textSize="12dp"
-                android:textStyle="bold"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/home_round"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/home_bestcommunity_subtext"
+                app:layout_constraintTop_toBottomOf="@+id/home_bestcommunity_subtext">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout12"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:layout_constraintStart_toStartOf="@+id/textView27"
-                app:layout_constraintTop_toBottomOf="@+id/textView27">
-
-                <TextView
-                    android:id="@+id/column1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="원턴치 텐트에 대하여"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_hotcommunity_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/recycler_home_hotcommunity" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:layout_constraintStart_toStartOf="@+id/textView27"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout12">
-
-                <TextView
-                    android:id="@+id/column2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="춘천 박사마을 어린이 글램핑장을 찾아가다."
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
