@@ -7,8 +7,9 @@
         <entry key="..\:/Git Files/Campers-Android/app/src/main/res/layout/activity_main.xml" value="0.253125" />
         <entry key="..\:/Git Files/Campers-Android/app/src/main/res/layout/fragment_campingzone_list.xml" value="0.24010416666666667" />
         <entry key="..\:/Git Files/Campers-Android/app/src/main/res/layout/fragment_community_list.xml" value="0.24270833333333333" />
-        <entry key="..\:/Git Files/Campers-Android/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Git Files/Campers-Android/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Git Files/Campers-Android/app/src/main/res/layout/recycler_community.xml" value="0.24270833333333333" />
+        <entry key="..\:/Git Files/Campers-Android/app/src/main/res/layout/recycler_home_hotcommunity.xml" value="0.48918640576725025" />
         <entry key="..\:/Git Files/Campers-Android/app/src/main/res/layout/recycler_home_ranking.xml" value="0.5" />
       </map>
     </option>
