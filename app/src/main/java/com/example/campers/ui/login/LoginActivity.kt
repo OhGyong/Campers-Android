@@ -142,89 +142,20 @@ class LoginActivity : AppCompatActivity() {
                     googleLoginInform.put("email", account.email)
                     googleLoginInform.put("name", account.displayName)
                     println("구글 로그인 정보 $googleLoginInform")
+
+                    // join을 사용하기 위해 runBlocking 사용
                     runBlocking {
-                        val k = GlobalScope.launch {
-                            signInData = LoginRepository().getSignInData(googleLoginInform, 1)
-                            println("11")
-                        }
-                        k.join()
-
-                        // 회원가입인 경우
-                        if (signInData.status == 301) {
-                            AlertDialog().materialAlertDialogBuilder(this@LoginActivity)
-                            val builder = MaterialAlertDialogBuilder(this@LoginActivity)
-                            builder.setTitle("닉네임을 입력해주세요.")
-
-                            val constraintLayout =
-                                AlertDialog().getEditTextLayout(this@LoginActivity)
-                            builder.setView(constraintLayout)
-
-                            val textInputLayout =
-                                constraintLayout.findViewWithTag<TextInputLayout>("textInputLayoutTag")
-                            val textInputEditText =
-                                constraintLayout.findViewWithTag<TextInputEditText>("textInputEditTextTag")
-
-                            // 닉네임 작성후 subject 버튼을 눌렀을 경우
-                            builder.setPositiveButton("Submit") { _, _ ->
-                                val newGoogleLoginInform = JSONObject()
-                                newGoogleLoginInform.put("id", googleLoginInform.get("id"))
-                                newGoogleLoginInform.put("email", googleLoginInform.get("email"))
-                                newGoogleLoginInform.put("name", textInputEditText.text.toString())
-                                runBlocking {
-                                    val a = GlobalScope.launch {
-                                        signUpData =
-                                            LoginRepository().getSignUpData( newGoogleLoginInform, 1)
-                                    }
-                                    a.join()
-                                    println("유저데이터 확인 $signUpData")
-                                    userAccessToken = (signUpData.data.get("accessToken")).toString()
-                                    SharedPreferences(this@LoginActivity).accessToken = userAccessToken
-                                    successLogin()
-                                }
+                        // 로그인 시도를 하고 응답 데이터가 301이면 회원가입, 아니면 로그인 처리 진행
+                        GlobalScope.launch {
+                            try {
+                                signInData = LoginRepository().getSignInData(googleLoginInform, 1)
+                            } catch (e: Error) {
+                                println("로그인 실패 $task")
                             }
-
-                            // alert dialog other buttons
-                            builder.setNeutralButton("Cancel", null)
-
-                            // set dialog non cancelable
-                            builder.setCancelable(false)
-
-                            // finally, create the alert dialog and show it
-                            val dialog = builder.create()
-
-                            dialog.show()
-
-                            // initially disable the positive button
-                            dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).isEnabled =
-                                false
-
-                            // edit text text change listener
-                            textInputEditText.addTextChangedListener(object : TextWatcher {
-                                override fun afterTextChanged(p0: Editable?) {
-                                }
-
-                                override fun beforeTextChanged(
-                                    p0: CharSequence?, p1: Int,
-                                    p2: Int, p3: Int
-                                ) {
-                                }
-
-                                override fun onTextChanged(
-                                    p0: CharSequence?, p1: Int,
-                                    p2: Int, p3: Int
-                                ) {
-                                    if (p0.isNullOrBlank()) {
-                                        textInputLayout.error = "Name is required."
-                                        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
-                                            .isEnabled = false
-                                    } else {
-                                        textInputLayout.error = ""
-                                        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
-                                            .isEnabled = true
-                                    }
-                                }
-                            })
-                            println("22")
+                        }.join()
+                        if (signInData.status == 301) {
+                            // 회원가입을 위해 닉네임을 입력하기 위한 다이얼로그 호출
+                            signUpAlertDialog(googleLoginInform)
                         }
                         // 기존 아이디가 존재하여 로그인을 하는 경우
                         else {
@@ -233,7 +164,6 @@ class LoginActivity : AppCompatActivity() {
                             successLogin()
                         }
                     }
-
                 } else {
                     println("로그인 실패 $task")
                 }
@@ -256,7 +186,6 @@ class LoginActivity : AppCompatActivity() {
             i++
         }
     }
-
 
 
     /**
@@ -388,6 +317,82 @@ class LoginActivity : AppCompatActivity() {
         // 네이버 로그인 버튼 클릭 시 로그인 핸들러 실행
         val buttonOAuthLoginImg = findViewById<OAuthLoginButton>(R.id.naverLoginButton)
         buttonOAuthLoginImg.setOAuthLoginHandler(mOAuthLoginHandler)
+    }
+
+    /**
+     * 회원가입할때 닉네입 입력창 띄우기
+     */
+    private fun signUpAlertDialog(loginInform: JSONObject) {
+        val builder = MaterialAlertDialogBuilder(this@LoginActivity)
+        builder.setTitle("닉네임을 입력해주세요.")
+
+        val constraintLayout = AlertDialog().getEditTextLayout(this@LoginActivity)
+        builder.setView(constraintLayout)
+
+        val textInputLayout =
+            constraintLayout.findViewWithTag<TextInputLayout>("textInputLayoutTag")
+        val textInputEditText =
+            constraintLayout.findViewWithTag<TextInputEditText>("textInputEditTextTag")
+
+        // 닉네임 작성후 subject 버튼을 눌렀을 경우
+        builder.setPositiveButton("확인") { _, _ ->
+            val signUpInform = JSONObject()
+            signUpInform.put("id", loginInform.get("id"))
+            signUpInform.put("email", loginInform.get("email"))
+            signUpInform.put("name", textInputEditText.text.toString())
+
+            runBlocking {
+                GlobalScope.launch {
+                    signUpData = LoginRepository().getSignUpData(signUpInform, 1)
+                }.join()
+
+                println("유저데이터 확인 $signUpData")
+                userAccessToken = (signUpData.data.get("accessToken")).toString()
+                SharedPreferences(this@LoginActivity).accessToken = userAccessToken
+                successLogin()
+            }
+        }
+
+        // alert dialog other buttons
+        builder.setNeutralButton("취소", null)
+
+        // set dialog non cancelable
+        builder.setCancelable(false)
+
+        // finally, create the alert dialog and show it
+        val dialog = builder.create()
+
+        dialog.show()
+
+        // initially disable the positive button
+        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).isEnabled = false
+
+        // edit text text change listener
+        textInputEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(
+                p0: CharSequence?, p1: Int,
+                p2: Int, p3: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                p0: CharSequence?, p1: Int,
+                p2: Int, p3: Int
+            ) {
+                if (p0.isNullOrBlank()) {
+                    textInputLayout.error = "Name is required."
+                    dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
+                        .isEnabled = false
+                } else {
+                    textInputLayout.error = ""
+                    dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
+                        .isEnabled = true
+                }
+            }
+        })
     }
 
     /**
