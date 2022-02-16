@@ -6,44 +6,47 @@ import com.example.campers.data.login.LoginRequest
 import com.example.campers.data.login.SignInResponse
 import com.example.campers.data.login.SignUpResponse
 import com.example.campers.repository.login.LoginApi.loginService
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
 /**
  * Login 결과의 accessToken을 반환
  */
-@Suppress("NAME_SHADOWING")
 class LoginRepository {
 
     fun getSignInData(loginData: JSONObject, socialPlatform: Int): SignInResponse {
-        // 요청데이터 작성
-        val request = LoginRequest(
-            loginData.getString("id"),
-            loginData.getString("email"),
-            socialPlatform,
-            loginData.getString("name")
-        )
-        println("요청데이터 $request")
+        var data: SignInResponse?
+        runBlocking {
+            // 요청데이터 작성
+            val request = LoginRequest(
+                loginData.getString("id"),
+                loginData.getString("email"),
+                socialPlatform,
+                loginData.getString("name")
+            )
 
-        val response = loginService.signIn(request).execute()
-        println("로그인 데이터 확인 ${response.body()}")
-        return response.body()!!
-
+            data = loginService.signIn(request).execute().body()
+            println("로그인 데이터 확인 $data")
+        }
+        return data!!
     }
 
     fun getSignUpData(loginData: JSONObject, socialPlatform: Int): SignUpResponse{
-        // 요청데이터 작성
-        val request = LoginRequest(
-            loginData.getString("id"),
-            loginData.getString("email"),
-            socialPlatform,
-            loginData.getString("name")
-        )
-        println("요청데이터 $request")
+        var data: SignUpResponse?
+        runBlocking {
+            // 요청데이터 작성
+            val request = LoginRequest(
+                loginData.getString("id"),
+                loginData.getString("email"),
+                socialPlatform,
+                loginData.getString("name")
+            )
 
-        // 응답데이터 처리
-        val response = loginService.signUp(request).execute()
-        println("회원가입 데이터 확인 ${response.body()}")
-        return response.body()!!
+            // 응답데이터 처리
+            data = loginService.signUp(request).execute().body()
+            println("회원가입 데이터 확인 $data")
+        }
+        return data!!
     }
 }
 
