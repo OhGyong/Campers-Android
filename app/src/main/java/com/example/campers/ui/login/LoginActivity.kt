@@ -12,7 +12,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.campers.MainActivity
 import com.example.campers.R
-import com.example.campers.data.login.LoginResponse
+import com.example.campers.data.login.SignInResponse
+import com.example.campers.data.login.SignUpResponse
 import com.example.campers.repository.login.LoginRepository
 import com.example.campers.util.AlertDialog
 import com.example.campers.util.SharedPreferences
@@ -58,10 +59,12 @@ class LoginActivity : AppCompatActivity() {
     // 서버에서 받아온 accessToken
     lateinit var userAccessToken: String
 
-    // 서버에서 받아온 응답 데이터
-    private lateinit var userData: LoginResponse
+    // 서버에서 받아온 로그인 응답 데이터
+    private lateinit var signInData: SignInResponse
 
-    @DelicateCoroutinesApi
+    // 서버에서 받아온 회원가입 응답 데이터
+    private lateinit var signUpData: SignUpResponse
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -79,6 +82,32 @@ class LoginActivity : AppCompatActivity() {
 
     /**
      * 구글 로그인
+     * 구글 로그인 인스턴스 초기화 메서드
+     */
+    @DelicateCoroutinesApi
+    private fun googleLoginInit() {
+
+        // 구글 로그인 구성
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.google_web_client_id))
+            .requestEmail()
+            .build()
+
+        // 구글 로그인 관리 클래스
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        // 파이어베이스 통합 관리 객체 생성
+        auth = FirebaseAuth.getInstance()
+
+        // 구글 로그인 버튼 클릭 시 실행
+        val googleLoginButton = findViewById<SignInButton>(R.id.googleLoginButton)
+        googleLoginButton.setOnClickListener {
+            googleResultListener.launch(googleSignInClient.signInIntent)
+        }
+    }
+
+    /**
+     * 구글 로그인
      * startActivityForeResult 대신 사용. 전역변수로 사용해야 가능
      * googleSignInClient.signInIntent로 입력된 데이터를 받고 실행하는 변수
      */
@@ -90,7 +119,6 @@ class LoginActivity : AppCompatActivity() {
                 try {
                     val account = task.getResult(ApiException::class.java)!!
                     firebaseAuthWithGoogle(account)
-//                    GoogleLogin().firebaseAuthWithGoogle(auth, account, this@LoginActivity)
                 } catch (error: ApiException) {
                     println("onActivity 실패 $error")
                 }
@@ -116,11 +144,13 @@ class LoginActivity : AppCompatActivity() {
                     println("구글 로그인 정보 $googleLoginInform")
                     runBlocking {
                         val k = GlobalScope.launch {
-                            userData = LoginRepository().getLoginData(0, googleLoginInform, 1)
+                            signInData = LoginRepository().getSignInData(googleLoginInform, 1)
                             println("11")
                         }
                         k.join()
-                        if (userData.status == 301) {
+
+                        // 회원가입인 경우
+                        if (signInData.status == 301) {
                             AlertDialog().materialAlertDialogBuilder(this@LoginActivity)
                             val builder = MaterialAlertDialogBuilder(this@LoginActivity)
                             builder.setTitle("닉네임을 입력해주세요.")
@@ -134,6 +164,7 @@ class LoginActivity : AppCompatActivity() {
                             val textInputEditText =
                                 constraintLayout.findViewWithTag<TextInputEditText>("textInputEditTextTag")
 
+                            // 닉네임 작성후 subject 버튼을 눌렀을 경우
                             builder.setPositiveButton("Submit") { _, _ ->
                                 val newGoogleLoginInform = JSONObject()
                                 newGoogleLoginInform.put("id", googleLoginInform.get("id"))
@@ -141,12 +172,12 @@ class LoginActivity : AppCompatActivity() {
                                 newGoogleLoginInform.put("name", textInputEditText.text.toString())
                                 runBlocking {
                                     val a = GlobalScope.launch {
-                                        userData =
-                                            LoginRepository().getLoginData(1, newGoogleLoginInform, 1)
+                                        signUpData =
+                                            LoginRepository().getSignUpData( newGoogleLoginInform, 1)
                                     }
                                     a.join()
-                                    println("유저데이터 확인")
-                                    userAccessToken = (userData.data.get("accessToken")).toString()
+                                    println("유저데이터 확인 $signUpData")
+                                    userAccessToken = (signUpData.data.get("accessToken")).toString()
                                     SharedPreferences(this@LoginActivity).accessToken = userAccessToken
                                     successLogin()
                                 }
@@ -194,17 +225,13 @@ class LoginActivity : AppCompatActivity() {
                                 }
                             })
                             println("22")
-                        } else {
-                            userAccessToken = (userData.data.get("accessToken")).toString()
+                        }
+                        // 기존 아이디가 존재하여 로그인을 하는 경우
+                        else {
+                            userAccessToken = (signInData.data.get("accessToken")).toString()
                             SharedPreferences(this@LoginActivity).accessToken = userAccessToken
                             successLogin()
                         }
-//                            userAccessToken = (userData.data.get("accessToken")).toString()
-                        println("33")
-//                        userAccessToken =
-//                            LoginRepository().getLoginData(googleLoginInform, 1)
-//                            SharedPreferences(this@LoginActivity).accessToken = userAccessToken
-//                            successLogin()
                     }
 
                 } else {
@@ -230,11 +257,12 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
+
     /**
      * 네이버 로그인
      * 로그인이 완료되거나 취소될 때 호출되는 메서드(로그인 핸들러)
      */
-    @DelicateCoroutinesApi
     private val mOAuthLoginHandler: OAuthLoginHandler = @SuppressLint("HandlerLeak")
     object : OAuthLoginHandler() {
         override fun run(success: Boolean) {
@@ -349,7 +377,6 @@ class LoginActivity : AppCompatActivity() {
      * 네이버 로그인
      * 네이버 로그인 라이브러리 애플리케이션 적용(네이버 로그인 인스턴스 초기화) 메서드
      */
-    @DelicateCoroutinesApi
     private fun naverLoginInit() {
         val naverClientId = getString(R.string.naver_login_id)
         val naverClientSecret = getString(R.string.naver_login_secret)
@@ -362,34 +389,6 @@ class LoginActivity : AppCompatActivity() {
         val buttonOAuthLoginImg = findViewById<OAuthLoginButton>(R.id.naverLoginButton)
         buttonOAuthLoginImg.setOAuthLoginHandler(mOAuthLoginHandler)
     }
-
-
-    /**
-     * 구글 로그인
-     * 구글 로그인 인스턴스 초기화 메서드
-     */
-    @DelicateCoroutinesApi
-    private fun googleLoginInit() {
-
-        // 구글 로그인 구성
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        // 구글 로그인 관리 클래스
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        // 파이어베이스 통합 관리 객체 생성
-        auth = FirebaseAuth.getInstance()
-
-        // 구글 로그인 버튼 클릭 시 실행
-        val googleLoginButton = findViewById<SignInButton>(R.id.googleLoginButton)
-        googleLoginButton.setOnClickListener {
-            googleResultListener.launch(googleSignInClient.signInIntent)
-        }
-    }
-
 
     /**
      * 로그인 성공했을 경우 메인화면으로 이동하는 메서드
