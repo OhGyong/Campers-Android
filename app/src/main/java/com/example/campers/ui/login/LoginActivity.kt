@@ -195,7 +195,6 @@ class LoginActivity : AppCompatActivity() {
     private val mOAuthLoginHandler: OAuthLoginHandler = @SuppressLint("HandlerLeak")
     object : OAuthLoginHandler() {
         override fun run(success: Boolean) {
-
             // 로그인 성공시
             if (success) {
                 /**
@@ -203,13 +202,33 @@ class LoginActivity : AppCompatActivity() {
                  * 네이버 오픈 API를 사용하기 위해 mOAuthLoginInstance에 오픈 API의 accessToken을 넘겨줌.
                  * 얻은 데이터를 LoginRepository()에 넘겨주고 서버와 연결하여 유저의 accessToken을 발급받음.
                  */
-                GlobalScope.launch {
+                runBlocking {
+                    val naverSignInInform = JSONObject()
+                    GlobalScope.launch {
+                        naverSignInInform.put("id", loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)).get("id"))
+                        naverSignInInform.put("email", loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)).get("email"))
+                        naverSignInInform.put("name", loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)).get("name"))
+                        println("네이버 로그인 정보 $naverSignInInform")
+                        loginInform(mOAuthLoginInstance.getAccessToken(applicationContext))
+                        try {
+                            signInData = LoginRepository().getSignInData(naverSignInInform, 2)
+                        }catch (e: Error){
+                            println("로그인 실패 $e")
+                        }
 //                    userAccessToken = LoginRepository().getLoginData(loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)),2)
 //                    SharedPreferences(this@LoginActivity).accessToken = userAccessToken
+                    }.join()
+                    if (signInData.status == 301) {
+                        // 회원가입을 위해 닉네임을 입력하기 위한 다이얼로그 호출
+                        signUpAlertDialog(naverSignInInform)
+                    }
+                    // 기존 아이디가 존재하여 로그인을 하는 경우
+                    else {
+                        userAccessToken = (signInData.data.get("accessToken")).toString()
+                        SharedPreferences(this@LoginActivity).accessToken = userAccessToken
+                        successLogin()
+                    }
                 }
-
-                // 메인화면으로 이동
-                successLogin()
             } else { // 로그인 실패시
                 val errorCode: String =
                     mOAuthLoginInstance.getLastErrorCode(this@LoginActivity).code
@@ -234,9 +253,7 @@ class LoginActivity : AppCompatActivity() {
         val responseBody = get(requestHeaders)
 
         // api를 호출하여 얻어온 결과에서 id, email, name 가져오는 과정
-        val response = responseBody.getJSONObject("response")
-        println("네이버 로그인 정보 $responseBody")
-        return response
+        return responseBody.getJSONObject("response")
     }
 
     /**
