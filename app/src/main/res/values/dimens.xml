@@ -2,5 +2,10 @@
 <resources>
     <dimen name="community_not_title">13dp</dimen>
     <dimen name="community_title">15dp</dimen>
+
+    <!-- 커뮤니티 모닥불, 뷰, 댓글 이미지와 텍스트 크기-->
+    <dimen name="community_image_size">14dp</dimen>
+    <dimen name="community_text_size">12dp</dimen>
+
     
 </resources>
