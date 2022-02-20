@@ -1,43 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/title_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/detail_to_editor"
-            android:layout_width="400dp"
-            android:layout_height="2px"
-            android:layout_marginTop="10dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_detail" />
-
-        <jp.wasabeef.richeditor.RichEditor
-            android:id="@+id/roadRichEditor"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="20dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/detail_to_editor" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/community_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제목"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</ScrollView>
+            <TextView
+                android:id="@+id/community_detail_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2022.02.20"
+                android:textSize="10dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintStart_toStartOf="@+id/community_detail_title"
+                app:layout_constraintTop_toBottomOf="@+id/community_detail_title" />
+
+
+            <View
+                android:id="@+id/community_title_boundary_content"
+                android:layout_width="0dp"
+                android:layout_height="2px"
+                android:layout_marginTop="5dp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/community_detail_title"
+                app:layout_constraintTop_toBottomOf="@+id/community_detail_date" />
+
+            <jp.wasabeef.richeditor.RichEditor
+                android:id="@+id/roadRichEditor"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/community_title_boundary_content" />
+
+            <ImageView
+                android:id="@+id/bonfire_num_image"
+                android:layout_width="@dimen/community_image_size"
+                android:layout_height="@dimen/community_image_size"
+                android:src="@drawable/bonfire"
+                android:layout_marginTop="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/roadRichEditor" />
+
+            <TextView
+                android:id="@+id/community_detail_bonfire_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textSize="@dimen/community_text_size"
+                android:textStyle="bold"
+                android:textColor="#ED1D1D"
+                app:layout_constraintStart_toEndOf="@+id/bonfire_num_image"
+                app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+            <ImageView
+                android:id="@+id/comment_num_image"
+                android:layout_width="@dimen/community_image_size"
+                android:layout_height="@dimen/community_image_size"
+                android:src="@drawable/community_comment"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@+id/community_detail_bonfire_num"
+                app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+            <TextView
+                android:id="@+id/community_detail_comment_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textColor="@color/black"
+                android:textSize="@dimen/community_text_size"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/comment_num_image"
+                app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+            <ImageView
+                android:id="@+id/community_view_num_image"
+                android:layout_width="@dimen/community_image_size"
+                android:layout_height="@dimen/community_image_size"
+                android:src="@drawable/community_view"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@+id/community_detail_comment_num"
+                app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+            <TextView
+                android:id="@+id/community_detail_view_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textColor="@color/black"
+                android:textSize="@dimen/community_text_size"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/community_view_num_image"
+                app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>
