@@ -4,7 +4,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
-data class RankingListResponse (
+data class RankingListResponse(
     @SerializedName("status")
     val status: Int,
     @SerializedName("payload")
@@ -20,7 +20,7 @@ data class RankingList(
     val totalFire: Int
 )
 
-data class HotCommunityListResponse (
+data class HotCommunityListResponse(
     @SerializedName("status")
     val status: Int,
     @SerializedName("payload")
@@ -34,4 +34,9 @@ data class HotCommunityList(
     val title: String,
     val date: String,
     val nickName: String
+)
+
+data class HotCommunityDetailResponse(
+    val status: Int,
+    val payload: JsonArray
 )

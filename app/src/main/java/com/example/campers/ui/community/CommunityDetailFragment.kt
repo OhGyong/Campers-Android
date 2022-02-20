@@ -28,7 +28,7 @@ class CommunityDetailFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val titleDetail: TextView = view.findViewById(R.id.title_detail)
+        val titleDetail: TextView = view.findViewById(R.id.community_detail_title)
         titleDetail.paintFlags = Paint.FAKE_BOLD_TEXT_FLAG
         titleDetail.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20.0F)
         titleDetail.setTextColor(Color.BLACK)

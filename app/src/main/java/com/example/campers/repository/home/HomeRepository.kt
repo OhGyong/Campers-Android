@@ -13,7 +13,6 @@ class HomeRepository {
         var data: RankingListResponse?
         runBlocking {
             println("Repository 랭킹 데이터")
-
             // 데이터 가져오기
             data = homeResponse.rankingList().execute().body()
         }
@@ -24,11 +23,22 @@ class HomeRepository {
         var data: HotCommunityListResponse?
         runBlocking {
             println("Repository Hot 커뮤니티 데이터")
-
             data = homeResponse.hotCommunityList().execute().body()
         }
         return data!!
     }
+
+//    fun getHotCommunityDetailData(): HotCommunityDetailResponse {
+//        var data: HotCommunityDetailResponse?
+//        runBlocking {
+//            val request = HotCommunityDetailRequest(
+//
+//            )
+//
+//            println("Repository Hot 커뮤니티 상세 데이터")
+//        }
+//        return data!!
+//    }
 }
 
 
@@ -37,7 +47,7 @@ class HomeRepository {
  * 싱글톤 객체 선언을 통해 한번만 생성되도록 설정
  */
 object HomeApi {
-    val homeResponse: HomeService by lazy{
+    val homeResponse: HomeService by lazy {
         retrofit.create(HomeService::class.java)
     }
 }

@@ -1,9 +1,11 @@
 package com.example.campers.api
 
+import com.example.campers.data.home.HotCommunityDetailResponse
 import com.example.campers.data.home.HotCommunityListResponse
 import com.example.campers.data.home.RankingListResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface HomeService {
 
@@ -12,4 +14,8 @@ interface HomeService {
 
     @GET("/home/hot-contents")
     fun hotCommunityList(): Call<HotCommunityListResponse>
+
+    @POST("/home/hot-contents")
+    fun hotCommunityDetail(): Call<HotCommunityDetailResponse>
+
 }
