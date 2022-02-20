@@ -9,6 +9,9 @@
     <string name="naver_login_secret">Y5fr4qtbpW</string>
     <string name="naver_login_name">Campers</string>
 
+    <!-- 구글 로그인 클라이언트 id -->
+    <string name="google_web_client_id" translatable="false">462976893387-cct674fg42c1qg4fh3a11q4r8atveia4.apps.googleusercontent.com</string>
+
     <!-- 각 Fragment name 지정 -->
     <string name="HomeFragment">홈</string>
     <string name="CampingzoneFragment">캠핑존</string>
