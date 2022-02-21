@@ -215,8 +215,6 @@ class LoginActivity : AppCompatActivity() {
                         }catch (e: Error){
                             println("로그인 실패 $e")
                         }
-//                    userAccessToken = LoginRepository().getLoginData(loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)),2)
-//                    SharedPreferences(this@LoginActivity).accessToken = userAccessToken
                     }.join()
                     if (signInData.status == 301) {
                         // 회원가입을 위해 닉네임을 입력하기 위한 다이얼로그 호출
@@ -224,7 +222,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     // 기존 아이디가 존재하여 로그인을 하는 경우
                     else {
-                        userAccessToken = (signInData.data.get("accessToken")).toString()
+                        userAccessToken = signInData.data.get("accessToken").toString()
                         SharedPreferences(this@LoginActivity).accessToken = userAccessToken
                         successLogin()
                     }
@@ -364,7 +362,7 @@ class LoginActivity : AppCompatActivity() {
                 }.join()
 
                 println("유저데이터 확인 $signUpData")
-                userAccessToken = (signUpData.data.get("accessToken")).toString()
+                userAccessToken = signUpData.data.get("accessToken").toString()
                 SharedPreferences(this@LoginActivity).accessToken = userAccessToken
                 successLogin()
             }
