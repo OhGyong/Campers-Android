@@ -29,18 +29,15 @@ class CommunityAdapter(private val list: MutableList<CommunityData>): RecyclerVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        println("zxcvxcz")
         val adapterLayout = LayoutInflater.from(parent.context).inflate(R.layout.recycler_community, parent ,false)
         return ItemViewHolder(adapterLayout)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        println("bnvcxnxc")
         holder.bind(list[position], position)
     }
 
     override fun getItemCount(): Int {
-        println("확인 ")
         return list.count()
     }
 }
