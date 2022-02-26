@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="communityDetailItem"
+            type="com.example.campers.data.community.CommunityDetailData" />
     </data>
 
     <ScrollView
@@ -21,7 +24,7 @@
                 android:id="@+id/community_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="제목"
+                android:text="@{communityDetailItem.title}"
                 android:textSize="15dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -33,7 +36,7 @@
                 android:id="@+id/community_detail_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2022.02.20"
+                android:text="@{communityDetailItem.date}"
                 android:textSize="10dp"
                 android:layout_marginTop="2dp"
                 app:layout_constraintStart_toStartOf="@+id/community_detail_title"
@@ -62,7 +65,7 @@
                 android:layout_width="@dimen/community_image_size"
                 android:layout_height="@dimen/community_image_size"
                 android:src="@drawable/bonfire"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/roadRichEditor" />
 
@@ -70,7 +73,7 @@
                 android:id="@+id/community_detail_bonfire_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10"
+                android:text="@{Integer.toString(communityDetailItem.fireCount)}"
                 android:textSize="@dimen/community_text_size"
                 android:textStyle="bold"
                 android:textColor="#ED1D1D"
@@ -90,7 +93,7 @@
                 android:id="@+id/community_detail_comment_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="@dimen/community_text_size"
                 android:textStyle="bold"
@@ -110,7 +113,7 @@
                 android:id="@+id/community_detail_view_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
+                android:text="@{Integer.toString(communityDetailItem.viewCount)}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/community_text_size"
                 android:textStyle="bold"

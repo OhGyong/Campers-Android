@@ -78,25 +78,28 @@ class HomeFragment: Fragment() {
             val payload = it.payload
             for(i in 0 until 1){
                 val payloadIndex = payload.get(i)
+                val type = payloadIndex.asJsonObject.get("type").asInt
                 val id = payloadIndex.asJsonObject.get("id").asInt
                 val title = payloadIndex.asJsonObject.get("title").toString().trim('"')
                 val date = payloadIndex.asJsonObject.get("date").toString().trim('"')
                 val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"') // 따옴표 지우기
                 hotCommunityList = arrayListOf(
-                    HotCommunityList(id, title, date, nickName)
+                    HotCommunityList(type, id, title, date, nickName)
                 )
             }
             for (i in 1 until payload.size()) {
                 val payloadIndex = payload.get(i)
+                val type = payloadIndex.asJsonObject.get("type").asInt
                 val id = payloadIndex.asJsonObject.get("id").asInt
                 val title = payloadIndex.asJsonObject.get("title").toString().trim('"')
                 val date = payloadIndex.asJsonObject.get("date").toString().trim('"')
                 val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"') // 따옴표 지우기
-                hotCommunityList.add(HotCommunityList(id,title,date,nickName))
+                hotCommunityList.add(HotCommunityList(type, id, title, date, nickName))
             }
             hotCommunityRecyclerView = view.findViewById(R.id.home_hotcommunity_recyclerView)
             hotCommunityRecyclerView.adapter = HotCommunityAdapter(hotCommunityList)
         })
+
     }
 
     override fun onResume() {

@@ -2,8 +2,7 @@ package com.example.campers.repository.home
 
 import com.example.campers.api.CommonService.retrofit
 import com.example.campers.api.HomeService
-import com.example.campers.data.home.HotCommunityListResponse
-import com.example.campers.data.home.RankingListResponse
+import com.example.campers.data.home.*
 import com.example.campers.repository.home.HomeApi.homeResponse
 import kotlinx.coroutines.runBlocking
 
@@ -28,17 +27,26 @@ class HomeRepository {
         return data!!
     }
 
-//    fun getHotCommunityDetailData(): HotCommunityDetailResponse {
-//        var data: HotCommunityDetailResponse?
-//        runBlocking {
-//            val request = HotCommunityDetailRequest(
-//
-//            )
-//
-//            println("Repository Hot 커뮤니티 상세 데이터")
-//        }
-//        return data!!
-//    }
+    fun getHotCommunityDetailData(requestParams: HotCommunityList): HotCommunityDetailResponse {
+        var data: HotCommunityDetailResponse?
+        println("Repository Hot 커뮤니티 상세 데이터")
+        var request: HotCommunityDetailRequest = if (requestParams.type == 1) {
+            HotCommunityDetailRequest(
+                requestParams.type,
+                requestParams.id,
+                null
+            )
+        } else {
+            HotCommunityDetailRequest(
+                requestParams.type,
+                null,
+                requestParams.id
+            )
+
+        }
+        data = homeResponse.hotCommunityDetail(request).execute().body()
+        return data!!
+    }
 }
 
 

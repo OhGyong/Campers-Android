@@ -30,6 +30,7 @@ data class HotCommunityListResponse(
 )
 
 data class HotCommunityList(
+    val type: Int,
     val id: Int,
     val title: String,
     val date: String,
