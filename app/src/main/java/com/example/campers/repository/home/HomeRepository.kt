@@ -2,7 +2,10 @@ package com.example.campers.repository.home
 
 import com.example.campers.api.CommonService.retrofit
 import com.example.campers.api.HomeService
-import com.example.campers.data.home.*
+import com.example.campers.data.home.HotCommunityDetailRequest
+import com.example.campers.data.home.HotCommunityDetailResponse
+import com.example.campers.data.home.HotCommunityListResponse
+import com.example.campers.data.home.RankingListResponse
 import com.example.campers.repository.home.HomeApi.homeResponse
 import kotlinx.coroutines.runBlocking
 
@@ -27,20 +30,20 @@ class HomeRepository {
         return data!!
     }
 
-    fun getHotCommunityDetailData(requestParams: HotCommunityList): HotCommunityDetailResponse {
+    fun getHotCommunityDetailData(type: Int, id: Int): HotCommunityDetailResponse {
         var data: HotCommunityDetailResponse?
         println("Repository Hot 커뮤니티 상세 데이터")
-        var request: HotCommunityDetailRequest = if (requestParams.type == 1) {
+        var request: HotCommunityDetailRequest = if (type == 1) {
             HotCommunityDetailRequest(
-                requestParams.type,
-                requestParams.id,
+                type,
+                id,
                 null
             )
         } else {
             HotCommunityDetailRequest(
-                requestParams.type,
+                type,
                 null,
-                requestParams.id
+                id
             )
 
         }

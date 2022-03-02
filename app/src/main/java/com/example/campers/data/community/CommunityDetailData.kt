@@ -7,7 +7,6 @@ data class CommunityDetailData(
     val nickName: String,
     val fireCount: Int,
     val viewCount: Int,
-//    val contents: RichEditor,
     val hotContents: Int,
     val hotDate: String,
     val reportCount: Int,
