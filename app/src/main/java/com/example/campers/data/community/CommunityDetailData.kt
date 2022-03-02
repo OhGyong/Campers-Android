@@ -12,3 +12,12 @@ data class CommunityDetailData(
     val reportCount: Int,
     val memberId: Int
 )
+
+data class CommunityCommentList(
+    val id: Int,
+//    val defaultBoardContentsId: Int,
+    val info: String,
+    val editDate: String,
+    val fireCount: Int,
+    val memberId: Int
+)

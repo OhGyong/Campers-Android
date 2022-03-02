@@ -18,10 +18,11 @@ class HotCommunityAdapter(private val list: ArrayList<HotCommunityList>) :
             binding.hotCommunityListItem = hotCommunityList
             binding.root.setOnClickListener {
                 // 상세 화면으로 이동할때 type값과 id 값을 넘겨줌
-                binding.root.findNavController().navigate(R.id.communityDetailFragment, Bundle().apply {
-                    putInt("type", hotCommunityList.type)
-                    putInt("id", hotCommunityList.id)
-                })
+                binding.root.findNavController()
+                    .navigate(R.id.communityDetailFragment, Bundle().apply {
+                        putInt("type", hotCommunityList.type)
+                        putInt("id", hotCommunityList.id)
+                    })
             }
         }
     }

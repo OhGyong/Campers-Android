@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="communityCommentListItem"
+            type="com.example.campers.data.community.CommunityCommentList" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/community_comment_nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(communityCommentListItem.memberId)}"
+            android:textSize="13dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/community_comment_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{communityCommentListItem.editDate}"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/community_comment_nickName"
+            app:layout_constraintStart_toEndOf="@+id/community_comment_nickName"/>
+
+        <TextView
+            android:id="@+id/community_comment_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{communityCommentListItem.info}"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/community_comment_nickName"
+            app:layout_constraintTop_toBottomOf="@+id/community_comment_nickName" />
+
+        <ImageView
+            android:id="@+id/bonfire_num_image"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="1dp"
+            android:src="@drawable/bonfire"
+            app:layout_constraintEnd_toStartOf="@+id/bonfire_num"
+            app:layout_constraintTop_toTopOf="@+id/community_comment_content" />
+
+        <TextView
+            android:id="@+id/bonfire_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(communityCommentListItem.fireCount)}"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="#9C9B9B"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/community_comment_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
