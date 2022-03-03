@@ -30,6 +30,10 @@ class HomeRepository {
         return data!!
     }
 
+    /**
+     * type이 1이면 유저 게시판
+     * type이 2면 기본 게시판
+     */
     fun getHotCommunityDetailData(type: Int, id: Int): HotCommunityDetailResponse {
         var data: HotCommunityDetailResponse?
         println("Repository Hot 커뮤니티 상세 데이터")
