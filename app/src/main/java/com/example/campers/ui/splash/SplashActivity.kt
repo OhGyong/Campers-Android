@@ -27,7 +27,7 @@ class SplashActivity : Activity() {
         val splashLogoGif = findViewById<ImageView>(R.id.splash_logo_gif)
         Glide.with(this).load(R.raw.splash_gif).into(splashLogoGif)
 
-        // accessToken이 없으면 로그인화면으로 이동
+        // accessToken이 없으면 앱 인트로 화면으로 이동
         if (SharedPreferences(this@SplashActivity).accessToken == null) {
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = Intent(this, AppIntroActivity::class.java)

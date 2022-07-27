@@ -12,7 +12,7 @@ class AppIntroActivity: Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
 
-        var viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
         viewPager.adapter = AppIntroAdapter(imageList())
     }
 
