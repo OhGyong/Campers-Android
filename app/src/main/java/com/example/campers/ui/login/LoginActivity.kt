@@ -10,10 +10,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.campers.MainActivity
 import com.example.campers.R
 import com.example.campers.data.login.SignInResponse
 import com.example.campers.data.login.SignUpResponse
+import com.example.campers.databinding.ActivityLoginBinding
 import com.example.campers.repository.login.LoginRepository
 import com.example.campers.util.AlertDialog
 import com.example.campers.util.SharedPreferences
@@ -65,9 +67,12 @@ class LoginActivity : AppCompatActivity() {
     // 서버에서 받아온 회원가입 응답 데이터
     private lateinit var signUpData: SignUpResponse
 
+    private lateinit var mBinding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        mBinding.login = this
 
         // 구글 로그인 버튼 텍스트 변경
         val googleLoginButton = findViewById<SignInButton>(R.id.googleLoginButton)
