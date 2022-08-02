@@ -6,7 +6,7 @@
     <data>
         <variable
             name="communityDetailItem"
-            type="com.example.campers.data.community.CommunityDetailData" />
+            type="com.campers.data.community.CommunityDetailData" />
     </data>
 
     <ScrollView

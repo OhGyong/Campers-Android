@@ -5,11 +5,11 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.campers.ui.home.HomeFragment"
+        android:name="com.campers.ui.home.HomeFragment"
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/campingzoneFragment"
-        android:name="com.example.campers.ui.campingzone.CampingzoneFragment"
+        android:name="com.campers.ui.campingzone.CampingzoneFragment"
         android:label="CampingzoneFragment" >
         <action
             android:id="@+id/action_campingzoneFragment_to_campingzoneOptionFragment"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/campingzoneOptionFragment"
-        android:name="com.example.campers.ui.campingzone.CampingzoneOptionFragment"
+        android:name="com.campers.ui.campingzone.CampingzoneOptionFragment"
         android:label="CampingzoneOptionFragment" >
         <action
             android:id="@+id/action_campingzoneOptionFragment_to_campingzoneListFragment"
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/campingzoneListFragment"
-        android:name="com.example.campers.ui.campingzone.CampingzoneListFragment"
+        android:name="com.campers.ui.campingzone.CampingzoneListFragment"
         android:label="CampingzoneListFragment" >
         <action
             android:id="@+id/action_campingzoneListFragment_to_campingzoneDetailFragment"
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/communityFragment"
-        android:name="com.example.campers.ui.community.CommunityFragment"
+        android:name="com.campers.ui.community.CommunityFragment"
         android:label="CommunityFragment" >
         <action
             android:id="@+id/action_communityFragment_to_communityListFragment"
@@ -41,19 +41,19 @@
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.example.campers.ui.notification.NotificationFragment"
+        android:name="com.campers.ui.notification.NotificationFragment"
         android:label="NotificationFragment" />
     <fragment
         android:id="@+id/mypageFragment"
-        android:name="com.example.campers.ui.mypage.MypageFragment"
+        android:name="com.campers.ui.mypage.MypageFragment"
         android:label="MypageFragment" />
     <fragment
         android:id="@+id/campingzoneDetailFragment"
-        android:name="com.example.campers.ui.campingzone.CampingzoneDetailFragment"
+        android:name="com.campers.ui.campingzone.CampingzoneDetailFragment"
         android:label="CampingzoneDetailFragment" />
     <fragment
         android:id="@+id/communityRegistFragment"
-        android:name="com.example.campers.ui.community.CommunityRegistFragment"
+        android:name="com.campers.ui.community.CommunityRegistFragment"
         android:label="CommunityRegistFragment" >
         <action
             android:id="@+id/action_communityRegistFragment_to_communityDetailFragment"
@@ -61,11 +61,11 @@
     </fragment>
     <fragment
         android:id="@+id/communityDetailFragment"
-        android:name="com.example.campers.ui.community.CommunityDetailFragment"
+        android:name="com.campers.ui.community.CommunityDetailFragment"
         android:label="CommunityDetailFragment" />
     <fragment
         android:id="@+id/communityListFragment"
-        android:name="com.example.campers.ui.community.CommunityListFragment"
+        android:name="com.campers.ui.community.CommunityListFragment"
         android:label="CommunityListFragment" >
         <action
             android:id="@+id/action_communityListFragment_to_communityRegistFragment"

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:462976893387:android:1a140c8003cca640fd364e",
         "android_client_info": {
-          "package_name": "com.example.campers"
+          "package_name": "com.campers"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "462976893387-i4f41308dslq10ah4go2pt9q3tre7ajf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.campers",
+            "package_name": "com.campers",
             "certificate_hash": "1bd9000627ef49935dd5fd4e22537b58b3eedd65"
           }
         },

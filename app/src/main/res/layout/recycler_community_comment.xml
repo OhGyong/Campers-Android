@@ -6,7 +6,7 @@
     <data>
         <variable
             name="communityCommentListItem"
-            type="com.example.campers.data.community.CommunityCommentList" />
+            type="com.campers.data.community.CommunityCommentList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

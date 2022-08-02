@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.campers">
+    package="com.campers">
 
     <!-- 현재 위치 권한 설정 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -26,7 +26,7 @@
             android:value="@string/naver_maps_id" />
 
         <!-- 스플래시 Activity -->
-        <activity android:name="com.example.campers.ui.splash.SplashActivity"
+        <activity android:name="com.campers.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,11 +41,11 @@
         </activity>
 
         <!-- 로그인 Activity -->
-        <activity android:name="com.example.campers.ui.login.LoginActivity">
+        <activity android:name="com.campers.ui.login.LoginActivity">
         </activity>
 
         <!-- 앱 인트로 Activity -->
-        <activity android:name="com.example.campers.ui.splash.AppIntroActivity">
+        <activity android:name="com.campers.ui.splash.AppIntroActivity">
         </activity>
 
     </application>
