@@ -1,4 +1,4 @@
-package com.example.campers.ui.login
+package com.campers.ui.login
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -11,14 +11,14 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.campers.MainActivity
-import com.example.campers.R
-import com.example.campers.data.login.SignInResponse
-import com.example.campers.data.login.SignUpResponse
-import com.example.campers.databinding.ActivityLoginBinding
-import com.example.campers.repository.login.LoginRepository
-import com.example.campers.util.AlertDialog
-import com.example.campers.util.SharedPreferences
+import com.campers.MainActivity
+import com.campers.R
+import com.campers.data.login.SignInResponse
+import com.campers.data.login.SignUpResponse
+import com.campers.databinding.ActivityLoginBinding
+import com.campers.repository.login.LoginRepository
+import com.campers.util.AlertDialog
+import com.campers.util.SharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -32,7 +32,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
-import com.nhn.android.naverlogin.ui.view.OAuthLoginButton
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -192,6 +191,23 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 네이버 로그인
+     * 네이버 로그인 라이브러리 애플리케이션 적용(네이버 로그인 인스턴스 초기화) 메서드
+     */
+    private fun naverLoginInit() {
+        val naverClientId = getString(R.string.naver_login_id)
+        val naverClientSecret = getString(R.string.naver_login_secret)
+        val naverClientName = getString(R.string.naver_login_name)
+
+        mOAuthLoginInstance = OAuthLogin.getInstance()
+        mOAuthLoginInstance.init(this, naverClientId, naverClientSecret, naverClientName)
+
+        // 네이버 로그인 버튼 클릭 시 로그인 핸들러 실행
+        mBinding.naverLoginButton.setOAuthLoginHandler(mOAuthLoginHandler)
+    }
+
+
 
     /**
      * 네이버 로그인
@@ -245,6 +261,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     /**
      * 네이버 로그인
      * 현재 로그인된 정보를 가져오는 메서드
@@ -252,6 +269,7 @@ class LoginActivity : AppCompatActivity() {
     fun loginInform(accessToken: String): JSONObject {
         val header = "Bearer $accessToken"
         val requestHeaders = mutableMapOf<String, String>()
+        println("확인 $requestHeaders")
         requestHeaders["Authorization"] = header
         val responseBody = get(requestHeaders)
 
@@ -322,22 +340,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * 네이버 로그인
-     * 네이버 로그인 라이브러리 애플리케이션 적용(네이버 로그인 인스턴스 초기화) 메서드
-     */
-    private fun naverLoginInit() {
-        val naverClientId = getString(R.string.naver_login_id)
-        val naverClientSecret = getString(R.string.naver_login_secret)
-        val naverClientName = getString(R.string.naver_login_name)
-
-        mOAuthLoginInstance = OAuthLogin.getInstance()
-        mOAuthLoginInstance.init(this, naverClientId, naverClientSecret, naverClientName)
-
-        // 네이버 로그인 버튼 클릭 시 로그인 핸들러 실행
-        val buttonOAuthLoginImg = findViewById<OAuthLoginButton>(R.id.naverLoginButton)
-        buttonOAuthLoginImg.setOAuthLoginHandler(mOAuthLoginHandler)
-    }
 
     /**
      * 회원가입할때 닉네입 입력창 띄우기

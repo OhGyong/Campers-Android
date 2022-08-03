@@ -1,11 +1,11 @@
-package com.example.campers.repository.login
+package com.campers.repository.login
 
-import com.example.campers.api.CommonService.retrofit
-import com.example.campers.api.LoginService
-import com.example.campers.data.login.LoginRequest
-import com.example.campers.data.login.SignInResponse
-import com.example.campers.data.login.SignUpResponse
-import com.example.campers.repository.login.LoginApi.loginService
+import com.campers.api.CommonService.retrofit
+import com.campers.api.LoginService
+import com.campers.data.login.LoginRequest
+import com.campers.data.login.SignInResponse
+import com.campers.data.login.SignUpResponse
+import com.campers.repository.login.LoginApi.loginService
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
