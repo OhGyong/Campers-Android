@@ -1,11 +1,28 @@
 package com.campers.ui.login
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.campers.data.login.SignInResponse
+import com.campers.repository.login.LoginRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class LoginViewModel: ViewModel() {
-//    val naverLoginData : MutableLiveData<JSONObject>
 
-    fun naverLoginHandler() {
+    var signInData : MutableLiveData<SignInResponse> = MutableLiveData()
 
+    fun getSignInData(loginData: JSONObject, socialPlatform: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                signInData.value = LoginRepository().getSignInData(loginData, socialPlatform)
+            }catch (e : Exception) {
+                println("로그인 에러 $e")
+            }
+        }
     }
+
+
+
 }

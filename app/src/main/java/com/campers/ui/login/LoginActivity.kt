@@ -1,16 +1,16 @@
 package com.campers.ui.login
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.campers.MainActivity
 import com.campers.R
 import com.campers.data.login.SignInResponse
@@ -31,19 +31,11 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.nhn.android.naverlogin.OAuthLogin
-import com.nhn.android.naverlogin.OAuthLoginHandler
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
 
 /**
  * 소셜 로그인
@@ -51,7 +43,7 @@ import java.net.URL
 class LoginActivity : AppCompatActivity() {
 
     // 네이버 로그인 설정
-    lateinit var mOAuthLoginInstance: OAuthLogin
+    lateinit var naverLoginInstance: OAuthLogin
 
     // 구글 로그인 설정
     private lateinit var auth: FirebaseAuth
@@ -67,6 +59,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var signUpData: SignUpResponse
 
     private lateinit var mBinding: ActivityLoginBinding
+    private val mViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,6 +75,25 @@ class LoginActivity : AppCompatActivity() {
 
         // 구글 로그인 인스턴스 초기화
         googleLoginInit()
+
+        observerLiveData()
+    }
+
+    private fun observerLiveData() {
+
+        // 로그인 처리
+        mViewModel.signInData.observe(this, Observer {
+            val result = it
+            if(result == null){
+                println("로그인 null 에러")
+            }
+
+            if(result.status == 301){
+                println("회원가입 호출해야함.")
+            }else{
+                println("로그인 처리해야함")
+            }
+        })
     }
 
     /**
@@ -200,146 +212,15 @@ class LoginActivity : AppCompatActivity() {
         val naverClientSecret = getString(R.string.naver_login_secret)
         val naverClientName = getString(R.string.naver_login_name)
 
-        mOAuthLoginInstance = OAuthLogin.getInstance()
-        mOAuthLoginInstance.init(this, naverClientId, naverClientSecret, naverClientName)
+        naverLoginInstance = OAuthLogin.getInstance()
+        naverLoginInstance.init(this, naverClientId, naverClientSecret, naverClientName)
 
         // 네이버 로그인 버튼 클릭 시 로그인 핸들러 실행
-        mBinding.naverLoginButton.setOAuthLoginHandler(mOAuthLoginHandler)
+//        mBinding.naverLoginButton.setOAuthLoginHandler(naverLoginHandler)
+        mBinding.naverLoginButton.setOAuthLoginHandler(
+            NaverLogin().naverLoginHandler(this, mViewModel, naverLoginInstance)
+        )
     }
-
-
-
-    /**
-     * 네이버 로그인
-     * 로그인이 완료되거나 취소될 때 호출되는 메서드(로그인 핸들러)
-     */
-    private val mOAuthLoginHandler: OAuthLoginHandler = @SuppressLint("HandlerLeak")
-    object : OAuthLoginHandler() {
-        override fun run(success: Boolean) {
-            // 로그인 성공시
-            if (success) {
-                /**
-                 * 서버통신을 하기 때문에 스레드 사용.
-                 * 네이버 오픈 API를 사용하기 위해 mOAuthLoginInstance에 오픈 API의 accessToken을 넘겨줌.
-                 * 얻은 데이터를 LoginRepository()에 넘겨주고 서버와 연결하여 유저의 accessToken을 발급받음.
-                 */
-                runBlocking {
-                    val naverSignInInform = JSONObject()
-                    GlobalScope.launch {
-                        naverSignInInform.put("id", loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)).get("id"))
-                        naverSignInInform.put("email", loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)).get("email"))
-                        naverSignInInform.put("name", loginInform(mOAuthLoginInstance.getAccessToken(applicationContext)).get("name"))
-                        println("네이버 로그인 정보 $naverSignInInform")
-                        loginInform(mOAuthLoginInstance.getAccessToken(applicationContext))
-                        try {
-                            signInData = LoginRepository().getSignInData(naverSignInInform, 2)
-                        }catch (e: Error){
-                            println("로그인 실패 $e")
-                        }
-                    }.join()
-                    if (signInData.status == 301) {
-                        // 회원가입을 위해 닉네임을 입력하기 위한 다이얼로그 호출
-                        signUpAlertDialog(naverSignInInform)
-                    }
-                    // 기존 아이디가 존재하여 로그인을 하는 경우
-                    else {
-                        userAccessToken = signInData.data.get("accessToken").toString()
-                        SharedPreferences(this@LoginActivity).accessToken = userAccessToken
-                        successLogin()
-                    }
-                }
-            } else { // 로그인 실패시
-                val errorCode: String =
-                    mOAuthLoginInstance.getLastErrorCode(this@LoginActivity).code
-                val errorDesc = mOAuthLoginInstance.getLastErrorDesc(this@LoginActivity)
-
-                Toast.makeText(
-                    baseContext, "errorCode:" + errorCode
-                            + ", errorDesc:" + errorDesc, Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
-
-
-    /**
-     * 네이버 로그인
-     * 현재 로그인된 정보를 가져오는 메서드
-     */
-    fun loginInform(accessToken: String): JSONObject {
-        val header = "Bearer $accessToken"
-        val requestHeaders = mutableMapOf<String, String>()
-        println("확인 $requestHeaders")
-        requestHeaders["Authorization"] = header
-        val responseBody = get(requestHeaders)
-
-        // api를 호출하여 얻어온 결과에서 id, email, name 가져오는 과정
-        return responseBody.getJSONObject("response")
-    }
-
-    /**
-     * 네이버 로그인
-     * 네이버 회원 api 호출하여 정보 가져오는 메서드
-     */
-    private fun get(requestHeaders: Map<String, String>): JSONObject {
-        val con = connect("https://openapi.naver.com/v1/nid/me")
-        try {
-            con.requestMethod = "GET"
-
-            for ((key, value) in requestHeaders) {
-                con.setRequestProperty(key, value)
-            }
-
-            val responseCode = con.responseCode
-            return if (responseCode == HttpURLConnection.HTTP_OK) {
-                readBody(con.inputStream)
-            } else {
-                readBody(con.errorStream)
-            }
-        } catch (error: IOException) {
-            throw RuntimeException("API 요청과 응답 실패 $error")
-        } finally {
-            con.disconnect()
-        }
-
-    }
-
-    /**
-     * 네이버 로그인
-     */
-    private fun connect(apiUrl: String): HttpURLConnection {
-        try {
-            val url = URL(apiUrl)
-            return url.openConnection() as HttpURLConnection
-        } catch (error: MalformedURLException) {
-            throw RuntimeException("API URL이 잘못되었습니다. : $apiUrl, $error")
-        } catch (error: IOException) {
-            throw RuntimeException("연결이 실패했습니다. : $apiUrl, $error")
-        }
-    }
-
-
-    /**
-     * 네이버 로그인
-     * 서버에서 가져오는 데이터를 json 텍스트로 변환해주는 메서드
-     */
-    private fun readBody(body: InputStream): JSONObject {
-        val streamReader = InputStreamReader(body)
-
-        try {
-            BufferedReader(streamReader).use { lineReader ->
-                val responseBody = StringBuilder()
-                var line: String?
-                while (lineReader.readLine().also { line = it } != null) {
-                    responseBody.append(line)
-                }
-                return JSONObject(responseBody.toString())
-            }
-        } catch (e: IOException) {
-            throw java.lang.RuntimeException("API 응답을 읽는데 실패했습니다.", e)
-        }
-    }
-
 
     /**
      * 회원가입할때 닉네입 입력창 띄우기
