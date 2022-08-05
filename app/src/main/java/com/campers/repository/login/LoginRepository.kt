@@ -9,13 +9,11 @@ import com.campers.repository.login.LoginApi.loginService
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
-/**
- * Login 결과의 accessToken을 반환
- */
 class LoginRepository {
 
     fun getSignInData(loginData: JSONObject, socialPlatform: Int): SignInResponse {
         var data: SignInResponse?
+        println("repository $loginData")
         runBlocking {
             // 요청데이터 작성
             val request = LoginRequest(
@@ -51,7 +49,7 @@ class LoginRepository {
 }
 
 object LoginApi {
-    val loginService: LoginService by lazy{
+    val loginService: LoginService by lazy {
         retrofit.create(LoginService::class.java)
     }
 }

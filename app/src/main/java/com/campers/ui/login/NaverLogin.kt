@@ -33,13 +33,12 @@ class NaverLogin : AppCompatActivity(){
                         naverSignInInform.put("id", loginInform(naverLoginInstance.getAccessToken(context)).get("id"))
                         naverSignInInform.put("email", loginInform(naverLoginInstance.getAccessToken(context)).get("email"))
                         naverSignInInform.put("name", loginInform(naverLoginInstance.getAccessToken(context)).get("name"))
+                        println("naverSignInInform $naverSignInInform")
+                        viewModel.getSignInData(naverSignInInform, 2)
                     }catch (e:Exception){
 
                     }
-
                 }
-
-                viewModel.getSignInData(naverSignInInform, 2)
             }else{
                 println("네이버 로그인 실패")
             }
@@ -62,7 +61,6 @@ class NaverLogin : AppCompatActivity(){
 //                        loginInform(naverLoginInstance.getAccessToken(applicationContext))
 //                        try {
 ////                            signInData = LoginRepository().getSignInData(naverSignInInform, 2)
-//                            viewModel.getSignInData(naverSignInInform, 2)
 //                        }catch (e: Error){
 //                            println("로그인 실패 $e")
 //                        }
@@ -101,7 +99,6 @@ class NaverLogin : AppCompatActivity(){
     fun loginInform(accessToken: String): JSONObject {
         val header = "Bearer $accessToken"
         val requestHeaders = mutableMapOf<String, String>()
-        println("확인 $requestHeaders")
         requestHeaders["Authorization"] = header
         val responseBody = get(requestHeaders)
 

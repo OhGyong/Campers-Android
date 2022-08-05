@@ -16,6 +16,7 @@ class LoginViewModel: ViewModel() {
     fun getSignInData(loginData: JSONObject, socialPlatform: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                println("loginData $loginData")
                 signInData.value = LoginRepository().getSignInData(loginData, socialPlatform)
             }catch (e : Exception) {
                 println("로그인 에러 $e")
