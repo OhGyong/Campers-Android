@@ -13,7 +13,7 @@ class AppIntroActivity: Activity() {
         setContentView(R.layout.activity_intro)
 
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
-        viewPager.adapter = AppIntroAdapter(imageList())
+        viewPager.adapter = AppIntroAdapter(this, imageList())
     }
 
     private fun imageList(): ArrayList<Int>{

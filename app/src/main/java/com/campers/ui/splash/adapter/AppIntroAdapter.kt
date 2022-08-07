@@ -1,5 +1,6 @@
 package com.campers.ui.splash.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.campers.R
 import com.campers.ui.login.LoginActivity
 
-class AppIntroAdapter(imageList: ArrayList<Int>): RecyclerView.Adapter<AppIntroAdapter.PagerViewHolder>() {
+class AppIntroAdapter(val context: Context, imageList: ArrayList<Int>): RecyclerView.Adapter<AppIntroAdapter.PagerViewHolder>() {
 
     var item = imageList
 
@@ -20,6 +21,8 @@ class AppIntroAdapter(imageList: ArrayList<Int>): RecyclerView.Adapter<AppIntroA
             itemView.findViewById<View>(R.id.v_skip_intro).setOnClickListener {
                 val intent = Intent(itemView.context, LoginActivity::class.java)
                 ContextCompat.startActivity(itemView.context, intent, null)
+
+//                (context as Activity).finish() // 화면 이동 후 액티비티 종료
             }
         }
     }

@@ -36,6 +36,7 @@ class NaverLogin : AppCompatActivity(){
                         println("naverSignInInform $naverSignInInform")
                         viewModel.getSignInData(naverSignInInform, 2)
                     }catch (e:Exception){
+                        println("NaverLogin $e")
 
                     }
                 }
