@@ -13,7 +13,6 @@ class LoginRepository {
 
     fun getSignInData(loginData: JSONObject, socialPlatform: Int): SignInResponse {
         var data: SignInResponse?
-        println("repository $loginData")
         runBlocking {
             // 요청데이터 작성
             val request = LoginRequest(
@@ -24,7 +23,6 @@ class LoginRepository {
             )
 
             data = loginService.signIn(request).execute().body()
-            println("로그인 데이터 확인 $data")
         }
         return data!!
     }
@@ -42,7 +40,6 @@ class LoginRepository {
 
             // 응답데이터 처리
             data = loginService.signUp(request).execute().body()
-            println("회원가입 데이터 확인 $data")
         }
         return data!!
     }

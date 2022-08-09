@@ -84,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
         // 로그인 처리
         mViewModel.signInData.observe(this, Observer {
             val result = it
+            println(result)
             if(result == null){
                 println("로그인 null 에러")
             }
