@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var userAccessToken: String
 
     // 서버에서 받아온 로그인 응답 데이터
-    private lateinit var signInData: SignInResponse
+    private var signInData: SignInResponse? = null
 
     // 서버에서 받아온 회원가입 응답 데이터
     private lateinit var signUpData: SignUpResponse
@@ -170,13 +170,13 @@ class LoginActivity : AppCompatActivity() {
                                 println("로그인 실패 $task")
                             }
                         }.join()
-                        if (signInData.status == 301) {
+                        if (signInData?.status == 301) {
                             // 회원가입을 위해 닉네임을 입력하기 위한 다이얼로그 호출
                             signUpAlertDialog(googleLoginInform)
                         }
                         // 기존 아이디가 존재하여 로그인을 하는 경우
                         else {
-                            userAccessToken = (signInData.data.get("accessToken")).toString()
+                            userAccessToken = (signInData?.data?.get("accessToken")).toString()
                             SharedPreferences(this@LoginActivity).accessToken = userAccessToken
                             successLogin()
                         }

@@ -18,7 +18,7 @@ class LoginViewModel: ViewModel() {
             try {
                 signInData.postValue(LoginRepository().getSignInData(loginData, socialPlatform))
             }catch (e : Exception) {
-                println("로그인 에러 $e")
+                println("signIn API 에러 $e")
             }
         }
     }

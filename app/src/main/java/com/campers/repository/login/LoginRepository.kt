@@ -11,20 +11,16 @@ import org.json.JSONObject
 
 class LoginRepository {
 
-    fun getSignInData(loginData: JSONObject, socialPlatform: Int): SignInResponse {
-        var data: SignInResponse?
-        runBlocking {
-            // 요청데이터 작성
-            val request = LoginRequest(
-                loginData.getString("id"),
-                loginData.getString("email"),
-                socialPlatform,
-                loginData.getString("name")
-            )
-
-            data = loginService.signIn(request).execute().body()
-        }
-        return data!!
+    fun getSignInData(loginData: JSONObject, socialPlatform: Int): SignInResponse? {
+        val data: SignInResponse?
+        val request = LoginRequest(
+            loginData.getString("id"),
+            loginData.getString("email"),
+            socialPlatform,
+            loginData.getString("name")
+        )
+        data = loginService.signIn(request).execute().body()
+        return data
     }
 
     fun getSignUpData(loginData: JSONObject, socialPlatform: Int): SignUpResponse{

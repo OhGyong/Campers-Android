@@ -8,6 +8,7 @@ import com.nhn.android.naverlogin.OAuthLoginHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
@@ -28,76 +29,37 @@ class NaverLogin : AppCompatActivity(){
             if(success){
                 val naverSignInInform = JSONObject()
 
-                CoroutineScope(Dispatchers.IO).launch {
-                    try {
-                        naverSignInInform.put("id", loginInform(naverLoginInstance.getAccessToken(context)).get("id"))
-                        naverSignInInform.put("email", loginInform(naverLoginInstance.getAccessToken(context)).get("email"))
-                        naverSignInInform.put("name", loginInform(naverLoginInstance.getAccessToken(context)).get("name"))
-                        println("naverSignInInform $naverSignInInform")
-                        viewModel.getSignInData(naverSignInInform, 2)
-                    }catch (e:Exception){
-                        println("NaverLogin $e ")
-
+                /**
+                 * 1. runBlocking 안에 코루틴을 실행시키고 네이버 유저 정보를 받아온다.
+                 * 2. 네이버 유저 정보를 다 얻을때까지 join()을 통해 기다린다.
+                 * 3. 정보를 다 얻어오면 로그인 api 호출
+                 * → 원래는 Coroutine 안에서 다 처리할 수 있지만 ViewModel에서 CoroutineScope를 실행시켜 로직을 분리하기 위해 이 방법을 사용했다.
+                 */
+                runBlocking {
+                    val naverUserInformLaunch = CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            naverSignInInform.put("id", loginInform(naverLoginInstance.getAccessToken(context)).get("id"))
+                            naverSignInInform.put("email", loginInform(naverLoginInstance.getAccessToken(context)).get("email"))
+                            naverSignInInform.put("name", loginInform(naverLoginInstance.getAccessToken(context)).get("name"))
+                        }catch (e:Exception){
+                            println("NaverLoginInform API 에러 $e ")
+                        }
                     }
+                    naverUserInformLaunch.join()
+                    viewModel.getSignInData(naverSignInInform, 2)
                 }
+
             }else{
                 println("네이버 로그인 실패")
             }
-
-
-            // 로그인 성공시
-//            if (success) {
-//                /**
-//                 * 서버통신을 하기 때문에 스레드 사용.
-//                 * 네이버 오픈 API를 사용하기 위해 mOAuthLoginInstance에 오픈 API의 accessToken을 넘겨줌.
-//                 * 얻은 데이터를 LoginRepository()에 넘겨주고 서버와 연결하여 유저의 accessToken을 발급받음.
-//                 */
-//                runBlocking {
-//                    val naverSignInInform = JSONObject()
-//                    GlobalScope.launch {
-//                        naverSignInInform.put("id", loginInform(naverLoginInstance.getAccessToken(applicationContext)).get("id"))
-//                        naverSignInInform.put("email", loginInform(naverLoginInstance.getAccessToken(applicationContext)).get("email"))
-//                        naverSignInInform.put("name", loginInform(naverLoginInstance.getAccessToken(applicationContext)).get("name"))
-//                        println("네이버 로그인 정보 $naverSignInInform")
-//                        loginInform(naverLoginInstance.getAccessToken(applicationContext))
-//                        try {
-////                            signInData = LoginRepository().getSignInData(naverSignInInform, 2)
-//                        }catch (e: Error){
-//                            println("로그인 실패 $e")
-//                        }
-//                    }.join()
-//                    if (signInData.status == 301) {
-//                        // 회원가입을 위해 닉네임을 입력하기 위한 다이얼로그 호출
-//                        signUpAlertDialog(naverSignInInform)
-//                    }
-//                    // 기존 아이디가 존재하여 로그인을 하는 경우
-//                    else {
-//                        userAccessToken = signInData.data.get("accessToken").toString()
-//                        SharedPreferences(context).accessToken = userAccessToken
-//                        successLogin()
-//                    }
-//                }
-//            } else { // 로그인 실패시
-//                val errorCode: String =
-//                    naverLoginInstance.getLastErrorCode(context).code
-//                val errorDesc = naverLoginInstance.getLastErrorDesc(context)
-//
-//                Toast.makeText(
-//                    baseContext, "errorCode:" + errorCode
-//                            + ", errorDesc:" + errorDesc, Toast.LENGTH_LONG
-//                ).show()
-//            }
-
         }
     }
-
-
 
     /**
      * 네이버 로그인
      * 현재 로그인된 정보를 가져오는 메서드
      */
-    fun loginInform(accessToken: String): JSONObject {
+     fun loginInform(accessToken: String): JSONObject {
         val header = "Bearer $accessToken"
         val requestHeaders = mutableMapOf<String, String>()
         requestHeaders["Authorization"] = header
