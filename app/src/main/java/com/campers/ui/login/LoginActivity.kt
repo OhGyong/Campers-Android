@@ -85,11 +85,19 @@ class LoginActivity : AppCompatActivity() {
         mViewModel.signInData.observe(this, Observer {
             val result = it
             println(result)
-            if(result == null){
+
+            if(result.failure != null){
+                println("로그인 에러 발생 ${result.failure}")
+                return@Observer
+            }
+
+            val success = result.success
+
+            if(success == null){
                 println("로그인 null 에러")
             }
 
-            if(result.status == 301){
+            if(success?.status == 301){
                 println("회원가입 호출해야함.")
             }else{
                 println("로그인 처리해야함")

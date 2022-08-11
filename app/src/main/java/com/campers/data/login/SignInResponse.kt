@@ -24,3 +24,9 @@ data class SignUpResponse(
     @SerializedName("data")
     val data: JsonObject
 )
+
+
+data class SignInResult(
+    val success : SignInResponse? = null,
+    val failure : Exception? = null
+)
