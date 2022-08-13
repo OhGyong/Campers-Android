@@ -10,4 +10,8 @@
 
     <color name="app_field_color">#AAD6F8</color>
     <color name="app_text_color">#3397E4</color>
+    <color name="check_color">#3397E4</color>
+    <color name="cancel_color">#AAD6F8</color>
+
+
 </resources>

@@ -42,7 +42,7 @@ class NaverLogin : AppCompatActivity(){
                             naverSignInInform.put("email", loginInform(naverLoginInstance.getAccessToken(context)).get("email"))
                             naverSignInInform.put("name", loginInform(naverLoginInstance.getAccessToken(context)).get("name"))
                         }catch (e:Exception){
-                            println("NaverLoginInform API 에러 $e ")
+                            // TODO : 에러 바텀 시트를 띄우자
                         }
                     }
                     naverUserInformLaunch.join()
@@ -50,7 +50,7 @@ class NaverLogin : AppCompatActivity(){
                 }
 
             }else{
-                println("네이버 로그인 실패")
+                // TODO : 에러 바텀 시트를 띄우자
             }
         }
     }
@@ -89,6 +89,7 @@ class NaverLogin : AppCompatActivity(){
                 readBody(con.errorStream)
             }
         } catch (error: IOException) {
+            // TODO : 에러 바텀 시트를 띄우자
             throw RuntimeException("API 요청과 응답 실패 $error")
         } finally {
             con.disconnect()
@@ -104,8 +105,10 @@ class NaverLogin : AppCompatActivity(){
             val url = URL(apiUrl)
             return url.openConnection() as HttpURLConnection
         } catch (error: MalformedURLException) {
+            // TODO : 에러 바텀 시트를 띄우자
             throw RuntimeException("API URL이 잘못되었습니다. : $apiUrl, $error")
         } catch (error: IOException) {
+            // TODO : 에러 바텀 시트를 띄우자
             throw RuntimeException("연결이 실패했습니다. : $apiUrl, $error")
         }
     }
@@ -128,6 +131,7 @@ class NaverLogin : AppCompatActivity(){
                 return JSONObject(responseBody.toString())
             }
         } catch (e: IOException) {
+            // TODO : 에러 바텀 시트를 띄우자
             throw java.lang.RuntimeException("API 응답을 읽는데 실패했습니다.", e)
         }
     }

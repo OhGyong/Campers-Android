@@ -3,6 +3,7 @@ package com.campers.ui.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.campers.data.login.SignInResult
+import com.campers.data.login.SignUpResult
 import com.campers.repository.login.LoginRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,17 +13,31 @@ import org.json.JSONObject
 class LoginViewModel: ViewModel() {
 
     var signInData : MutableLiveData<SignInResult> = MutableLiveData()
+    var signUpData : MutableLiveData<SignUpResult> = MutableLiveData()
 
-    fun getSignInData(loginData: JSONObject, socialPlatform: Int) {
+    fun getSignInData(signInDataParams: JSONObject, socialPlatform: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 signInData.postValue(
-                    SignInResult(success = LoginRepository().getSignInData(loginData, socialPlatform))
+                    SignInResult(success = LoginRepository().getSignInData(signInDataParams, socialPlatform))
                 )
             }catch (e : Exception) {
-                println("signIn API 에러 $e")
                 signInData.postValue(
                     SignInResult(failure = e)
+                )
+            }
+        }
+    }
+
+    fun getSignUpData(signUpDataParams: JSONObject, socialPlatform: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                signUpData.postValue(
+                    SignUpResult(success = LoginRepository().getSignUpData(signUpDataParams, socialPlatform))
+                )
+            }catch (e : Exception) {
+                signUpData.postValue(
+                    SignUpResult(failure = e)
                 )
             }
         }

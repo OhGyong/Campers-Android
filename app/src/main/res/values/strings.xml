@@ -12,6 +12,11 @@
     <!-- 구글 로그인 클라이언트 id -->
     <string name="google_web_client_id" translatable="false">462976893387-cct674fg42c1qg4fh3a11q4r8atveia4.apps.googleusercontent.com</string>
 
+    <!-- 로그인 관련  -->
+    <string name="sign_up_call">com.google.gson.JsonSyntaxException: Expected a com.google.gson.JsonPrimitive but was com.google.gson.JsonObject</string>
+    <string name="sign_in_error">회원 가입에 실패하였습니다.</string>
+    <string name="sign_in_status_another_device">이미 다른 기기에 로그인 중입니다.\n로그아웃을 먼저 해주세요.</string>
+
     <!-- 각 Fragment name 지정 -->
     <string name="HomeFragment">홈</string>
     <string name="CampingzoneFragment">캠핑존</string>
@@ -24,6 +29,11 @@
     <string name="home_bestcamper_subtext">이달의 베스트 Camper에 도전하세요!</string>
     <string name="home_hotcommunity_maintext">Hot 게시글</string>
     <string name="home_hotcommunity_subtext">뭐라고 작성할까요?</string>
+
+
+    <!--  CommonBottomSheetDialog에 사용할 string  -->
+    <string name="check">확인</string>
+    <string name="cancel">취소</string>
 
 
 </resources>

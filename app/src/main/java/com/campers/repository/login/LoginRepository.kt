@@ -6,37 +6,32 @@ import com.campers.data.login.LoginRequest
 import com.campers.data.login.SignInResponse
 import com.campers.data.login.SignUpResponse
 import com.campers.repository.login.LoginApi.loginService
-import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
 class LoginRepository {
 
-    fun getSignInData(loginData: JSONObject, socialPlatform: Int): SignInResponse? {
+    fun getSignInData(signInDataParams: JSONObject, socialPlatform: Int): SignInResponse? {
         val data: SignInResponse?
         val request = LoginRequest(
-            loginData.getString("id"),
-            loginData.getString("email"),
+            signInDataParams.getString("id"),
+            signInDataParams.getString("email"),
             socialPlatform,
-            loginData.getString("name")
+            signInDataParams.getString("name")
         )
         data = loginService.signIn(request).execute().body()
         return data
     }
 
-    fun getSignUpData(loginData: JSONObject, socialPlatform: Int): SignUpResponse{
-        var data: SignUpResponse?
-        runBlocking {
-            // 요청데이터 작성
-            val request = LoginRequest(
-                loginData.getString("id"),
-                loginData.getString("email"),
-                socialPlatform,
-                loginData.getString("name")
-            )
-
-            // 응답데이터 처리
-            data = loginService.signUp(request).execute().body()
-        }
+    fun getSignUpData(signUpDataParams: JSONObject, socialPlatform: Int): SignUpResponse? {
+        val data: SignUpResponse?
+        val request = LoginRequest(
+            signUpDataParams.getString("id"),
+            signUpDataParams.getString("email"),
+            socialPlatform,
+            signUpDataParams.getString("name")
+        )
+        // 응답데이터 처리
+        data = loginService.signUp(request).execute().body()
         return data!!
     }
 }

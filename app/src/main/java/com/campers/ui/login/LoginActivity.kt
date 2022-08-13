@@ -18,6 +18,7 @@ import com.campers.data.login.SignUpResponse
 import com.campers.databinding.ActivityLoginBinding
 import com.campers.repository.login.LoginRepository
 import com.campers.util.AlertDialog
+import com.campers.util.CommonBottomSheetDialog
 import com.campers.util.SharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -56,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
     private var signInData: SignInResponse? = null
 
     // 서버에서 받아온 회원가입 응답 데이터
-    private lateinit var signUpData: SignUpResponse
+    private var signUpData: SignUpResponse? = null
 
     private lateinit var mBinding: ActivityLoginBinding
     private val mViewModel: LoginViewModel by viewModels()
@@ -87,7 +88,20 @@ class LoginActivity : AppCompatActivity() {
             println(result)
 
             if(result.failure != null){
-                println("로그인 에러 발생 ${result.failure}")
+                // 로그인 상태에서 로그인이 호출되었을 때, 다른 기기에서 로그인 중입니다가 case일 수 도?
+                if(result.failure.toString() == getString(R.string.sign_up_call)){
+                    CommonBottomSheetDialog.Builder(this)
+                        .setTitle("확인")
+                        .setContent(getString(R.string.sign_in_status_another_device))
+                        .setCheckBtn()
+                        .show()
+                }else{
+                    CommonBottomSheetDialog.Builder(this)
+                        .setTitle("확인")
+                        .setContent(getString(R.string.sign_in_error))
+                        .setCancelBtn()
+                        .show()
+                }
                 return@Observer
             }
 
@@ -254,12 +268,11 @@ class LoginActivity : AppCompatActivity() {
             signUpInform.put("name", textInputEditText.text.toString())
 
             runBlocking {
-                GlobalScope.launch {
-                    signUpData = LoginRepository().getSignUpData(signUpInform, 1)
-                }.join()
+
+                signUpData = LoginRepository().getSignUpData(signUpInform, 1)
 
                 println("유저데이터 확인 $signUpData")
-                userAccessToken = signUpData.data.get("accessToken").toString()
+                userAccessToken = signUpData?.data?.get("accessToken").toString()
                 SharedPreferences(this@LoginActivity).accessToken = userAccessToken
                 successLogin()
             }
