@@ -34,8 +34,8 @@ class CommonBottomSheetDialog(context: Context) : BottomSheetDialog(context) {
         }
 
         fun setCancelBtn(): Builder {
-            mDialog.mBinding.ctCancelWithCheck!!.visibility = View.VISIBLE
-            mDialog.mBinding.btnOnlyCheck!!.visibility = View.GONE
+            mDialog.mBinding.ctCancelWithCheck.visibility = View.VISIBLE
+            mDialog.mBinding.btnOnlyCheck.visibility = View.GONE
             mDialog.mBinding.btnCancel.setOnClickListener {
                 mDialog.dismiss()
             }
@@ -52,9 +52,9 @@ class CommonBottomSheetDialog(context: Context) : BottomSheetDialog(context) {
 
         // 확인과 함께 다이얼로그 닫을 때 호출
         fun setCheckBtn(): Builder {
-//            mDialog.mBinding.ctCancelWithCheck?.visibility = View.GONE
-//            mDialog.mBinding.btnOnlyCheck?.visibility = View.VISIBLE
-            mDialog.mBinding.btnOnlyCheck?.setOnClickListener {
+            mDialog.mBinding.ctCancelWithCheck.visibility = View.GONE
+            mDialog.mBinding.btnOnlyCheck.visibility = View.VISIBLE
+            mDialog.mBinding.btnOnlyCheck.setOnClickListener {
                 mDialog.dismiss()
             }
             return this

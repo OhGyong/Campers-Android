@@ -2,7 +2,7 @@ package com.campers.ui.login
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import com.campers.ui.BaseActivity
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +18,7 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-class NaverLogin : AppCompatActivity(){
+class NaverLogin : BaseActivity(){
     /**
      * 네이버 로그인
      * 로그인이 완료되거나 취소될 때 호출되는 메서드(로그인 핸들러)
@@ -28,7 +28,6 @@ class NaverLogin : AppCompatActivity(){
         override fun run(success: Boolean) {
             if(success){
                 val naverSignInInform = JSONObject()
-
                 /**
                  * 1. runBlocking 안에 코루틴을 실행시키고 네이버 유저 정보를 받아온다.
                  * 2. 네이버 유저 정보를 다 얻을때까지 join()을 통해 기다린다.
@@ -45,10 +44,9 @@ class NaverLogin : AppCompatActivity(){
                             // TODO : 에러 바텀 시트를 띄우자
                         }
                     }
-                    naverUserInformLaunch.join()
+                    naverUserInformLaunch.join() // 네이버 회원 정보 가져올 때까지 대기
                     viewModel.getSignInData(naverSignInInform, 2)
                 }
-
             }else{
                 // TODO : 에러 바텀 시트를 띄우자
             }

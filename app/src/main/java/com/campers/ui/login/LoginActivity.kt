@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.campers.MainActivity
@@ -17,6 +16,7 @@ import com.campers.data.login.SignInResponse
 import com.campers.data.login.SignUpResponse
 import com.campers.databinding.ActivityLoginBinding
 import com.campers.repository.login.LoginRepository
+import com.campers.ui.BaseActivity
 import com.campers.util.AlertDialog
 import com.campers.util.CommonBottomSheetDialog
 import com.campers.util.SharedPreferences
@@ -41,7 +41,7 @@ import org.json.JSONObject
 /**
  * 소셜 로그인
  */
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     // 네이버 로그인 설정
     lateinit var naverLoginInstance: OAuthLogin
@@ -81,11 +81,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observerLiveData() {
-
         // 로그인 처리
         mViewModel.signInData.observe(this, Observer {
             val result = it
-            println(result)
 
             if(result.failure != null){
                 // 로그인 상태에서 로그인이 호출되었을 때, 다른 기기에서 로그인 중입니다가 case일 수 도?
@@ -99,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
                     CommonBottomSheetDialog.Builder(this)
                         .setTitle("확인")
                         .setContent(getString(R.string.sign_in_error))
-                        .setCancelBtn()
+                        .setCheckBtn()
                         .show()
                 }
                 return@Observer
@@ -239,7 +237,6 @@ class LoginActivity : AppCompatActivity() {
         naverLoginInstance.init(this, naverClientId, naverClientSecret, naverClientName)
 
         // 네이버 로그인 버튼 클릭 시 로그인 핸들러 실행
-//        mBinding.naverLoginButton.setOAuthLoginHandler(naverLoginHandler)
         mBinding.naverLoginButton.setOAuthLoginHandler(
             NaverLogin().naverLoginHandler(this, mViewModel, naverLoginInstance)
         )
