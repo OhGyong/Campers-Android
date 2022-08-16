@@ -19,6 +19,7 @@ import com.campers.repository.login.LoginRepository
 import com.campers.ui.BaseActivity
 import com.campers.util.AlertDialog
 import com.campers.util.CommonBottomSheetDialog
+import com.campers.util.ObjectCommon
 import com.campers.util.SharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -43,15 +44,23 @@ import org.json.JSONObject
  */
 class LoginActivity : BaseActivity() {
 
+    companion object {
+        /**
+         * 소셜 플랫폼 ID
+         * 1 == 구글, 2 == 네이버
+         */
+        var socialPlatform = 0
+    }
+
     // 네이버 로그인 설정
-    lateinit var naverLoginInstance: OAuthLogin
+    private lateinit var naverLoginInstance: OAuthLogin
 
     // 구글 로그인 설정
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
     // 서버에서 받아온 accessToken
-    lateinit var userAccessToken: String
+    private lateinit var userAccessToken: String
 
     // 서버에서 받아온 로그인 응답 데이터
     private var signInData: SignInResponse? = null
@@ -61,6 +70,8 @@ class LoginActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
     private val mViewModel: LoginViewModel by viewModels()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,17 +114,54 @@ class LoginActivity : BaseActivity() {
                 return@Observer
             }
 
+            if(result.success == null){
+                CommonBottomSheetDialog.Builder(this)
+                    .setTitle("확인")
+                    .setContent(getString(R.string.sign_in_error))
+                    .setCheckBtn()
+                    .show()
+                return@Observer
+            }
+
             val success = result.success
 
-            if(success == null){
-                println("로그인 null 에러")
+            // 회원가입 호출
+            if(success.status == 301){
+                mViewModel.getSignUpData(ObjectCommon.LoginJsonData, 2)
+            }
+            // 로그인 성공
+            else{
+                println(socialPlatform)
+                println(success)
+                successLogin()
+            }
+        })
+
+        // 회원가입 처리
+        mViewModel.signUpData.observe(this, Observer {
+            val result = it
+
+            if(result.failure != null) {
+                CommonBottomSheetDialog.Builder(this)
+                    .setTitle("확인")
+                    .setContent(getString(R.string.sign_up_error))
+                    .setCheckBtn()
+                    .show()
             }
 
-            if(success?.status == 301){
-                println("회원가입 호출해야함.")
-            }else{
-                println("로그인 처리해야함")
+            if(result.success == null){
+                CommonBottomSheetDialog.Builder(this)
+                    .setTitle("확인")
+                    .setContent(getString(R.string.sign_up_error))
+                    .setCheckBtn()
+                    .show()
+                return@Observer
             }
+
+            val success = it.success
+            userAccessToken = success!!.data.get("accessToken").toString()
+            SharedPreferences(this@LoginActivity).accessToken = userAccessToken
+            successLogin()
         })
     }
 
@@ -139,6 +187,7 @@ class LoginActivity : BaseActivity() {
         // 구글 로그인 버튼 클릭 시 실행
         val googleLoginButton = findViewById<SignInButton>(R.id.googleLoginButton)
         googleLoginButton.setOnClickListener {
+            socialPlatform = 1
             googleResultListener.launch(googleSignInClient.signInIntent)
         }
     }
@@ -320,7 +369,7 @@ class LoginActivity : BaseActivity() {
     /**
      * 로그인 성공했을 경우 메인화면으로 이동하는 메서드
      */
-    fun successLogin() {
+    private fun successLogin() {
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
         startActivity(intent)
         finish()

@@ -3,6 +3,8 @@ package com.campers.ui.login
 import android.annotation.SuppressLint
 import android.content.Context
 import com.campers.ui.BaseActivity
+import com.campers.ui.login.LoginActivity.Companion.socialPlatform
+import com.campers.util.ObjectCommon.Companion.LoginJsonData
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import kotlinx.coroutines.CoroutineScope
@@ -27,7 +29,7 @@ class NaverLogin : BaseActivity(){
     object : OAuthLoginHandler() {
         override fun run(success: Boolean) {
             if(success){
-                val naverSignInInform = JSONObject()
+                LoginJsonData = JSONObject()
                 /**
                  * 1. runBlocking 안에 코루틴을 실행시키고 네이버 유저 정보를 받아온다.
                  * 2. 네이버 유저 정보를 다 얻을때까지 join()을 통해 기다린다.
@@ -37,15 +39,16 @@ class NaverLogin : BaseActivity(){
                 runBlocking {
                     val naverUserInformLaunch = CoroutineScope(Dispatchers.IO).launch {
                         try {
-                            naverSignInInform.put("id", loginInform(naverLoginInstance.getAccessToken(context)).get("id"))
-                            naverSignInInform.put("email", loginInform(naverLoginInstance.getAccessToken(context)).get("email"))
-                            naverSignInInform.put("name", loginInform(naverLoginInstance.getAccessToken(context)).get("name"))
+                            LoginJsonData.put("id", loginInform(naverLoginInstance.getAccessToken(context)).get("id"))
+                            LoginJsonData.put("email", loginInform(naverLoginInstance.getAccessToken(context)).get("email"))
+                            LoginJsonData.put("name", loginInform(naverLoginInstance.getAccessToken(context)).get("name"))
                         }catch (e:Exception){
                             // TODO : 에러 바텀 시트를 띄우자
                         }
                     }
+                    socialPlatform = 2
                     naverUserInformLaunch.join() // 네이버 회원 정보 가져올 때까지 대기
-                    viewModel.getSignInData(naverSignInInform, 2)
+                    viewModel.getSignInData(LoginJsonData, 2)
                 }
             }else{
                 // TODO : 에러 바텀 시트를 띄우자

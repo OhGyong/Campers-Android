@@ -14,7 +14,8 @@
 
     <!-- 로그인 관련  -->
     <string name="sign_up_call">com.google.gson.JsonSyntaxException: Expected a com.google.gson.JsonPrimitive but was com.google.gson.JsonObject</string>
-    <string name="sign_in_error">회원 가입에 실패하였습니다.</string>
+    <string name="sign_up_error">회원 가입에 실패하였습니다.</string>
+    <string name="sign_in_error">로그인에 실패하였습니다.</string>
     <string name="sign_in_status_another_device">이미 다른 기기에 로그인 중입니다.\n로그아웃을 먼저 해주세요.</string>
 
     <!-- 각 Fragment name 지정 -->
