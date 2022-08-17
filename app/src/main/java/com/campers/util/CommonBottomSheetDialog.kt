@@ -4,10 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.Window
+import com.campers.R
 import com.campers.databinding.CommonDialogBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class CommonBottomSheetDialog(context: Context) : BottomSheetDialog(context) {
+class CommonBottomSheetDialog(context: Context) : BottomSheetDialog(context, R.style.CommonBottomDialog) {
+
     interface BtnClickListener {
         fun onBtnClick()
     }

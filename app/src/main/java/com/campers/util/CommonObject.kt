@@ -2,7 +2,7 @@ package com.campers.util
 
 import org.json.JSONObject
 
-class ObjectCommon {
+class CommonObject {
     companion object {
         var LoginJsonData = JSONObject()
 

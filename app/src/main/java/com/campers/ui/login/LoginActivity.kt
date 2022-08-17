@@ -19,7 +19,7 @@ import com.campers.repository.login.LoginRepository
 import com.campers.ui.BaseActivity
 import com.campers.util.AlertDialog
 import com.campers.util.CommonBottomSheetDialog
-import com.campers.util.ObjectCommon
+import com.campers.util.CommonObject.Companion.LoginJsonData
 import com.campers.util.SharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -127,7 +127,7 @@ class LoginActivity : BaseActivity() {
 
             // 회원가입 호출
             if(success.status == 301){
-                mViewModel.getSignUpData(ObjectCommon.LoginJsonData, 2)
+                mViewModel.getSignUpData(LoginJsonData, 2)
             }
             // 로그인 성공
             else{
