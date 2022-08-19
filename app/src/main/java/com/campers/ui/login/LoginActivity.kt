@@ -21,6 +21,7 @@ import com.campers.util.AlertDialog
 import com.campers.util.CommonBottomSheetDialog
 import com.campers.util.CommonInputDialog
 import com.campers.util.CommonObject.Companion.LoginJsonData
+import com.campers.util.CommonObject.Companion.socialPlatform
 import com.campers.util.SharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -44,14 +45,6 @@ import org.json.JSONObject
  * 소셜 로그인
  */
 class LoginActivity : BaseActivity() {
-
-    companion object {
-        /**
-         * 소셜 플랫폼 ID
-         * 1 == 구글, 2 == 네이버
-         */
-        var socialPlatform = 0
-    }
 
     // 네이버 로그인 설정
     private lateinit var naverLoginInstance: OAuthLogin
@@ -95,21 +88,16 @@ class LoginActivity : BaseActivity() {
     private fun observerLiveData() {
         // 로그인 처리
         mViewModel.signInData.observe(this, Observer {
-            val result = it
 
-            if(result.failure != null){
+            if(it.failure != null){
                 // 로그인 상태에서 로그인이 호출되었을 때, 다른 기기에서 로그인 중입니다가 case일 수 도?
-                if(result.failure.toString() == getString(R.string.sign_up_call)){
-                    CommonInputDialog.Builder(this)
-                        .setTitle(getString(R.string.sign_up))
-                        .setEditText(getString(R.string.sign_up_input_nickname_hint))
-                        .setCancelBtn()
+                if(it.failure.toString() == getString(R.string.sign_up_call)){
+
+                    CommonBottomSheetDialog.Builder(this)
+                        .setTitle(getString(R.string.check))
+                        .setContent(getString(R.string.sign_in_status_another_device))
+                        .setCheckBtn()
                         .show()
-//                    CommonBottomSheetDialog.Builder(this)
-//                        .setTitle(getString(R.string.check))
-//                        .setContent(getString(R.string.sign_in_status_another_device))
-//                        .setCheckBtn()
-//                        .show()
                 }else{
                     CommonBottomSheetDialog.Builder(this)
                         .setTitle(getString(R.string.check))
@@ -120,7 +108,9 @@ class LoginActivity : BaseActivity() {
                 return@Observer
             }
 
-            if(result.success == null){
+            val success = it.success
+
+            if(success == null){
                 CommonBottomSheetDialog.Builder(this)
                     .setTitle(getString(R.string.check))
                     .setContent(getString(R.string.sign_in_error))
@@ -129,25 +119,37 @@ class LoginActivity : BaseActivity() {
                 return@Observer
             }
 
-            val success = result.success
-
             // 회원가입 호출
             if(success.status == 301){
-                mViewModel.getSignUpData(LoginJsonData, 2)
+                CommonInputDialog.Builder(this)
+                    .setTitle(getString(R.string.sign_up))
+                    .setEditText(getString(R.string.sign_up_input_nickname_hint))
+                    .setCancelBtn()
+                    .setCheckBtn(object: CommonInputDialog.BtnClickListener{
+                        override fun onBtnClick(dialog: CommonInputDialog, content: String) {
+                            LoginJsonData.put("name", content)
+                            showLoading(this@LoginActivity)
+                            mViewModel.getSignUpData(LoginJsonData, socialPlatform)
+                            dialog.dismiss()
+                        }
+                    })
+                    .show()
             }
             // 로그인 성공
             else{
                 println(socialPlatform)
                 println(success)
+                userAccessToken = success.data.get("accessToken").toString()
+                SharedPreferences(this@LoginActivity).accessToken = userAccessToken
                 successLogin()
             }
         })
 
         // 회원가입 처리
         mViewModel.signUpData.observe(this, Observer {
-            val result = it
+            hideLoading()
 
-            if(result.failure != null) {
+            if(it.failure != null) {
                 CommonBottomSheetDialog.Builder(this)
                     .setTitle("확인")
                     .setContent(getString(R.string.sign_up_error))
@@ -155,7 +157,9 @@ class LoginActivity : BaseActivity() {
                     .show()
             }
 
-            if(result.success == null){
+            val success = it.success
+
+            if(success == null){
                 CommonBottomSheetDialog.Builder(this)
                     .setTitle("확인")
                     .setContent(getString(R.string.sign_up_error))
@@ -164,8 +168,7 @@ class LoginActivity : BaseActivity() {
                 return@Observer
             }
 
-            val success = it.success
-            userAccessToken = success!!.data.get("accessToken").toString()
+            userAccessToken = success.data.get("accessToken").toString()
             SharedPreferences(this@LoginActivity).accessToken = userAccessToken
             successLogin()
         })

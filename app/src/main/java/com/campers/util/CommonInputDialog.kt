@@ -11,7 +11,7 @@ import com.campers.databinding.CommonDialogInputBinding
 class CommonInputDialog(context: Context): Dialog(context, R.style.CommonInputDialog) {
 
     interface BtnClickListener {
-        fun onBtnClick()
+        fun onBtnClick(dialog: CommonInputDialog, content: String)
     }
 
     private var mBinding = CommonDialogInputBinding.inflate(layoutInflater)
@@ -47,7 +47,7 @@ class CommonInputDialog(context: Context): Dialog(context, R.style.CommonInputDi
         // 클릭 리스너 이벤트를 사용할 때 호출
         fun setCheckBtn(rightBtnClickListener: BtnClickListener? = null): Builder {
             mDialog.mBinding.btnCheck.setOnClickListener {
-                rightBtnClickListener?.onBtnClick()
+                rightBtnClickListener?.onBtnClick(mDialog, mDialog.mBinding.etContent.text.toString())
             }
             return this
         }

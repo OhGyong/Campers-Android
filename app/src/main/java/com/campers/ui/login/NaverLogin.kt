@@ -3,8 +3,8 @@ package com.campers.ui.login
 import android.annotation.SuppressLint
 import android.content.Context
 import com.campers.ui.BaseActivity
-import com.campers.ui.login.LoginActivity.Companion.socialPlatform
 import com.campers.util.CommonObject.Companion.LoginJsonData
+import com.campers.util.CommonObject.Companion.socialPlatform
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import kotlinx.coroutines.CoroutineScope
