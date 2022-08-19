@@ -19,10 +19,17 @@
     </style>
 
 
-    <!-- CommonBottomDialog  -->
-    <style name="CommonBottomDialog" parent="@style/Theme.MaterialComponents.Dialog">
+    <!-- CommonBottomSheetDialog  -->
+    <style name="CommonBottomSheetDialog" parent="@style/Theme.MaterialComponents.Dialog">
         <item name="android:windowIsFloating">false</item>
         <item name="behavior_draggable">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!--  CommonInputDialog  -->
+    <style name="CommonInputDialog" parent="@style/Theme.MaterialComponents.Dialog">
+        <item name="android:windowMinWidthMajor">100%</item> // 최대 크기
+        <item name="android:windowMinWidthMinor">100%</item> // 최소 크기
+        <item name="android:minHeight">0dp</item> 👈 height 설정
     </style>
 </resources>

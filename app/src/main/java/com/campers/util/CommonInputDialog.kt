@@ -1,20 +1,20 @@
 package com.campers.util
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.Window
 import com.campers.R
-import com.campers.databinding.CommonDialogBottomSheetBinding
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.campers.databinding.CommonDialogInputBinding
 
-class CommonBottomSheetDialog(context: Context) : BottomSheetDialog(context, R.style.CommonBottomSheetDialog) {
+class CommonInputDialog(context: Context): Dialog(context, R.style.CommonInputDialog) {
 
     interface BtnClickListener {
         fun onBtnClick()
     }
 
-    private var mBinding = CommonDialogBottomSheetBinding.inflate(layoutInflater)
+    private var mBinding = CommonDialogInputBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,15 +23,15 @@ class CommonBottomSheetDialog(context: Context) : BottomSheetDialog(context, R.s
     }
 
     class Builder(context: Context) {
-        private val mDialog = CommonBottomSheetDialog(context)
+        private val mDialog = CommonInputDialog(context)
 
         fun setTitle(text: String): Builder {
             mDialog.mBinding.tvTitle.text = text
             return this
         }
 
-        fun setContent(text: String): Builder {
-            mDialog.mBinding.tvContent.text = text
+        fun setEditText(hint: String): Builder {
+            mDialog.mBinding.etContent.hint = hint
             return this
         }
 
@@ -62,7 +62,7 @@ class CommonBottomSheetDialog(context: Context) : BottomSheetDialog(context, R.s
             return this
         }
 
-        fun show(): CommonBottomSheetDialog {
+        fun show(): CommonInputDialog {
             mDialog.show()
             return mDialog
         }

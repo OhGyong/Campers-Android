@@ -19,6 +19,7 @@ import com.campers.repository.login.LoginRepository
 import com.campers.ui.BaseActivity
 import com.campers.util.AlertDialog
 import com.campers.util.CommonBottomSheetDialog
+import com.campers.util.CommonInputDialog
 import com.campers.util.CommonObject.Companion.LoginJsonData
 import com.campers.util.SharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -99,14 +100,19 @@ class LoginActivity : BaseActivity() {
             if(result.failure != null){
                 // 로그인 상태에서 로그인이 호출되었을 때, 다른 기기에서 로그인 중입니다가 case일 수 도?
                 if(result.failure.toString() == getString(R.string.sign_up_call)){
-                    CommonBottomSheetDialog.Builder(this)
-                        .setTitle("확인")
-                        .setContent(getString(R.string.sign_in_status_another_device))
-                        .setCheckBtn()
+                    CommonInputDialog.Builder(this)
+                        .setTitle(getString(R.string.sign_up))
+                        .setEditText(getString(R.string.sign_up_input_nickname_hint))
+                        .setCancelBtn()
                         .show()
+//                    CommonBottomSheetDialog.Builder(this)
+//                        .setTitle(getString(R.string.check))
+//                        .setContent(getString(R.string.sign_in_status_another_device))
+//                        .setCheckBtn()
+//                        .show()
                 }else{
                     CommonBottomSheetDialog.Builder(this)
-                        .setTitle("확인")
+                        .setTitle(getString(R.string.check))
                         .setContent(getString(R.string.sign_in_error))
                         .setCheckBtn()
                         .show()
@@ -116,7 +122,7 @@ class LoginActivity : BaseActivity() {
 
             if(result.success == null){
                 CommonBottomSheetDialog.Builder(this)
-                    .setTitle("확인")
+                    .setTitle(getString(R.string.check))
                     .setContent(getString(R.string.sign_in_error))
                     .setCheckBtn()
                     .show()
