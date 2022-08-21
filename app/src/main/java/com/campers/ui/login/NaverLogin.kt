@@ -29,7 +29,6 @@ class NaverLogin : BaseActivity(){
     object : OAuthLoginHandler() {
         override fun run(success: Boolean) {
             if(success){
-                LoginJsonData = JSONObject()
                 /**
                  * 1. runBlocking 안에 코루틴을 실행시키고 네이버 유저 정보를 받아온다.
                  * 2. 네이버 유저 정보를 다 얻을때까지 join()을 통해 기다린다.

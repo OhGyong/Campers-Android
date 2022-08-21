@@ -23,7 +23,7 @@
             android:scaleType="fitXY" />
 
         <com.google.android.gms.common.SignInButton
-            android:id="@+id/googleLoginButton"
+            android:id="@+id/btn_google_login"
             android:layout_width="240dp"
             android:layout_height="55dp"
             android:layout_marginTop="70dp"
@@ -33,26 +33,27 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
-            android:id="@+id/naverLoginButton"
+            android:id="@+id/btn_naver_login"
             android:layout_width="260dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/googleLoginButton"
+            app:layout_constraintTop_toBottomOf="@+id/btn_google_login"
             tools:ignore="MissingConstraints" />
 
         <TextView
+            android:id="@+id/tv_term_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="이용약관"
+            android:text="@string/term_condition"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="13dp"
-            app:layout_constraintEnd_toEndOf="@+id/naverLoginButton"
-            app:layout_constraintTop_toBottomOf="@+id/naverLoginButton" />
+            app:layout_constraintEnd_toEndOf="@+id/btn_naver_login"
+            app:layout_constraintTop_toBottomOf="@+id/btn_naver_login" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

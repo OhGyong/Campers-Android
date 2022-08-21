@@ -19,6 +19,8 @@
     <string name="sign_in_status_another_device">이미 다른 기기에 로그인 중입니다.\n로그아웃을 먼저 해주세요.</string>
     <string name="sign_up_input_nickname_hint">닉네임을 입력해주세요.</string>
     <string name="sign_up">회원가입</string>
+    <string name="term_condition">이용약관</string>
+    <string name="google_login_btn_text">구글 아이디로 로그인</string>
 
     <!-- 각 Fragment name 지정 -->
     <string name="HomeFragment">홈</string>
