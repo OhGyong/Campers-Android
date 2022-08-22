@@ -26,7 +26,8 @@
             android:value="@string/naver_maps_id" />
 
         <!-- 스플래시 Activity -->
-        <activity android:name="com.campers.ui.splash.SplashActivity"
+        <activity
+            android:name="com.campers.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
