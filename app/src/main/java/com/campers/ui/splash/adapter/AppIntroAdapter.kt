@@ -1,5 +1,6 @@
 package com.campers.ui.splash.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -21,8 +22,7 @@ class AppIntroAdapter(val context: Context, imageList: ArrayList<Int>): Recycler
             itemView.findViewById<View>(R.id.v_skip_intro).setOnClickListener {
                 val intent = Intent(itemView.context, LoginActivity::class.java)
                 ContextCompat.startActivity(itemView.context, intent, null)
-
-//                (context as Activity).finish() // 화면 이동 후 액티비티 종료
+                (context as Activity).finish() // 화면 이동 후 액티비티 종료
             }
         }
     }
