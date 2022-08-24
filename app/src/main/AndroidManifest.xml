@@ -35,6 +35,12 @@
             </intent-filter>
         </activity>
 
+        <!-- 네이버 로그인 -->
+        <activity
+            android:name="com.nhn.android.naverlogin.ui.OAuthCustomTabActivity"
+            android:exported="true" >
+        </activity>
+
         <!-- 메인 Activity -->
         <activity
             android:name=".MainActivity"
