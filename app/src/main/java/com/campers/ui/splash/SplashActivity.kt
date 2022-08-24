@@ -9,7 +9,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.campers.MainActivity
 import com.campers.R
-import com.campers.util.SharedPreferences
+import com.campers.util.CommonSharedPreferences
 
 
 /**
@@ -28,7 +28,7 @@ class SplashActivity : Activity() {
         Glide.with(this).load(R.raw.splash_gif).into(splashLogoGif)
 
         // accessToken이 없으면 앱 인트로 화면으로 이동
-        if (SharedPreferences(this@SplashActivity).accessToken == null) {
+        if (CommonSharedPreferences(this@SplashActivity).accessToken == null) {
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = Intent(this, AppIntroActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)

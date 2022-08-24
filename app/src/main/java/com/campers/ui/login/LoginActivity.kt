@@ -11,11 +11,12 @@ import com.campers.MainActivity
 import com.campers.R
 import com.campers.databinding.ActivityLoginBinding
 import com.campers.ui.BaseActivity
+import com.campers.ui.login.viewmodel.LoginViewModel
 import com.campers.util.CommonBottomSheetDialog
 import com.campers.util.CommonInputDialog
 import com.campers.util.CommonObject.Companion.LoginJsonData
 import com.campers.util.CommonObject.Companion.socialPlatform
-import com.campers.util.SharedPreferences
+import com.campers.util.CommonSharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -108,8 +109,12 @@ class LoginActivity : BaseActivity() {
             // 로그인 성공
             else{
                 println(success)
-                userAccessToken = success.data.get("accessToken").toString()
-                SharedPreferences(this@LoginActivity).accessToken = userAccessToken
+                CommonSharedPreferences(this@LoginActivity).accessToken =
+                    success.data.get("accessToken").toString()
+                CommonSharedPreferences(this@LoginActivity).refreshToken =
+                    success.data.get("refreshToken").toString()
+//                CommonSharedPreferences(this@LoginActivity).userName =
+//                    success.data.get
                 successLogin()
             }
         })
@@ -138,7 +143,7 @@ class LoginActivity : BaseActivity() {
             }
 
             userAccessToken = success.data.get("accessToken").toString()
-            SharedPreferences(this@LoginActivity).accessToken = userAccessToken
+            CommonSharedPreferences(this@LoginActivity).accessToken = userAccessToken
             successLogin()
         })
     }

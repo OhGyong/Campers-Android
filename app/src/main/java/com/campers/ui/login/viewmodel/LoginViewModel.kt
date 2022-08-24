@@ -1,4 +1,4 @@
-package com.campers.ui.login
+package com.campers.ui.login.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -1,6 +1,7 @@
 package com.campers.ui.login
 
 import android.app.Activity
+import com.campers.ui.login.viewmodel.LoginViewModel
 import com.campers.util.CommonObject.Companion.LoginJsonData
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth

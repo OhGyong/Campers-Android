@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.campers.R
-import com.campers.util.SharedPreferences
+import com.campers.util.CommonSharedPreferences
 
 class MypageFragment: Fragment() {
     override fun onCreateView(
@@ -24,7 +24,7 @@ class MypageFragment: Fragment() {
 
         // 로그아웃 시 accessToken 삭제
         logoutButton.setOnClickListener {
-            SharedPreferences(view.context).clearPreferences()
+            CommonSharedPreferences(view.context).clearPreferences()
         }
     }
 }

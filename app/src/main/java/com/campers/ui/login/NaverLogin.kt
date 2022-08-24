@@ -3,6 +3,7 @@ package com.campers.ui.login
 import android.annotation.SuppressLint
 import android.content.Context
 import com.campers.ui.BaseActivity
+import com.campers.ui.login.viewmodel.LoginViewModel
 import com.campers.util.CommonObject.Companion.LoginJsonData
 import com.campers.util.CommonObject.Companion.socialPlatform
 import com.nhn.android.naverlogin.OAuthLogin
@@ -25,7 +26,7 @@ class NaverLogin : BaseActivity(){
      * 네이버 로그인
      * 로그인이 완료되거나 취소될 때 호출되는 메서드(로그인 핸들러)
      */
-    fun naverLoginHandler(context: Context, viewModel: LoginViewModel ,naverLoginInstance: OAuthLogin) : OAuthLoginHandler = @SuppressLint("HandlerLeak")
+    fun naverLoginHandler(context: Context, viewModel: LoginViewModel, naverLoginInstance: OAuthLogin) : OAuthLoginHandler = @SuppressLint("HandlerLeak")
     object : OAuthLoginHandler() {
         override fun run(success: Boolean) {
             if(success){
