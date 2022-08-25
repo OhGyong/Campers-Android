@@ -50,6 +50,7 @@
             app:layout_constraintTop_toTopOf="@+id/user_name" />
 
         <View
+            android:id="@+id/v_item_home_ranking"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:background="#191818"

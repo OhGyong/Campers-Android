@@ -29,12 +29,13 @@
     <string name="NotificationFragment">알림</string>
     <string name="MypageFragment">마이페이지</string>
 
-    <!-- fragment_home에 쓰이는 string -->
+    <!-- Home -->
     <string name="home_bestcamper_maintext">베스트 Camper</string>
     <string name="home_bestcamper_subtext">이달의 베스트 Camper에 도전하세요!</string>
     <string name="home_hotcommunity_maintext">Hot 게시글</string>
     <string name="home_hotcommunity_subtext">뭐라고 작성할까요?</string>
-
+    <string name="home_name_sir">님,</string>
+    <string name="home_where_you_go">어디로 캠핑가세요?</string>
 
     <!--  CommonBottomSheetDialog에 사용할 string  -->
     <string name="check">확인</string>
