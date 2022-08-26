@@ -20,6 +20,11 @@ data class RankingList(
     val totalFire: Int
 )
 
+data class RankingListResult(
+    val success: RankingListResponse? = null,
+    val failure: Exception? = null
+)
+
 data class HotCommunityListResponse(
     @SerializedName("status")
     val status: Int,

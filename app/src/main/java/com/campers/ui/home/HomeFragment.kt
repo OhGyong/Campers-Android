@@ -8,12 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.campers.R
 import com.campers.data.home.HotCommunityList
 import com.campers.data.home.RankingList
-import com.campers.databinding.ActivityLoginBinding
-import com.campers.databinding.ActivityMainBinding
 import com.campers.databinding.FragmentHomeBinding
 import com.campers.ui.home.adapter.HotCommunityAdapter
 import com.campers.ui.home.adapter.RankingAdapter
@@ -43,7 +40,7 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getRanking()
+        viewModel.getRankingList()
         viewModel.getHotCommunityList()
 
         observeLiveData()
@@ -51,13 +48,27 @@ class HomeFragment: Fragment() {
 
     private fun observeLiveData() {
         /**
-         * 홈 화면의 랭킹 리스트를 관측
+         * 회원 랭킹 리스트
          */
         viewModel.rankingData.observe(viewLifecycleOwner, Observer{
-            val payload = it.payload
+            if(it.failure != null) {
+                // TODO : 빈 랭킹 리스트 표시
+                println("랭킹 리스트 호출 에러")
+                return@Observer
+            }
 
-            for (i in 0 until payload.size()) {
-                val payloadIndex = payload.get(i)
+            val success = it.success
+
+            if(success?.payload == null) {
+                // TODO : 빈 랭킹 리스트 표시
+                println("랭킹 리스트 호출 에러")
+                return@Observer
+            }
+
+            val rankingList = success.payload
+
+            for (i in 0 until rankingList.size()) {
+                val payloadIndex = rankingList.get(i)
                 val id = payloadIndex.asJsonObject.get("id").asInt
                 val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"')
                 val rank = payloadIndex.asJsonObject.get("rank").asInt
@@ -69,7 +80,7 @@ class HomeFragment: Fragment() {
         })
 
         /**
-         * 홈 화면의 핫한 게시글 리스트 관측
+         * 핫한 게시물 리스트
          */
         viewModel.hotCommunityData.observe(viewLifecycleOwner, Observer{
             val payload = it.payload

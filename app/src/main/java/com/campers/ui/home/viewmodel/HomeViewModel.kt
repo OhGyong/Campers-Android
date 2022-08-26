@@ -4,22 +4,29 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.campers.data.home.HotCommunityListResponse
 import com.campers.data.home.RankingListResponse
+import com.campers.data.home.RankingListResult
 import com.campers.repository.home.HomeRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class HomeViewModel: ViewModel() {
 
-    val rankingData: MutableLiveData<RankingListResponse> = MutableLiveData()
+    val rankingData: MutableLiveData<RankingListResult> = MutableLiveData()
     val hotCommunityData: MutableLiveData<HotCommunityListResponse> = MutableLiveData()
 
-    fun getRanking() {
-        GlobalScope.launch {
+    // 랭킹 리스트
+    fun getRankingList() {
+        CoroutineScope(Dispatchers.IO).launch {
             try {
-                val data = HomeRepository().getRankingData()
-                rankingData.postValue(data)
-            } catch (e: Error) {
-                println("Ranking data get fail")
+                rankingData.postValue(
+                    RankingListResult(success = HomeRepository().getRankingData())
+                )
+            } catch (e: Exception) {
+                rankingData.postValue(
+                    RankingListResult(failure = e)
+                )
             }
         }
     }

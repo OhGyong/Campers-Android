@@ -12,12 +12,7 @@ import kotlinx.coroutines.runBlocking
 class HomeRepository {
 
     fun getRankingData(): RankingListResponse {
-        var data: RankingListResponse?
-        runBlocking {
-            println("Repository 랭킹 데이터")
-            // 데이터 가져오기
-            data = homeResponse.rankingList().execute().body()
-        }
+        val data = homeResponse.rankingList().execute().body()
         return data!!
     }
 

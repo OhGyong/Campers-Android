@@ -16,6 +16,11 @@ data class SignInResponse(
     val data: JsonObject
 )
 
+data class SignInResult(
+    val success: SignInResponse? = null,
+    val failure: Exception? = null
+)
+
 data class SignUpResponse(
     @SerializedName("status")
     val status: Int,
@@ -25,13 +30,7 @@ data class SignUpResponse(
     val data: JsonObject
 )
 
-
-data class SignInResult(
-    val success : SignInResponse? = null,
-    val failure : Exception? = null
-)
-
 data class SignUpResult(
-    val success : SignUpResponse? = null,
-    val failure : Exception? = null
+    val success: SignUpResponse? = null,
+    val failure: Exception? = null
 )

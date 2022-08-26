@@ -113,6 +113,7 @@ class LoginActivity : BaseActivity() {
                     success.data.get("accessToken").toString()
                 CommonSharedPreferences(this@LoginActivity).refreshToken =
                     success.data.get("refreshToken").toString()
+                // TODO : 나중에 로그인 할 때 이름 받아오기
 //                CommonSharedPreferences(this@LoginActivity).userName =
 //                    success.data.get
                 successLogin()
