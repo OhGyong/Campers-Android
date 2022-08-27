@@ -33,9 +33,7 @@ class HomeRepository {
      * type이 2면 기본 게시판
      */
     fun getHotCommunityDetailData(type: Int, id: Int): HotCommunityDetailResponse {
-        var data: HotCommunityDetailResponse?
-        println("Repository Hot 커뮤니티 상세 데이터")
-        var request: HotCommunityDetailRequest = if (type == 1) {
+        val request: HotCommunityDetailRequest = if (type == 1) {
             HotCommunityDetailRequest(
                 type,
                 id,
@@ -49,7 +47,7 @@ class HomeRepository {
             )
 
         }
-        data = homeResponse.hotCommunityDetail(request).execute().body()
+        val data = homeResponse.hotCommunityDetail(request).execute().body()
         return data!!
     }
 }

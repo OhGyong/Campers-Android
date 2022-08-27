@@ -1,5 +1,8 @@
 package com.campers.data.community
 
+/**
+ * 게시물 상세
+ */
 data class CommunityDetailData(
     val id: Int,
     val title: String,
@@ -13,6 +16,9 @@ data class CommunityDetailData(
     val memberId: Int
 )
 
+/**
+ * 게시물 상세 댓글
+ */
 data class CommunityCommentList(
     val id: Int,
 //    val defaultBoardContentsId: Int,

@@ -55,6 +55,9 @@
         <activity android:name="com.campers.ui.splash.AppIntroActivity">
         </activity>
 
+        <activity android:name="com.campers.ui.community.CommunityDetailActivity">
+        </activity>
+
     </application>
 
 </manifest>

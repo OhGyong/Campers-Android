@@ -1,5 +1,6 @@
 package com.campers.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import com.campers.R
 import com.campers.data.home.HotCommunityList
 import com.campers.data.home.RankingList
 import com.campers.databinding.FragmentHomeBinding
+import com.campers.databinding.RecyclerHomeHotcommunityBinding
+import com.campers.ui.community.CommunityDetailActivity
 import com.campers.ui.home.adapter.HotCommunityAdapter
 import com.campers.ui.home.adapter.RankingAdapter
 import com.campers.ui.home.viewmodel.HomeViewModel
@@ -28,6 +31,9 @@ class HomeFragment: Fragment() {
     private var rankingList: ArrayList<RankingList> = arrayListOf()
     private var hotCommunityList: ArrayList<HotCommunityList> = arrayListOf()
 
+    // 리사이클러 뷰 어댑터
+    private lateinit var hotCommunityAdapter: HotCommunityAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +49,9 @@ class HomeFragment: Fragment() {
         viewModel.getRankingList()
         viewModel.getHotCommunityList()
 
+        hotCommunityAdapter = HotCommunityAdapter()
+
+        clickListener()
         observeLiveData()
     }
 
@@ -109,7 +118,23 @@ class HomeFragment: Fragment() {
                 hotCommunityList.add(HotCommunityList(type, id, title, date, nickName))
             }
 
-            mBinding.homeHotcommunityRecyclerView.adapter = HotCommunityAdapter(hotCommunityList)
+            hotCommunityAdapter.setList(hotCommunityList)
+            mBinding.homeHotcommunityRecyclerView.adapter = hotCommunityAdapter
+        })
+    }
+
+    private fun clickListener() {
+        hotCommunityAdapter.setOnItemClickListener(object : HotCommunityAdapter.OnItemClickListener{
+            override fun setOnItemClick(
+                binding: RecyclerHomeHotcommunityBinding,
+                data: HotCommunityList
+            ) {
+                val intent = Intent(context, CommunityDetailActivity::class.java)
+                intent.putExtra("type", data.type)
+                intent.putExtra("id", data.id)
+                intent.putExtra("isHot", true)
+                startActivity(intent)
+            }
         })
     }
 }

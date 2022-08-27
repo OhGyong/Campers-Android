@@ -46,7 +46,6 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        mBinding.login = this
 
         // 구글 로그인 인스턴스 초기화
         googleLoginInit()
@@ -54,10 +53,10 @@ class LoginActivity : BaseActivity() {
         // 네이버 로그인 라이브러리 애플리케이션 적용(네이버 로그인 인스턴스 초기화)
         naverLoginInit()
 
-        observerLiveData()
+        observeLiveData()
     }
 
-    private fun observerLiveData() {
+    private fun observeLiveData() {
         // 로그인 처리
         mViewModel.signInData.observe(this, Observer {
             if(it.failure != null){

@@ -9,20 +9,30 @@ import com.campers.R
 import com.campers.data.home.HotCommunityList
 import com.campers.databinding.RecyclerHomeHotcommunityBinding
 
-class HotCommunityAdapter(private val list: ArrayList<HotCommunityList>) :
+class HotCommunityAdapter() :
     RecyclerView.Adapter<HotCommunityAdapter.HotCommunityViewHolder>() {
+
+    private val list: ArrayList<HotCommunityList> = arrayListOf()
+
+    interface OnItemClickListener {
+        fun setOnItemClick(binding: RecyclerHomeHotcommunityBinding, data: HotCommunityList)
+    }
+
+    private var clickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(clickListener: OnItemClickListener){
+        this.clickListener = clickListener
+    }
 
     inner class HotCommunityViewHolder(private val binding: RecyclerHomeHotcommunityBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(hotCommunityList: HotCommunityList) {
             binding.hotCommunityListItem = hotCommunityList
-            binding.root.setOnClickListener {
-                // 상세 화면으로 이동할때 type값과 id 값을 넘겨줌
-                binding.root.findNavController()
-                    .navigate(R.id.communityDetailFragment, Bundle().apply {
-                        putInt("type", hotCommunityList.type)
-                        putInt("id", hotCommunityList.id)
-                    })
+
+            if(adapterPosition != RecyclerView.NO_POSITION){
+                binding.root.setOnClickListener {
+                    clickListener?.setOnItemClick(binding, hotCommunityList)
+                }
             }
         }
     }
@@ -42,5 +52,9 @@ class HotCommunityAdapter(private val list: ArrayList<HotCommunityList>) :
 
     override fun getItemCount(): Int {
         return list.count()
+    }
+
+    fun setList(pList: ArrayList<HotCommunityList>) {
+        list.addAll(pList)
     }
 }

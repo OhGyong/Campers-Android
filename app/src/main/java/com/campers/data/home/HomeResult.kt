@@ -31,3 +31,11 @@ data class HotCommunityList(
     val date: String,
     val nickName: String
 )
+
+/**
+ * 핫 게시물 상세
+ */
+data class HotCommunityDetailResult(
+    val success: HotCommunityDetailResponse? = null,
+    val failure : Exception? = null
+)
