@@ -15,6 +15,9 @@ class LoginViewModel: ViewModel() {
     var signInData : MutableLiveData<SignInResult> = MutableLiveData()
     var signUpData : MutableLiveData<SignUpResult> = MutableLiveData()
 
+    /**
+     * 로그인
+     */
     fun getSignInData(signInDataParams: JSONObject, socialPlatform: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -29,6 +32,9 @@ class LoginViewModel: ViewModel() {
         }
     }
 
+    /**
+     * 회원가입
+     */
     fun getSignUpData(signUpDataParams: JSONObject, socialPlatform: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
