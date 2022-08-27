@@ -25,7 +25,7 @@ class HomeFragment: Fragment() {
     private lateinit var mBinding: FragmentHomeBinding
 
     // observe에서 랭킹 데이터 리스트
-    private var rankList: ArrayList<RankingList> = arrayListOf()
+    private var rankingList: ArrayList<RankingList> = arrayListOf()
     private var hotCommunityList: ArrayList<HotCommunityList> = arrayListOf()
 
     override fun onCreateView(
@@ -65,28 +65,42 @@ class HomeFragment: Fragment() {
                 return@Observer
             }
 
-            val rankingList = success.payload
+            val rankingJson = success.payload
 
-            for (i in 0 until rankingList.size()) {
-                val payloadIndex = rankingList.get(i)
+            for (i in 0 until rankingJson.size()) {
+                val payloadIndex = rankingJson.get(i)
                 val id = payloadIndex.asJsonObject.get("id").asInt
                 val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"')
                 val rank = payloadIndex.asJsonObject.get("rank").asInt
                 val totalFire = payloadIndex.asJsonObject.get("totalFire").asInt
-                rankList.add(RankingList(id, nickName, rank, totalFire))
+                rankingList.add(RankingList(id, nickName, rank, totalFire))
             }
 
-            mBinding.homeRankingRecyclerView.adapter = RankingAdapter(rankList)
+            mBinding.homeRankingRecyclerView.adapter = RankingAdapter(rankingList)
         })
 
         /**
          * 핫한 게시물 리스트
          */
         viewModel.hotCommunityData.observe(viewLifecycleOwner, Observer{
-            val payload = it.payload
+            if(it.failure != null) {
+                // TODO : 빈 랭킹 리스트 표시
+                println("핫한 게시물 리스트 호출 에러")
+                return@Observer
+            }
 
-            for(i in 0 until payload.size()){
-                val payloadIndex = payload.get(i)
+            val success = it.success
+
+            if(success?.payload == null) {
+                // TODO : 빈 랭킹 리스트 표시
+                println("핫한 게시물 리스트 호출 에러")
+                return@Observer
+            }
+
+            val hotCommunityJson = success.payload
+
+            for(i in 0 until hotCommunityJson.size()){
+                val payloadIndex = hotCommunityJson.get(i)
                 val type = payloadIndex.asJsonObject.get("type").asInt
                 val id = payloadIndex.asJsonObject.get("id").asInt
                 val title = payloadIndex.asJsonObject.get("title").toString().trim('"')

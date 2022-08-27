@@ -4,6 +4,9 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
+/**
+ * 랭킹 리스트
+ */
 data class RankingListResponse(
     @SerializedName("status")
     val status: Int,
@@ -13,18 +16,9 @@ data class RankingListResponse(
     val data: JsonObject
 )
 
-data class RankingList(
-    val id: Int,
-    val nickName: String,
-    val rank: Int,
-    val totalFire: Int
-)
-
-data class RankingListResult(
-    val success: RankingListResponse? = null,
-    val failure: Exception? = null
-)
-
+/**
+ * 핫 게시물 리스트
+ */
 data class HotCommunityListResponse(
     @SerializedName("status")
     val status: Int,
@@ -34,15 +28,11 @@ data class HotCommunityListResponse(
     val data: JsonObject
 )
 
-data class HotCommunityList(
-    val type: Int,
-    val id: Int,
-    val title: String,
-    val date: String,
-    val nickName: String
-)
-
+/**
+ * 핫 게시물 상세
+ */
 data class HotCommunityDetailResponse(
     val status: Int,
     val payload: JsonArray
 )
+

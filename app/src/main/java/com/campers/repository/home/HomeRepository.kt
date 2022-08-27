@@ -11,21 +11,24 @@ import kotlinx.coroutines.runBlocking
 
 class HomeRepository {
 
+    /**
+     * 랭킹 리스트
+     */
     fun getRankingData(): RankingListResponse {
         val data = homeResponse.rankingList().execute().body()
         return data!!
     }
 
+    /**
+     * 핫 게시물 리스트
+     */
     fun getHotCommunityListData(): HotCommunityListResponse {
-        var data: HotCommunityListResponse?
-        runBlocking {
-            println("Repository Hot 커뮤니티 데이터")
-            data = homeResponse.hotCommunityList().execute().body()
-        }
+        val data = homeResponse.hotCommunityList().execute().body()
         return data!!
     }
 
     /**
+     * 핫 게시물 상세
      * type이 1이면 유저 게시판
      * type이 2면 기본 게시판
      */

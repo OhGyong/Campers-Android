@@ -5,7 +5,8 @@ import com.google.gson.JsonPrimitive
 import com.google.gson.annotations.SerializedName
 
 /**
- * SignInResponse, SignUpResponse 둘로 나눈 이유는 payload에서 Json 타입문제 때문에 나눔
+ * 로그인.
+ * status가 301로 떨어지면 회원가입으로 넘어감.
  */
 data class SignInResponse(
     @SerializedName("status")
@@ -16,11 +17,10 @@ data class SignInResponse(
     val data: JsonObject
 )
 
-data class SignInResult(
-    val success: SignInResponse? = null,
-    val failure: Exception? = null
-)
 
+/**
+ * 회원가입
+ */
 data class SignUpResponse(
     @SerializedName("status")
     val status: Int,
@@ -28,9 +28,4 @@ data class SignUpResponse(
     val payloaod: JsonObject,
     @SerializedName("data")
     val data: JsonObject
-)
-
-data class SignUpResult(
-    val success: SignUpResponse? = null,
-    val failure: Exception? = null
 )

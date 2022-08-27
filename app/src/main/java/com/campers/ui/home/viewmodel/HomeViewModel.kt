@@ -3,6 +3,7 @@ package com.campers.ui.home.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.campers.data.home.HotCommunityListResponse
+import com.campers.data.home.HotCommunityListResult
 import com.campers.data.home.RankingListResponse
 import com.campers.data.home.RankingListResult
 import com.campers.repository.home.HomeRepository
@@ -14,9 +15,11 @@ import kotlinx.coroutines.launch
 class HomeViewModel: ViewModel() {
 
     val rankingData: MutableLiveData<RankingListResult> = MutableLiveData()
-    val hotCommunityData: MutableLiveData<HotCommunityListResponse> = MutableLiveData()
+    val hotCommunityData: MutableLiveData<HotCommunityListResult> = MutableLiveData()
 
-    // 랭킹 리스트
+    /**
+     * 랭킹 리스트
+     */
     fun getRankingList() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -31,14 +34,19 @@ class HomeViewModel: ViewModel() {
         }
     }
 
+    /**
+     * 핫 게시물 리스트
+     */
     fun getHotCommunityList() {
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             try {
-                println("ViewModel 연결")
-                val data = HomeRepository().getHotCommunityListData()
-                hotCommunityData.postValue(data)
-            } catch (e: Error) {
-                println("HotCommunity data get fail")
+                hotCommunityData.postValue(
+                    HotCommunityListResult(success = HomeRepository().getHotCommunityListData())
+                )
+            } catch (e: Exception) {
+                hotCommunityData.postValue(
+                    HotCommunityListResult(failure = e)
+                )
             }
         }
     }
