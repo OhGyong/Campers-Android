@@ -19,7 +19,6 @@ class CommunityAdapter(private val list: MutableList<CommunityData>): RecyclerVi
 
 
         fun bind(data: CommunityData, position: Int){
-            println("확인 $data")
             userName.text = data.userName
             communityTitle.text = data.communityTitle
             bornfireNum.text = data.bornfireNum.toString()

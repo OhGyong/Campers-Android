@@ -199,7 +199,6 @@ class CampingzoneFragment : Fragment(), OnMapReadyCallback {
 
             val responseBody = response.getJSONObject("body")
             val responseItems = responseBody.getJSONObject("items")
-            println(responseItems)
 
             // 고캠핑 api에서 받아온 데이터가 단일항목(JSONObject)일 경우와 JSONArray일 경우 나눠서 작업
             if (responseItems.get("item") is JSONArray) {

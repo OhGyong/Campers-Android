@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import com.campers.R
 import com.campers.data.home.HotCommunityList
 import com.campers.data.home.RankingList
+import com.campers.data.mypage.ProfileData
 import com.campers.databinding.FragmentHomeBinding
 import com.campers.databinding.RecyclerHomeHotcommunityBinding
 import com.campers.ui.community.CommunityDetailActivity
@@ -22,7 +23,7 @@ import com.campers.ui.home.viewmodel.HomeViewModel
 class HomeFragment: Fragment() {
 
     // 뷰모델
-    private val viewModel: HomeViewModel by viewModels()
+    private val mViewModel: HomeViewModel by viewModels()
 
     // 데이터 바인딩
     private lateinit var mBinding: FragmentHomeBinding
@@ -46,8 +47,9 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getRankingList()
-        viewModel.getHotCommunityList()
+        mViewModel.getRankingList()
+        mViewModel.getHotCommunityList()
+        mViewModel.getProfileData(requireContext())
 
         hotCommunityAdapter = HotCommunityAdapter()
 
@@ -59,7 +61,7 @@ class HomeFragment: Fragment() {
         /**
          * 회원 랭킹 리스트
          */
-        viewModel.rankingData.observe(viewLifecycleOwner, Observer{
+        mViewModel.rankingData.observe(viewLifecycleOwner, Observer{
             if(it.failure != null) {
                 // TODO : 빈 랭킹 리스트 표시
                 println("랭킹 리스트 호출 에러")
@@ -91,7 +93,7 @@ class HomeFragment: Fragment() {
         /**
          * 핫한 게시물 리스트
          */
-        viewModel.hotCommunityData.observe(viewLifecycleOwner, Observer{
+        mViewModel.hotCommunityData.observe(viewLifecycleOwner, Observer{
             if(it.failure != null) {
                 // TODO : 빈 랭킹 리스트 표시
                 println("핫한 게시물 리스트 호출 에러")
@@ -120,6 +122,39 @@ class HomeFragment: Fragment() {
 
             hotCommunityAdapter.setList(hotCommunityList)
             mBinding.homeHotcommunityRecyclerView.adapter = hotCommunityAdapter
+        })
+
+        /**
+         * 프로필 불러오기
+         */
+        mViewModel.profileData.observe(viewLifecycleOwner, Observer {
+            if(it.failure != null) {
+                // TODO : 에러 팝업 표시?
+                println("프로필 불러오기 실패")
+                println(it.failure)
+                return@Observer
+            }
+
+            val success= it.success
+
+            if(success?.payload == null) {
+                // TODO : 에러 팝업 표시?
+                println("프로필 불러오기 실패")
+                return@Observer
+            }
+
+            // "이름" 으로 결과를 받기 때문에 "을 제거
+            var nickName = success.payload.get(0).asJsonObject.get("nickName").toString()
+            nickName = nickName.substring((1 until nickName.length-1))
+            mBinding.nickName = ProfileData(
+                success.payload.get(0).asJsonObject.get("id").asInt,
+                nickName,
+                success.payload.get(0).asJsonObject.get("totalFire").asInt,
+                success.payload.get(0).asJsonObject.get("rank").asInt
+            )
+
+            // xml에 결합한다고 주석함.
+//            mBinding.homeUserName.text = nickName.substring((1 until nickName.length-1))
         })
     }
 

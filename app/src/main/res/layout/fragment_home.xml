@@ -8,6 +8,10 @@
         <variable
             name="home"
             type="com.campers.ui.home.HomeFragment" />
+
+        <variable
+            name="nickName"
+            type="com.campers.data.mypage.ProfileData" />
     </data>
 
     <ScrollView
@@ -47,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:textColor="@color/app_text_color"
+                    android:text="@{nickName.nickName}"
                     android:textSize="30dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/home_user_image"

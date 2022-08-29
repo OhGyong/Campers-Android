@@ -28,5 +28,4 @@ interface HomeService {
      */
     @POST("/home/hot-contents")
     fun hotCommunityDetail(@Body body: HotCommunityDetailRequest): Call<HotCommunityDetailResponse>
-
 }

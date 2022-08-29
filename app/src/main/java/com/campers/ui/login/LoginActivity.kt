@@ -187,7 +187,7 @@ class LoginActivity : BaseActivity() {
                     val account = task.getResult(ApiException::class.java)!!
                     GoogleLogin().firebaseAuthWithGoogle(account, mViewModel)
                 } catch (error: ApiException) {
-                    println("onActivity 실패 $error")
+                    println("구글 로그인 실패 $error")
                 }
             }
         }
