@@ -15,6 +15,7 @@ import com.campers.data.home.RankingList
 import com.campers.data.mypage.ProfileData
 import com.campers.databinding.FragmentHomeBinding
 import com.campers.databinding.RecyclerHomeHotcommunityBinding
+import com.campers.ui.BaseActivity
 import com.campers.ui.community.CommunityDetailActivity
 import com.campers.ui.home.adapter.HotCommunityAdapter
 import com.campers.ui.home.adapter.RankingAdapter
@@ -47,6 +48,7 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as BaseActivity).showLoading(requireContext())
         mViewModel.getRankingList()
         mViewModel.getHotCommunityList()
         mViewModel.getProfileData(requireContext())
@@ -128,6 +130,8 @@ class HomeFragment: Fragment() {
          * 프로필 불러오기
          */
         mViewModel.profileData.observe(viewLifecycleOwner, Observer {
+            (activity as BaseActivity).hideLoading()
+
             if(it.failure != null) {
                 // TODO : 에러 팝업 표시?
                 println("프로필 불러오기 실패")

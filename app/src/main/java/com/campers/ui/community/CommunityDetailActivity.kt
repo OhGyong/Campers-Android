@@ -24,13 +24,19 @@ class CommunityDetailActivity: BaseActivity() {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_community_detail)
 
+        topActionBarListener()
         showCommunityDetail()
         observeLiveData()
+    }
+
+    private fun topActionBarListener() {
+        mBinding.topActionBar.ivBack.setOnClickListener { finish() }
     }
 
     private fun observeLiveData() {
 
         mViewModel.hotCommunityDetailData.observe(this, Observer {
+            hideLoading()
 
             if(it.failure != null){
                 // TODO : 에러 화면 표시
@@ -102,6 +108,7 @@ class CommunityDetailActivity: BaseActivity() {
         }
 
         if(isHot){
+            showLoading(this)
             mViewModel.getHotCommunityDetailData(type, id)
         }
     }

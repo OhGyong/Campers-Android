@@ -14,9 +14,10 @@
             type="com.campers.data.mypage.ProfileData" />
     </data>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -81,8 +82,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/home_user_name" />
 
                 <SearchView
-                    android:layout_width="300dp"
-                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@color/white"
                     android:queryHint="캠핑장 이름을 입력하세요."
@@ -150,9 +151,7 @@
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -250,24 +249,22 @@
                     app:layout_constraintTop_toBottomOf="@+id/home_bestcamper_maintext" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="30dp"
                     android:background="@drawable/home_round"
+                    android:layout_marginHorizontal="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/home_bestcamper_subtext"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/home_bestcamper_subtext" >
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/home_ranking_recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         android:orientation="vertical"
+                        android:nestedScrollingEnabled="false"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/recycler_home_ranking"/>
 
@@ -332,13 +329,11 @@
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:orientation="vertical"
+                        android:nestedScrollingEnabled="false"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/recycler_home_hotcommunity" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-
+    </androidx.core.widget.NestedScrollView>
 </layout>

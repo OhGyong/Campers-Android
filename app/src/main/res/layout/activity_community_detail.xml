@@ -9,136 +9,149 @@
             type="com.campers.data.community.CommunityDetailData" />
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/top_action_bar"
+            layout="@layout/top_action_bar"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/top_action_bar">
 
-            <TextView
-                android:id="@+id/community_detail_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{communityDetailItem.title}"
-                android:textSize="15dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="40dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/community_detail_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{communityDetailItem.date}"
-                android:textSize="10dp"
-                android:layout_marginTop="2dp"
-                app:layout_constraintStart_toStartOf="@+id/community_detail_title"
-                app:layout_constraintTop_toBottomOf="@+id/community_detail_title" />
-
-
-            <View
-                android:id="@+id/community_title_boundary_content"
-                android:layout_width="0dp"
-                android:layout_height="2px"
-                android:layout_marginTop="5dp"
-                android:background="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/community_detail_title"
-                app:layout_constraintTop_toBottomOf="@+id/community_detail_date" />
-
-            <jp.wasabeef.richeditor.RichEditor
-                android:id="@+id/roadRichEditor"
-                android:layout_marginTop="20dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/community_title_boundary_content" />
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp">
 
-            <ImageView
-                android:id="@+id/bonfire_num_image"
-                android:layout_width="@dimen/community_image_size"
-                android:layout_height="@dimen/community_image_size"
-                android:src="@drawable/bonfire"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/roadRichEditor" />
+                <TextView
+                    android:id="@+id/community_detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{communityDetailItem.title}"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/community_detail_bonfire_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{Integer.toString(communityDetailItem.fireCount)}"
-                android:textSize="@dimen/community_text_size"
-                android:textStyle="bold"
-                android:textColor="#ED1D1D"
-                app:layout_constraintStart_toEndOf="@+id/bonfire_num_image"
-                app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+                <TextView
+                    android:id="@+id/community_detail_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{communityDetailItem.date}"
+                    android:textSize="10dp"
+                    android:layout_marginTop="2dp"
+                    app:layout_constraintStart_toStartOf="@+id/community_detail_title"
+                    app:layout_constraintTop_toBottomOf="@+id/community_detail_title" />
 
-            <ImageView
-                android:id="@+id/comment_num_image"
-                android:layout_width="@dimen/community_image_size"
-                android:layout_height="@dimen/community_image_size"
-                android:src="@drawable/community_comment"
-                android:layout_marginStart="5dp"
-                app:layout_constraintStart_toEndOf="@+id/community_detail_bonfire_num"
-                app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
 
-            <TextView
-                android:id="@+id/community_detail_comment_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="@dimen/community_text_size"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/comment_num_image"
-                app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+                <View
+                    android:id="@+id/community_title_boundary_content"
+                    android:layout_width="0dp"
+                    android:layout_height="2px"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/community_detail_title"
+                    app:layout_constraintTop_toBottomOf="@+id/community_detail_date" />
 
-            <ImageView
-                android:id="@+id/community_view_num_image"
-                android:layout_width="@dimen/community_image_size"
-                android:layout_height="@dimen/community_image_size"
-                android:src="@drawable/community_view"
-                android:layout_marginStart="5dp"
-                app:layout_constraintStart_toEndOf="@+id/community_detail_comment_num"
-                app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+                <jp.wasabeef.richeditor.RichEditor
+                    android:id="@+id/roadRichEditor"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/community_title_boundary_content" />
 
-            <TextView
-                android:id="@+id/community_detail_view_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{Integer.toString(communityDetailItem.viewCount)}"
-                android:textColor="@color/black"
-                android:textSize="@dimen/community_text_size"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/community_view_num_image"
-                app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+                <ImageView
+                    android:id="@+id/bonfire_num_image"
+                    android:layout_width="@dimen/community_image_size"
+                    android:layout_height="@dimen/community_image_size"
+                    android:src="@drawable/bonfire"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/roadRichEditor" />
 
-            <View
-                android:id="@+id/community_content_boundary_comment"
-                android:layout_width="0dp"
-                android:layout_height="5px"
-                android:background="@color/black"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/community_detail_title"
-                app:layout_constraintTop_toBottomOf="@+id/community_view_num_image" />
+                <TextView
+                    android:id="@+id/community_detail_bonfire_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(communityDetailItem.fireCount)}"
+                    android:textSize="@dimen/community_text_size"
+                    android:textStyle="bold"
+                    android:textColor="#ED1D1D"
+                    app:layout_constraintStart_toEndOf="@+id/bonfire_num_image"
+                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/community_comment_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/community_content_boundary_comment"
-                tools:listitem="@layout/recycler_community_comment"/>
+                <ImageView
+                    android:id="@+id/comment_num_image"
+                    android:layout_width="@dimen/community_image_size"
+                    android:layout_height="@dimen/community_image_size"
+                    android:src="@drawable/community_comment"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@+id/community_detail_bonfire_num"
+                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                <TextView
+                    android:id="@+id/community_detail_comment_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/community_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/comment_num_image"
+                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+                <ImageView
+                    android:id="@+id/community_view_num_image"
+                    android:layout_width="@dimen/community_image_size"
+                    android:layout_height="@dimen/community_image_size"
+                    android:src="@drawable/community_view"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@+id/community_detail_comment_num"
+                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+                <TextView
+                    android:id="@+id/community_detail_view_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(communityDetailItem.viewCount)}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/community_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/community_view_num_image"
+                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+
+                <View
+                    android:id="@+id/community_content_boundary_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="5px"
+                    android:background="@color/black"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/community_detail_title"
+                    app:layout_constraintTop_toBottomOf="@+id/community_view_num_image" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/community_comment_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/community_content_boundary_comment"
+                    tools:listitem="@layout/recycler_community_comment"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>
