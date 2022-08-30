@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.campers.data.community.CommunityCommentList
-import com.campers.databinding.RecyclerCommunityCommentBinding
+import com.campers.databinding.ItemListCommunityCommentBinding
 
 class CommunityCommentAdapter(private val list: ArrayList<CommunityCommentList>) :
     RecyclerView.Adapter<CommunityCommentAdapter.CommunityCommentViewHolder>() {
 
-    inner class CommunityCommentViewHolder(private val binding: RecyclerCommunityCommentBinding) :
+    inner class CommunityCommentViewHolder(private val binding: ItemListCommunityCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(communityCommentList: CommunityCommentList) {
             binding.communityCommentListItem = communityCommentList
@@ -17,7 +17,7 @@ class CommunityCommentAdapter(private val list: ArrayList<CommunityCommentList>)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommunityCommentViewHolder {
-        val binding = RecyclerCommunityCommentBinding.inflate(
+        val binding = ItemListCommunityCommentBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false

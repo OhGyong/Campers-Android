@@ -1,13 +1,10 @@
 package com.campers.ui.home.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.campers.R
 import com.campers.data.home.HotCommunityList
-import com.campers.databinding.RecyclerHomeHotcommunityBinding
+import com.campers.databinding.ItemListHomeHotcommunityBinding
 
 class HotCommunityAdapter() :
     RecyclerView.Adapter<HotCommunityAdapter.HotCommunityViewHolder>() {
@@ -15,7 +12,7 @@ class HotCommunityAdapter() :
     private val list: ArrayList<HotCommunityList> = arrayListOf()
 
     interface OnItemClickListener {
-        fun setOnItemClick(binding: RecyclerHomeHotcommunityBinding, data: HotCommunityList)
+        fun setOnItemClick(binding: ItemListHomeHotcommunityBinding, data: HotCommunityList)
     }
 
     private var clickListener: OnItemClickListener? = null
@@ -24,7 +21,7 @@ class HotCommunityAdapter() :
         this.clickListener = clickListener
     }
 
-    inner class HotCommunityViewHolder(private val binding: RecyclerHomeHotcommunityBinding) :
+    inner class HotCommunityViewHolder(private val binding: ItemListHomeHotcommunityBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(hotCommunityList: HotCommunityList) {
             binding.hotCommunityListItem = hotCommunityList
@@ -38,7 +35,7 @@ class HotCommunityAdapter() :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotCommunityViewHolder {
-        val binding = RecyclerHomeHotcommunityBinding.inflate(
+        val binding = ItemListHomeHotcommunityBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false

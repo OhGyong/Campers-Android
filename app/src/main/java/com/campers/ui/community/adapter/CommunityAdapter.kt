@@ -28,7 +28,7 @@ class CommunityAdapter(private val list: MutableList<CommunityData>): RecyclerVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val adapterLayout = LayoutInflater.from(parent.context).inflate(R.layout.recycler_community, parent ,false)
+        val adapterLayout = LayoutInflater.from(parent.context).inflate(R.layout.item_list_community, parent ,false)
         return ItemViewHolder(adapterLayout)
     }
 

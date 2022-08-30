@@ -146,7 +146,7 @@
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/community_content_boundary_comment"
-                    tools:listitem="@layout/recycler_community_comment"/>
+                    tools:listitem="@layout/item_list_community_comment"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

@@ -14,7 +14,7 @@ import com.campers.data.home.HotCommunityList
 import com.campers.data.home.RankingList
 import com.campers.data.mypage.ProfileData
 import com.campers.databinding.FragmentHomeBinding
-import com.campers.databinding.RecyclerHomeHotcommunityBinding
+import com.campers.databinding.ItemListHomeHotcommunityBinding
 import com.campers.ui.BaseActivity
 import com.campers.ui.community.CommunityDetailActivity
 import com.campers.ui.home.adapter.HotCommunityAdapter
@@ -165,7 +165,7 @@ class HomeFragment: Fragment() {
     private fun clickListener() {
         hotCommunityAdapter.setOnItemClickListener(object : HotCommunityAdapter.OnItemClickListener{
             override fun setOnItemClick(
-                binding: RecyclerHomeHotcommunityBinding,
+                binding: ItemListHomeHotcommunityBinding,
                 data: HotCommunityList
             ) {
                 val intent = Intent(context, CommunityDetailActivity::class.java)
