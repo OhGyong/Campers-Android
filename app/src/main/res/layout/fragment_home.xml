@@ -266,8 +266,7 @@
                         android:orientation="vertical"
                         android:nestedScrollingEnabled="false"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/recycler_home_ranking"/>
-
+                        tools:listitem="@layout/item_list_home_ranking"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

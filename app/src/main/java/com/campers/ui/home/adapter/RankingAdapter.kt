@@ -14,7 +14,7 @@ class RankingAdapter(private val list: ArrayList<RankingList>) : RecyclerView.Ad
             binding.rankingItem = ranking
 
             if(list.lastIndex == position){
-                binding.vItemHomeRanking.visibility = View.GONE
+                binding.vItemHomeRanking.visibility = View.INVISIBLE
             }
         }
     }
