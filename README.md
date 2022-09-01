@@ -29,6 +29,12 @@ Result : 서버 응답 데이터를 success와 failure로 정리한 데이터 / 
 </pre>
 
 ## 일과
+-2022.08.25~09.01<br/>
+    HomeFragment, DataBinding 적용<br/>
+    홈 화면 로직 전체적으로 수정(코루틴 적용, 상세화면 이동할 때 Fragment에서 Activity 변경)
+    전역적으로 사용하기 위한 화면 xml 생성(뒤로가기 버튼 )
+
+
 -2022.08.22~08.24<br/>
     SDK, API 버전 업데이트<br/>
     SharedPreferences 수정
