@@ -36,6 +36,7 @@
     <string name="home_hotcommunity_subtext">뭐라고 작성할까요?</string>
     <string name="home_name_sir">님,</string>
     <string name="home_where_you_go">어디로 캠핑가세요?</string>
+    <string name="home_search_campground">내 근처 캠핑장 조회하기</string>
 
     <!--  CommonBottomSheetDialog에 사용할 string  -->
     <string name="check">확인</string>
