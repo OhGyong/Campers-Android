@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
     </data>
@@ -160,7 +161,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout15"
+                android:id="@+id/ct_community_default"
                 android:layout_width="350dp"
                 android:layout_height="180dp"
                 android:background="@drawable/home_round"
@@ -168,143 +169,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/default_community">
 
-                <ImageView
-                    android:id="@+id/glamping_board_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_on"
-                    app:layout_constraintBottom_toBottomOf="@+id/glamping_board"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/glamping_board" />
-
-                <TextView
-                    android:id="@+id/glamping_board"
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:text="글램핑 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/glamping_board_image"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/camping_board_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_on"
-                    app:layout_constraintBottom_toBottomOf="@+id/camping_board"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/camping_board" />
-
-                <TextView
-                    android:id="@+id/camping_board"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:text="캠핑 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/camping_board_image"
-                    app:layout_constraintTop_toBottomOf="@+id/glamping_board" />
-
-                <ImageView
-                    android:id="@+id/trade_board_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_on"
-                    app:layout_constraintBottom_toBottomOf="@+id/trade_board"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/trade_board" />
-
-                <TextView
-                    android:id="@+id/trade_board"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:text="중고거래 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/camping_board_image"
-                    app:layout_constraintTop_toBottomOf="@+id/camping_board" />
-
-                <ImageView
-                    android:id="@+id/free_board_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_on"
-                    app:layout_constraintBottom_toBottomOf="@+id/free_board"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/free_board" />
-
-                <TextView
-                    android:id="@+id/free_board"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:text="자유 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/free_board_image"
-                    app:layout_constraintTop_toBottomOf="@+id/trade_board" />
-
-                <ImageView
-                    android:id="@+id/notice_board_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_off"
-                    app:layout_constraintBottom_toBottomOf="@+id/notice_board"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/notice_board" />
-
-                <TextView
-                    android:id="@+id/notice_board"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:text="공지사항"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/notice_board_image"
-                    app:layout_constraintTop_toBottomOf="@+id/free_board" />
-
-                <ImageView
-                    android:id="@+id/question_board_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_off"
-                    app:layout_constraintBottom_toBottomOf="@+id/question_board"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/question_board" />
-
-                <TextView
-                    android:id="@+id/question_board"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:text="질문 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/question_board_image"
-                    app:layout_constraintTop_toBottomOf="@+id/notice_board" />
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_list_community_default" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -319,7 +189,7 @@
                 android:textSize="17dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout15" />
+                app:layout_constraintTop_toBottomOf="@+id/ct_community_default" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="350dp"

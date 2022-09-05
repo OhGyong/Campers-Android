@@ -3,16 +3,16 @@ package com.campers.ui.community.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.campers.data.community.CommunityCommentList
+import com.campers.data.community.CommunityCommentData
 import com.campers.databinding.ItemListCommunityCommentBinding
 
-class CommunityCommentAdapter(private val list: ArrayList<CommunityCommentList>) :
+class CommunityCommentAdapter(private val list: ArrayList<CommunityCommentData>) :
     RecyclerView.Adapter<CommunityCommentAdapter.CommunityCommentViewHolder>() {
 
     inner class CommunityCommentViewHolder(private val binding: ItemListCommunityCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(communityCommentList: CommunityCommentList) {
-            binding.communityCommentListItem = communityCommentList
+        fun bind(communityCommentList: CommunityCommentData) {
+            binding.communityCommentItem = communityCommentList
         }
     }
 

@@ -23,6 +23,8 @@ class CommunityFragment: Fragment() {
     ): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_community, container, false)
         return mBinding.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="communityCommentListItem"
-            type="com.campers.data.community.CommunityCommentList" />
+            name="communityCommentItem"
+            type="com.campers.data.community.CommunityCommentData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/community_comment_nickName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Integer.toString(communityCommentListItem.memberId)}"
+            android:text="@{Integer.toString(communityCommentItem.memberId)}"
             android:textSize="13dp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -29,7 +29,7 @@
             android:id="@+id/community_comment_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{communityCommentListItem.editDate}"
+            android:text="@{communityCommentItem.editDate}"
             android:textSize="10dp"
             android:textStyle="bold"
             android:layout_marginStart="5dp"
@@ -40,7 +40,7 @@
             android:id="@+id/community_comment_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{communityCommentListItem.info}"
+            android:text="@{communityCommentItem.info}"
             android:textColor="@color/black"
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="@+id/community_comment_nickName"
@@ -59,7 +59,7 @@
             android:id="@+id/bonfire_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Integer.toString(communityCommentListItem.fireCount)}"
+            android:text="@{Integer.toString(communityCommentItem.fireCount)}"
             android:textColor="@color/black"
             android:textSize="13dp"
             android:textStyle="bold"

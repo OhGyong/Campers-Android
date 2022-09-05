@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.campers.R
-import com.campers.data.community.CommunityCommentList
+import com.campers.data.community.CommunityCommentData
 import com.campers.data.community.CommunityDetailData
 import com.campers.databinding.ActivityCommunityDetailBinding
 import com.campers.ui.BaseActivity
@@ -16,8 +16,10 @@ class CommunityDetailActivity: BaseActivity() {
 
     private lateinit var mBinding: ActivityCommunityDetailBinding
     private val mViewModel: CommunityDetailViewModel by viewModels()
+    private var communityCommentList: ArrayList<CommunityCommentData> = arrayListOf()
 
-    private var communityCommentList: ArrayList<CommunityCommentList> = arrayListOf()
+    private var type = 0
+    private var id = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,13 +73,16 @@ class CommunityDetailActivity: BaseActivity() {
 
             /**
              * 댓글이 있는 경우
+             * - type == 1, 유저 게시판
+             * - type == 2, 기본 게시판
              */
-            if(hotCommentListData.size() != 0 ){
+            if(hotCommentListData.size() != 0 && type == 1){
                 for (i in 0 until hotCommentListData.size()) {
                     communityCommentList.add(
-                        CommunityCommentList(
+                        CommunityCommentData(
                             hotCommentListData[i].asJsonObject["id"].asInt,
-//                            hotCommentListData[i].asJsonObject["defaultBoardContentsId"].asInt,
+                            hotCommentListData[i].asJsonObject["memberBoardContentsId"].asInt,
+                            0,
                             hotCommentListData[i].asJsonObject["info"].asString,
                             hotCommentListData[i].asJsonObject["editDate"].asString,
                             hotCommentListData[i].asJsonObject["fireCount"].asInt,
@@ -87,6 +92,20 @@ class CommunityDetailActivity: BaseActivity() {
                 }
 
                 mBinding.communityCommentRecyclerView.adapter = CommunityCommentAdapter(communityCommentList)
+            }else if(hotCommentListData.size() != 0 && type == 2){
+                for (i in 0 until hotCommentListData.size()) {
+                    communityCommentList.add(
+                        CommunityCommentData(
+                            hotCommentListData[i].asJsonObject["id"].asInt,
+                            0,
+                            hotCommentListData[i].asJsonObject["defaultBoardContentsId"].asInt,
+                            hotCommentListData[i].asJsonObject["info"].asString,
+                            hotCommentListData[i].asJsonObject["editDate"].asString,
+                            hotCommentListData[i].asJsonObject["fireCount"].asInt,
+                            hotCommentListData[i].asJsonObject["memberId"].asInt
+                        )
+                    )
+                }
             }
         })
     }
@@ -98,8 +117,8 @@ class CommunityDetailActivity: BaseActivity() {
      * - isHot으로 핫한 상세 게시물인지 체크 (유저 게시판인지 기본 게시판인지 확인)
      */
     private fun showCommunityDetail() {
-        val type = intent.getIntExtra("type", 99999)
-        val id = intent.getIntExtra("id", 99999)
+        type = intent.getIntExtra("type", 99999)
+        id = intent.getIntExtra("id", 99999)
         val isHot = intent.getBooleanExtra("isHot", false)
 
         if(type == 99999 || id == 99999){
