@@ -34,7 +34,8 @@ class HomeFragment: Fragment() {
     private var hotCommunityList: ArrayList<HotCommunityList> = arrayListOf()
 
     // 리사이클러 뷰 어댑터
-    private lateinit var hotCommunityAdapter: HotCommunityAdapter
+    private lateinit var mRankingAdapter: RankingAdapter
+    private lateinit var mHotCommunityAdapter: HotCommunityAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,8 +54,7 @@ class HomeFragment: Fragment() {
         mViewModel.getHotCommunityList()
         mViewModel.getProfileData(requireContext())
 
-        hotCommunityAdapter = HotCommunityAdapter()
-
+        setAdapter()
         clickListener()
         observeLiveData()
     }
@@ -88,8 +88,7 @@ class HomeFragment: Fragment() {
                 val totalFire = payloadIndex.asJsonObject.get("totalFire").asInt
                 rankingList.add(RankingList(id, nickName, rank, totalFire))
             }
-
-            mBinding.homeRankingRecyclerView.adapter = RankingAdapter(rankingList)
+            mRankingAdapter.setData(rankingList)
         })
 
         /**
@@ -122,8 +121,7 @@ class HomeFragment: Fragment() {
                 hotCommunityList.add(HotCommunityList(type, id, title, date, nickName))
             }
 
-            hotCommunityAdapter.setList(hotCommunityList)
-            mBinding.homeHotcommunityRecyclerView.adapter = hotCommunityAdapter
+            mHotCommunityAdapter.setList(hotCommunityList)
         })
 
         /**
@@ -163,7 +161,7 @@ class HomeFragment: Fragment() {
     }
 
     private fun clickListener() {
-        hotCommunityAdapter.setOnItemClickListener(object : HotCommunityAdapter.OnItemClickListener{
+        mHotCommunityAdapter.setOnItemClickListener(object : HotCommunityAdapter.OnItemClickListener{
             override fun setOnItemClick(
                 binding: ItemListHomeHotcommunityBinding,
                 data: HotCommunityList
@@ -175,5 +173,17 @@ class HomeFragment: Fragment() {
                 startActivity(intent)
             }
         })
+    }
+
+    private fun setAdapter() {
+        // 회원 랭킹
+        mRankingAdapter = RankingAdapter()
+        mBinding.homeRankingRecyclerView.adapter = mRankingAdapter
+
+        // 핫 게시글
+        mHotCommunityAdapter = HotCommunityAdapter()
+        mBinding.homeHotcommunityRecyclerView.adapter = mHotCommunityAdapter
+
+
     }
 }

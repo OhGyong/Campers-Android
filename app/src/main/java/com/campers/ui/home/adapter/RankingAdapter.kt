@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.campers.data.home.RankingList
 import com.campers.databinding.ItemListHomeRankingBinding
 
-class RankingAdapter(private val list: ArrayList<RankingList>) : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
+class RankingAdapter : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
+    private var list:ArrayList<RankingList> = arrayListOf()
 
     inner class RankingViewHolder(private val binding: ItemListHomeRankingBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(ranking: RankingList, position: Int){
@@ -30,5 +31,10 @@ class RankingAdapter(private val list: ArrayList<RankingList>) : RecyclerView.Ad
 
     override fun getItemCount(): Int {
         return list.count()
+    }
+
+    fun setData(list: ArrayList<RankingList>) {
+        this.list =list
+        notifyDataSetChanged()
     }
 }
