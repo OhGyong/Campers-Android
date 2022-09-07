@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.campers.data.home.RankingList
+import com.campers.data.home.RankingListData
 import com.campers.databinding.ItemListHomeRankingBinding
 
 class RankingAdapter : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
-    private var list:ArrayList<RankingList> = arrayListOf()
+    private var list:ArrayList<RankingListData> = arrayListOf()
 
     inner class RankingViewHolder(private val binding: ItemListHomeRankingBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(ranking: RankingList, position: Int){
+        fun bind(ranking: RankingListData, position: Int){
             binding.rankingItem = ranking
 
             if(list.lastIndex == position){
@@ -33,8 +33,8 @@ class RankingAdapter : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() 
         return list.count()
     }
 
-    fun setData(list: ArrayList<RankingList>) {
-        this.list =list
+    fun setData(pList: ArrayList<RankingListData>) {
+        list = pList
         notifyDataSetChanged()
     }
 }

@@ -8,7 +8,7 @@ data class RankingListResult(
     val failure: Exception? = null
 )
 
-data class RankingList(
+data class RankingListData(
     val id: Int,
     val nickName: String,
     val rank: Int,
@@ -24,7 +24,7 @@ data class HotCommunityListResult(
     val failure : Exception? = null
 )
 
-data class HotCommunityList(
+data class HotCommunityListData(
     val type: Int,
     val id: Int,
     val title: String,

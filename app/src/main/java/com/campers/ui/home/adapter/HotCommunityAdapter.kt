@@ -3,16 +3,16 @@ package com.campers.ui.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.campers.data.home.HotCommunityList
+import com.campers.data.home.HotCommunityListData
 import com.campers.databinding.ItemListHomeHotcommunityBinding
 
 class HotCommunityAdapter() :
     RecyclerView.Adapter<HotCommunityAdapter.HotCommunityViewHolder>() {
 
-    private val list: ArrayList<HotCommunityList> = arrayListOf()
+    private val list: ArrayList<HotCommunityListData> = arrayListOf()
 
     interface OnItemClickListener {
-        fun setOnItemClick(binding: ItemListHomeHotcommunityBinding, data: HotCommunityList)
+        fun setOnItemClick(binding: ItemListHomeHotcommunityBinding, data: HotCommunityListData)
     }
 
     private var clickListener: OnItemClickListener? = null
@@ -23,7 +23,7 @@ class HotCommunityAdapter() :
 
     inner class HotCommunityViewHolder(private val binding: ItemListHomeHotcommunityBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(hotCommunityList: HotCommunityList) {
+        fun bind(hotCommunityList: HotCommunityListData) {
             binding.hotCommunityListItem = hotCommunityList
 
             if(adapterPosition != RecyclerView.NO_POSITION){
@@ -51,7 +51,7 @@ class HotCommunityAdapter() :
         return list.count()
     }
 
-    fun setList(pList: ArrayList<HotCommunityList>) {
+    fun setList(pList: ArrayList<HotCommunityListData>) {
         list.addAll(pList)
     }
 }

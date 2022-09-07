@@ -7,7 +7,7 @@
     <data>
         <variable
             name="hotCommunityListItem"
-            type="com.campers.data.home.HotCommunityList" />
+            type="com.campers.data.home.HotCommunityListData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

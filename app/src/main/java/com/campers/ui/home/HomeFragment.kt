@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.campers.R
-import com.campers.data.home.HotCommunityList
-import com.campers.data.home.RankingList
+import com.campers.data.home.HotCommunityListData
+import com.campers.data.home.RankingListData
 import com.campers.data.mypage.ProfileData
 import com.campers.databinding.FragmentHomeBinding
 import com.campers.databinding.ItemListHomeHotcommunityBinding
@@ -30,8 +30,8 @@ class HomeFragment: Fragment() {
     private lateinit var mBinding: FragmentHomeBinding
 
     // observe에서 랭킹 데이터 리스트
-    private var rankingList: ArrayList<RankingList> = arrayListOf()
-    private var hotCommunityList: ArrayList<HotCommunityList> = arrayListOf()
+    private var rankingList: ArrayList<RankingListData> = arrayListOf()
+    private var hotCommunityList: ArrayList<HotCommunityListData> = arrayListOf()
 
     // 리사이클러 뷰 어댑터
     private lateinit var mRankingAdapter: RankingAdapter
@@ -86,7 +86,7 @@ class HomeFragment: Fragment() {
                 val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"')
                 val rank = payloadIndex.asJsonObject.get("rank").asInt
                 val totalFire = payloadIndex.asJsonObject.get("totalFire").asInt
-                rankingList.add(RankingList(id, nickName, rank, totalFire))
+                rankingList.add(RankingListData(id, nickName, rank, totalFire))
             }
             mRankingAdapter.setData(rankingList)
         })
@@ -118,7 +118,7 @@ class HomeFragment: Fragment() {
                 val title = payloadIndex.asJsonObject.get("title").toString().trim('"')
                 val date = payloadIndex.asJsonObject.get("date").toString().trim('"')
                 val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"') // 따옴표 지우기
-                hotCommunityList.add(HotCommunityList(type, id, title, date, nickName))
+                hotCommunityList.add(HotCommunityListData(type, id, title, date, nickName))
             }
 
             mHotCommunityAdapter.setList(hotCommunityList)
@@ -164,7 +164,7 @@ class HomeFragment: Fragment() {
         mHotCommunityAdapter.setOnItemClickListener(object : HotCommunityAdapter.OnItemClickListener{
             override fun setOnItemClick(
                 binding: ItemListHomeHotcommunityBinding,
-                data: HotCommunityList
+                data: HotCommunityListData
             ) {
                 val intent = Intent(context, CommunityDetailActivity::class.java)
                 intent.putExtra("type", data.type)

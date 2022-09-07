@@ -8,7 +8,7 @@
     <data>
         <variable
             name="rankingItem"
-            type="com.campers.data.home.RankingList" />
+            type="com.campers.data.home.RankingListData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
