@@ -3,16 +3,13 @@ package com.campers.ui.home.viewmodel
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.campers.data.home.HotCommunityListResponse
 import com.campers.data.home.HotCommunityListResult
-import com.campers.data.home.RankingListResponse
 import com.campers.data.home.RankingListResult
 import com.campers.data.mypage.ProfileResult
 import com.campers.repository.home.HomeRepository
 import com.campers.repository.mypage.MypageRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class HomeViewModel: ViewModel() {
@@ -28,7 +25,7 @@ class HomeViewModel: ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 rankingData.postValue(
-                    RankingListResult(success = HomeRepository().getRankingData())
+                    RankingListResult(success = HomeRepository().getRankingListData())
                 )
             } catch (e: Exception) {
                 rankingData.postValue(

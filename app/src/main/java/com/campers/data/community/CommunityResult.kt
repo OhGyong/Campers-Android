@@ -3,6 +3,11 @@ package com.campers.data.community
 /**
  * 기본 게시판 목록 15개
  */
+data class CommunityDefaultResult(
+    val success: CommunityDefaultResponse? = null,
+    val failure: Exception? = null
+)
+
 data class CommunityDefaultData(
     val id: Int,
     val name: String

@@ -14,7 +14,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp">
 
             <Button
                 android:id="@+id/home_to_list"
@@ -150,9 +151,8 @@
                 android:id="@+id/default_community"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
                 android:layout_marginTop="15dp"
-                android:text="기본 게시판"
+                android:text="@string/community_default"
                 android:textColor="@color/black"
                 android:textSize="17dp"
                 android:textStyle="bold"
@@ -162,17 +162,21 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ct_community_default"
-                android:layout_width="350dp"
-                android:layout_height="180dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/home_round"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/default_community">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_community_default"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
+                    android:layout_marginBottom="15dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_list_community_default" />
 

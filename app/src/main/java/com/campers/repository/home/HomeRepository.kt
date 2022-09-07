@@ -14,7 +14,7 @@ class HomeRepository {
     /**
      * 랭킹 리스트
      */
-    fun getRankingData(): RankingListResponse {
+    fun getRankingListData(): RankingListResponse {
         val data = homeResponse.rankingList().execute().body()
         return data!!
     }
