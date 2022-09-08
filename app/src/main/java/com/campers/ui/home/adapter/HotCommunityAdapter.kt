@@ -53,5 +53,6 @@ class HotCommunityAdapter() :
 
     fun setList(pList: ArrayList<HotCommunityListData>) {
         list.addAll(pList)
+        notifyDataSetChanged()
     }
 }
