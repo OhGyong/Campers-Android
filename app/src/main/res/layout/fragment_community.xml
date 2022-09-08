@@ -178,7 +178,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_list_community_default" />
+                    tools:listitem="@layout/item_list_community_board" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -186,161 +186,32 @@
                 android:id="@+id/user_community"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="15dp"
-                android:text="사용자 게시판"
+                android:text="@string/community_member"
                 android:textColor="@color/black"
                 android:textSize="17dp"
                 android:textStyle="bold"
+                android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ct_community_default" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="350dp"
-                android:layout_height="180dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/home_round"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/user_community">
 
-                <ImageView
-                    android:id="@+id/user_board1_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_on"
-                    app:layout_constraintBottom_toBottomOf="@+id/user_board1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/user_board1" />
-
-                <TextView
-                    android:id="@+id/user_board1"
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_community_member"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:text="강원도 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/user_board1_image"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <ImageView
-                    android:id="@+id/user_board2_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_on"
-                    app:layout_constraintBottom_toBottomOf="@+id/user_board2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/user_board2" />
-
-                <TextView
-                    android:id="@+id/user_board2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:text="홍보 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/user_board2_image"
-                    app:layout_constraintTop_toBottomOf="@+id/user_board1" />
-
-                <ImageView
-                    android:id="@+id/user_board3_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_on"
-                    app:layout_constraintBottom_toBottomOf="@+id/user_board3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/user_board3" />
-
-                <TextView
-                    android:id="@+id/user_board3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:text="한림대 캠핑 모임 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/user_board3_image"
-                    app:layout_constraintTop_toBottomOf="@+id/user_board2" />
-
-                <ImageView
-                    android:id="@+id/user_board4_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_off"
-                    app:layout_constraintBottom_toBottomOf="@+id/user_board4"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/user_board4" />
-
-                <TextView
-                    android:id="@+id/user_board4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:text="캠핑 초보 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/user_board4_image"
-                    app:layout_constraintTop_toBottomOf="@+id/user_board3" />
-
-                <ImageView
-                    android:id="@+id/user_board5_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_off"
-                    app:layout_constraintBottom_toBottomOf="@+id/user_board5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/user_board5" />
-
-                <TextView
-                    android:id="@+id/user_board5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:text="캠핑 고수 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/user_board5_image"
-                    app:layout_constraintTop_toBottomOf="@+id/user_board4" />
-
-                <ImageView
-                    android:id="@+id/user_board6_image"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/community_like_off"
-                    app:layout_constraintBottom_toBottomOf="@+id/user_board6"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/user_board6" />
-
-                <TextView
-                    android:id="@+id/user_board6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:text="캠핑 중수 게시판"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/user_board6_image"
-                    app:layout_constraintTop_toBottomOf="@+id/user_board5" />
-
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginBottom="15dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

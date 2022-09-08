@@ -11,18 +11,21 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.campers.R
-import com.campers.data.community.CommunityDefaultData
+import com.campers.data.community.CommunityBoardData
 import com.campers.databinding.FragmentCommunityBinding
-import com.campers.ui.community.adapter.CommunityDefaultAdapter
+import com.campers.ui.community.adapter.CommunityBoardAdapter
 import com.campers.ui.community.viewmodel.CommunityViewModel
 
 class CommunityFragment: Fragment() {
 
     private lateinit var mBinding: FragmentCommunityBinding
     private val mViewModel: CommunityViewModel by viewModels()
-    private lateinit var mCommunityDefaultAdapter: CommunityDefaultAdapter
 
-    private var communityDefaultList = arrayListOf<CommunityDefaultData>()
+    private lateinit var mCommunityDefaultAdapter: CommunityBoardAdapter
+    private lateinit var mCommunityMemberAdapter: CommunityBoardAdapter
+
+    private var communityDefaultList = arrayListOf<CommunityBoardData>()
+    private var communityMemberList = arrayListOf<CommunityBoardData>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +43,7 @@ class CommunityFragment: Fragment() {
         observeLiveData()
 
         mViewModel.getCommunityDefault()
+        mViewModel.getCommunityMember()
 
         val communityBtn = view.findViewById<Button>(R.id.home_to_list)
         communityBtn.setOnClickListener {
@@ -71,7 +75,7 @@ class CommunityFragment: Fragment() {
             for(i in 0 until communityDefaultJson.size()){
                 val payloadIndex = communityDefaultJson.get(i)
                 communityDefaultList.add(
-                    CommunityDefaultData
+                    CommunityBoardData
                         (payloadIndex.asJsonObject.get("id").asInt,
                         payloadIndex.asJsonObject.get("name").toString().trim('"')
                     )
@@ -80,12 +84,49 @@ class CommunityFragment: Fragment() {
 
             mCommunityDefaultAdapter.setData(communityDefaultList)
         })
+
+        /**
+         * 사용자 게시판 목록 15개
+         */
+        mViewModel.communityMemberData.observe(viewLifecycleOwner, Observer {
+            if(it.failure != null) {
+                // TODO : 빈 처리를 어떻게 할까
+                println("사용자 게시판 목록 15개 호출 에러")
+                return@Observer
+            }
+
+            val success = it.success
+
+            if(success?.payload == null) {
+                // TODO : 빈 처리를 어떻게 할까
+                println("사용자 게시판 목록 15개 없음")
+                return@Observer
+            }
+
+            val communityMemberJson = success.payload
+
+            for(i in 0 until communityMemberJson.size()){
+                val payloadIndex = communityMemberJson.get(i)
+                communityMemberList.add(
+                    CommunityBoardData
+                        (payloadIndex.asJsonObject.get("id").asInt,
+                        payloadIndex.asJsonObject.get("name").toString().trim('"')
+                    )
+                )
+            }
+
+            mCommunityMemberAdapter.setData(communityMemberList)
+        })
     }
 
     private fun setAdapter() {
-        // 기본게시판 15개
-        mCommunityDefaultAdapter = CommunityDefaultAdapter()
+        // 기본 게시판 15개
+        mCommunityDefaultAdapter = CommunityBoardAdapter()
         mBinding.rvCommunityDefault.adapter = mCommunityDefaultAdapter
+
+        // 사용자 게시판 15개
+        mCommunityMemberAdapter = CommunityBoardAdapter()
+        mBinding.rvCommunityMember.adapter = mCommunityMemberAdapter
 
     }
 }

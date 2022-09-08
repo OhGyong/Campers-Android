@@ -12,3 +12,13 @@ data class CommunityDefaultResponse(
     @SerializedName("payload")
     val payload: JsonArray
 )
+
+/**
+ * 사용자 게시판 목록 15개
+ */
+data class CommunityMemberResponse(
+    @SerializedName("status")
+    val status: Int,
+    @SerializedName("payload")
+    val payload: JsonArray
+)

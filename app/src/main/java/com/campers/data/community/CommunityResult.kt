@@ -1,6 +1,14 @@
 package com.campers.data.community
 
 /**
+ * 기본 게시판 및 사용자 게시판 15개에 사용할 공통 data class
+ */
+data class CommunityBoardData(
+    val id: Int,
+    val name: String
+)
+
+/**
  * 기본 게시판 목록 15개
  */
 data class CommunityDefaultResult(
@@ -8,10 +16,15 @@ data class CommunityDefaultResult(
     val failure: Exception? = null
 )
 
-data class CommunityDefaultData(
-    val id: Int,
-    val name: String
+/**
+ * 기본 게시판 목록 15개
+ */
+data class CommunityMemberResult(
+    val success: CommunityMemberResponse? = null,
+    val failure: Exception? = null
 )
+
+
 
 /**
  * 게시물 상세

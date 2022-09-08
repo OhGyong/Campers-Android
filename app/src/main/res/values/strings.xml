@@ -40,6 +40,7 @@
 
     <!-- Community  -->
     <string name="community_default">기본 게시판</string>
+    <string name="community_member">사용자 게시판</string>
 
     <!--  CommonBottomSheetDialog에 사용할 string  -->
     <string name="check">확인</string>
