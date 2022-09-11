@@ -29,17 +29,25 @@ Result : 서버 응답 데이터를 success와 failure로 정리한 데이터 / 
 </pre>
 
 ## 일과
--2022.08.25~09.01<br/>
+-2022.09.02~09.08<br/>
+    홈 화면, 캠피장 검색 UI 추가<br/>
+    모닥불 데이터 바인딩 적용<br/>
+    모닥불 화면, 사용자 게시판, 기본 게시판 15개 리스트 API 연동 및 UI 작업<br/>
+    RecyclerView, No adapter attached; skipping layout 에러 해결 
+    
+    
+
+- 2022.08.25~09.01<br/>
     HomeFragment, DataBinding 적용<br/>
     홈 화면 로직 전체적으로 수정(코루틴 적용, 상세화면 이동할 때 Fragment에서 Activity 변경)
     전역적으로 사용하기 위한 화면 xml 생성(뒤로가기 버튼 )
 
 
--2022.08.22~08.24<br/>
+- 2022.08.22~08.24<br/>
     SDK, API 버전 업데이트<br/>
     SharedPreferences 수정
 
--2022.07.28~08.21<br/>
+- 2022.07.28~08.21<br/>
     로그인 데이터 바인딩 적용<br/>
     네이버 로그인, 구글 로그인 로직 분리<br/>
     Common 하게 사용할 다이얼로그 생성
@@ -79,7 +87,6 @@ Result : 서버 응답 데이터를 success와 failure로 정리한 데이터 / 
     안드로이드 버전 업데이트 해결 실패.</br>
         - gradle(Project)에서 jcenter() 삭제하면 Naver SDK 인식 불가 오류</br>
         - classpath "com.android.tools.build:gradle:4.1.3" 을 7.~로 업데이트하면 manifests에서 exported 에러 발생(명시해도 에러남) 
-  
 
 - 2021.12.01</br>
     키보드 올라올 때 EditText 가리는 거 해결
