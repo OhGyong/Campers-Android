@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.campers.R
 import com.campers.data.community.CommunityBoardData
 import com.campers.databinding.FragmentCommunityBinding
+import com.campers.ui.BaseActivity
 import com.campers.ui.community.adapter.CommunityBoardAdapter
 import com.campers.ui.community.viewmodel.CommunityViewModel
 
@@ -24,7 +25,7 @@ class CommunityFragment: Fragment() {
     private lateinit var mCommunityDefaultAdapter: CommunityBoardAdapter
     private lateinit var mCommunityMemberAdapter: CommunityBoardAdapter
 
-    private var communityDefaultList = arrayListOf<CommunityBoardData>()
+    private var communityDefaultList: ArrayList<CommunityBoardData> = arrayListOf()
     private var communityMemberList = arrayListOf<CommunityBoardData>()
 
     override fun onCreateView(
@@ -36,14 +37,21 @@ class CommunityFragment: Fragment() {
         return mBinding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        println("Community onResume")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setAdapter()
-        observeLiveData()
-
+        (activity as BaseActivity).showLoading(requireContext())
         mViewModel.getCommunityDefault()
         mViewModel.getCommunityMember()
+
+        setAdapter()
+        observeLiveData()
 
         val communityBtn = view.findViewById<Button>(R.id.home_to_list)
         communityBtn.setOnClickListener {
@@ -56,6 +64,9 @@ class CommunityFragment: Fragment() {
          * 기본 게시판 목록 15개
          */
         mViewModel.communityDefaultData.observe(viewLifecycleOwner, Observer {
+            println("!!!!")
+            (activity as BaseActivity).hideLoading()
+
             if(it.failure != null) {
                 // TODO : 빈 처리를 어떻게 할까
                 println("기본 게시판 목록 15개 호출 에러")
@@ -89,6 +100,8 @@ class CommunityFragment: Fragment() {
          * 사용자 게시판 목록 15개
          */
         mViewModel.communityMemberData.observe(viewLifecycleOwner, Observer {
+            (activity as BaseActivity).hideLoading()
+
             if(it.failure != null) {
                 // TODO : 빈 처리를 어떻게 할까
                 println("사용자 게시판 목록 15개 호출 에러")

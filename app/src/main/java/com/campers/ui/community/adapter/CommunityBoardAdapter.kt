@@ -11,7 +11,7 @@ class CommunityBoardAdapter : RecyclerView.Adapter<CommunityBoardAdapter.Communi
 
     inner class CommunityDefaultViewHolder(private val binding: ItemListCommunityBoardBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: CommunityBoardData, position: Int) {
-            binding.glampingBoard.text = data.name
+            binding.boardItem = data
         }
     }
 

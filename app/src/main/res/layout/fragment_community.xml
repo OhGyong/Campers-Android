@@ -59,18 +59,17 @@
                 android:id="@+id/my_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="25dp"
                 android:text="나의 활동"
                 android:textColor="@color/black"
                 android:textSize="17dp"
                 android:textStyle="bold"
+                android:layout_marginTop="25dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/community_search_btn" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout14"
-                android:layout_width="350dp"
+                android:id="@+id/ct_my_activity"
+                android:layout_width="match_parent"
                 android:layout_height="95dp"
                 android:background="@drawable/home_round"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +156,7 @@
                 android:textSize="17dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout14" />
+                app:layout_constraintTop_toBottomOf="@+id/ct_my_activity" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
