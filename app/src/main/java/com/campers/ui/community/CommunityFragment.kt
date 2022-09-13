@@ -37,12 +37,6 @@ class CommunityFragment: Fragment() {
         return mBinding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        println("Community onResume")
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -64,7 +58,6 @@ class CommunityFragment: Fragment() {
          * 기본 게시판 목록 15개
          */
         mViewModel.communityDefaultData.observe(viewLifecycleOwner, Observer {
-            println("!!!!")
             (activity as BaseActivity).hideLoading()
 
             if(it.failure != null) {
@@ -92,7 +85,6 @@ class CommunityFragment: Fragment() {
                     )
                 )
             }
-
             mCommunityDefaultAdapter.setData(communityDefaultList)
         })
 
@@ -140,6 +132,5 @@ class CommunityFragment: Fragment() {
         // 사용자 게시판 15개
         mCommunityMemberAdapter = CommunityBoardAdapter()
         mBinding.rvCommunityMember.adapter = mCommunityMemberAdapter
-
     }
 }

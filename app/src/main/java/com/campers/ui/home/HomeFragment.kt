@@ -189,7 +189,5 @@ class HomeFragment: Fragment() {
         // 핫 게시글
         mHotCommunityAdapter = HotCommunityAdapter()
         mBinding.homeHotcommunityRecyclerView.adapter = mHotCommunityAdapter
-
-
     }
 }
