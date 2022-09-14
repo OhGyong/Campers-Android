@@ -66,16 +66,16 @@ class CommunityRegistFragment: Fragment() {
 
         val titleRegist: EditText = view.findViewById(R.id.title_regist)
 
-        saveButton.setOnClickListener {
-            println("작성 내용 확인 ${editor.html}")
-            findNavController().navigate(
-                R.id.communityDetailFragment,
-                Bundle().apply {
-                    this.putString("title", titleRegist.text.toString())
-                    this.putString("content", editor.html)
-                }
-            )
-        }
+//        saveButton.setOnClickListener {
+//            println("작성 내용 확인 ${editor.html}")
+//            findNavController().navigate(
+//                R.id.communityDetailFragment,
+//                Bundle().apply {
+//                    this.putString("title", titleRegist.text.toString())
+//                    this.putString("content", editor.html)
+//                }
+//            )
+//        }
 
     }
 

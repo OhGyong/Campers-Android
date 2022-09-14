@@ -22,3 +22,14 @@ data class CommunityMemberResponse(
     @SerializedName("payload")
     val payload: JsonArray
 )
+
+/**
+ * 게시글 리스트
+ * - 기본 게시판 게시물 목록
+ */
+data class CommunityListResponse(
+    @SerializedName("status")
+    val status: Int,
+    @SerializedName("payload")
+    val payload: JsonArray
+)

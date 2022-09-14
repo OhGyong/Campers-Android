@@ -1,5 +1,6 @@
 package com.campers.ui.community
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.campers.R
 import com.campers.data.community.CommunityBoardData
 import com.campers.databinding.FragmentCommunityBinding
+import com.campers.databinding.ItemListCommunityBoardBinding
 import com.campers.ui.BaseActivity
 import com.campers.ui.community.adapter.CommunityBoardAdapter
 import com.campers.ui.community.viewmodel.CommunityViewModel
@@ -46,11 +48,7 @@ class CommunityFragment: Fragment() {
 
         setAdapter()
         observeLiveData()
-
-        val communityBtn = view.findViewById<Button>(R.id.home_to_list)
-        communityBtn.setOnClickListener {
-            findNavController().navigate(R.id.communityListFragment)
-        }
+        clickListener()
     }
 
     private fun observeLiveData() {
@@ -79,8 +77,8 @@ class CommunityFragment: Fragment() {
             for(i in 0 until communityDefaultJson.size()){
                 val payloadIndex = communityDefaultJson.get(i)
                 communityDefaultList.add(
-                    CommunityBoardData
-                        (payloadIndex.asJsonObject.get("id").asInt,
+                    CommunityBoardData(
+                        payloadIndex.asJsonObject.get("id").asInt,
                         payloadIndex.asJsonObject.get("name").toString().trim('"')
                     )
                 )
@@ -122,6 +120,21 @@ class CommunityFragment: Fragment() {
 
             mCommunityMemberAdapter.setData(communityMemberList)
         })
+    }
+
+    private fun clickListener() {
+        mCommunityDefaultAdapter.setOnItemClickListener(object : CommunityBoardAdapter.OnItemClickListener{
+            override fun setOnItemClick(
+                binding: ItemListCommunityBoardBinding,
+                data: CommunityBoardData
+            ) {
+                val intent = Intent(context, CommunityListActivity::class.java)
+                intent.putExtra("id", data.id)
+                startActivity(intent)
+            }
+
+        })
+
     }
 
     private fun setAdapter() {

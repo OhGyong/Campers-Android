@@ -29,12 +29,6 @@ class MainActivity : BaseActivity() {
             .setupWithNavController(navController)
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        println("MainActivity onResume")
-    }
-
     /**
      * 뒤로가기 버튼 이벤트 처리
      */

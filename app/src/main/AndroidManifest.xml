@@ -55,6 +55,10 @@
         <activity android:name="com.campers.ui.splash.AppIntroActivity">
         </activity>
 
+        <!-- 캠핑존 게시판 리스트 Activity -->
+        <activity android:name="com.campers.ui.community.CommunityListActivity">
+        </activity>
+
         <activity android:name="com.campers.ui.community.CommunityDetailActivity">
         </activity>
 

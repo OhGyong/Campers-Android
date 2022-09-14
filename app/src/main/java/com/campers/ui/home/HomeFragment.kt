@@ -59,12 +59,6 @@ class HomeFragment: Fragment() {
         observeLiveData()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        println("HomeFragment onResume")
-    }
-
     private fun observeLiveData() {
         /**
          * 회원 랭킹 리스트

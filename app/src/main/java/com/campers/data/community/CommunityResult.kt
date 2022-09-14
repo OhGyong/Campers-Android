@@ -24,7 +24,24 @@ data class CommunityMemberResult(
     val failure: Exception? = null
 )
 
+/**
+ * 게시글 리스트
+ * - 기본 게시판 게시물 목록
+ */
+data class CommunityListResult(
+    val success: CommunityListResponse? = null,
+    val failure: Exception? = null
+)
 
+data class CommunityListData(
+    val id: Int,
+    val title: String,
+    val date: String,
+    val editDate: String,
+    val nickName: String,
+    val fireCount: Int,
+    val viewCount: Int
+)
 
 /**
  * 게시물 상세
