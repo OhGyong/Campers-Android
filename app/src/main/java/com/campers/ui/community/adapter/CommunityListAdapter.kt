@@ -3,7 +3,6 @@ package com.campers.ui.community.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.campers.data.community.CommunityBoardData
 import com.campers.data.community.CommunityListData
 import com.campers.databinding.ItemListCommunityBinding
 

@@ -8,7 +8,6 @@ import com.campers.R
 import com.campers.data.community.CommunityListData
 import com.campers.databinding.ActivityCommunityListBinding
 import com.campers.ui.BaseActivity
-import com.campers.ui.community.adapter.CommunityBoardAdapter
 import com.campers.ui.community.adapter.CommunityListAdapter
 import com.campers.ui.community.viewmodel.CommunityListViewModel
 

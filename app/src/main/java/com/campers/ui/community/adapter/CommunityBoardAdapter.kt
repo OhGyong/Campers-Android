@@ -4,10 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.campers.data.community.CommunityBoardData
-import com.campers.data.home.HotCommunityListData
 import com.campers.databinding.ItemListCommunityBoardBinding
-import com.campers.databinding.ItemListHomeHotcommunityBinding
-import com.campers.ui.home.adapter.HotCommunityAdapter
 
 class CommunityBoardAdapter : RecyclerView.Adapter<CommunityBoardAdapter.CommunityDefaultViewHolder>() {
     private var list: ArrayList<CommunityBoardData> = arrayListOf()
