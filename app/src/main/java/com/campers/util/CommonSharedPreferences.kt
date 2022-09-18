@@ -3,7 +3,7 @@ package com.campers.util
 import android.content.Context
 
 /**
- * accessToken을 저장할 클래스
+ * accessToken과 refreshToken을 저장할 클래스
  */
 class CommonSharedPreferences(context: Context) {
 

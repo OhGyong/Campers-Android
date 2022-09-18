@@ -36,8 +36,9 @@ class LoginActivity : BaseActivity() {
     // 구글 로그인 설정
     private lateinit var googleSignInClient: GoogleSignInClient
 
-    // 서버에서 받아온 accessToken
+    // 서버에서 받아온 accessToken, refreshToken
     private lateinit var userAccessToken: String
+    private lateinit var userRefreshToken: String
 
     private lateinit var mBinding: ActivityLoginBinding
     val mViewModel: LoginViewModel by viewModels()
@@ -143,7 +144,9 @@ class LoginActivity : BaseActivity() {
             }
 
             userAccessToken = success.data.get("accessToken").toString()
+            userRefreshToken = success.data.get("refreshToken").toString()
             CommonSharedPreferences(this@LoginActivity).accessToken = userAccessToken
+            CommonSharedPreferences(this@LoginActivity).refreshToken = userRefreshToken
             successLogin()
         })
     }
