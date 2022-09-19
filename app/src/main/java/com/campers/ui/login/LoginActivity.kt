@@ -28,6 +28,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 /**
  * 소셜 로그인
  */
+@DelicateCoroutinesApi
 class LoginActivity : BaseActivity() {
 
     // 네이버 로그인 설정
@@ -155,7 +156,6 @@ class LoginActivity : BaseActivity() {
      * 구글 로그인
      * 구글 로그인 인스턴스 초기화 메서드
      */
-    @DelicateCoroutinesApi
     private fun googleLoginInit() {
         // 구글 로그인 버튼 텍스트 변경
         setGoogleButtonText(mBinding.btnGoogleLogin, getString(R.string.google_login_btn_text))

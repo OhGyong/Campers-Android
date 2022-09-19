@@ -98,6 +98,8 @@ class HomeFragment: Fragment() {
             if(it.failure != null) {
                 // TODO : 빈 랭킹 리스트 표시
                 println("핫한 게시물 리스트 호출 에러")
+                mBinding.tvEmptyHotcommunity.visibility = View.VISIBLE
+                mBinding.homeHotcommunityRecyclerView.visibility =View.GONE
                 return@Observer
             }
 
@@ -106,10 +108,13 @@ class HomeFragment: Fragment() {
             if(success?.payload == null) {
                 // TODO : 빈 랭킹 리스트 표시
                 println("핫한 게시물 리스트 호출 에러")
+                mBinding.tvEmptyHotcommunity.visibility = View.VISIBLE
+                mBinding.homeHotcommunityRecyclerView.visibility =View.GONE
                 return@Observer
             }
 
             val hotCommunityJson = success.payload
+            mBinding.homeHotcommunityRecyclerView.visibility =View.VISIBLE
 
             for(i in 0 until hotCommunityJson.size()){
                 val payloadIndex = hotCommunityJson.get(i)

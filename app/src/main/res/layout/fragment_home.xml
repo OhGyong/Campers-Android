@@ -346,6 +346,20 @@
                     app:layout_constraintStart_toStartOf="@+id/home_bestcommunity_subtext"
                     app:layout_constraintTop_toBottomOf="@+id/home_bestcommunity_subtext">
 
+                    <TextView
+                        android:id="@+id/tv_empty_hotcommunity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/empty_list"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:visibility="gone"
+                        android:layout_marginVertical="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/home_hotcommunity_recyclerView"
                         android:layout_width="match_parent"
