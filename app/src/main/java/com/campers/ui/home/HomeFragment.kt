@@ -104,8 +104,9 @@ class HomeFragment: Fragment() {
             }
 
             val success = it.success
+            println(success)
 
-            if(success?.payload == null) {
+            if(success?.payload == null || success.payload.size() == 0) {
                 // TODO : 빈 랭킹 리스트 표시
                 println("핫한 게시물 리스트 호출 에러")
                 mBinding.tvEmptyHotcommunity.visibility = View.VISIBLE
@@ -114,6 +115,7 @@ class HomeFragment: Fragment() {
             }
 
             val hotCommunityJson = success.payload
+            mBinding.tvEmptyHotcommunity.visibility = View.GONE
             mBinding.homeHotcommunityRecyclerView.visibility =View.VISIBLE
 
             for(i in 0 until hotCommunityJson.size()){
