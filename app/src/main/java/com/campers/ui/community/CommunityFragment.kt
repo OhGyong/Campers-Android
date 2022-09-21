@@ -130,6 +130,17 @@ class CommunityFragment: Fragment() {
                 intent.putExtra("id", data.id)
                 startActivity(intent)
             }
+        })
+
+        mCommunityMemberAdapter.setOnItemClickListener(object : CommunityBoardAdapter.OnItemClickListener{
+            override fun setOnItemClick(
+                binding: ItemListCommunityBoardBinding,
+                data: CommunityBoardData
+            ) {
+                val intent = Intent(context, CommunityListActivity::class.java)
+                intent.putExtra("id", data.id)
+                startActivity(intent)
+            }
 
         })
 
