@@ -61,10 +61,10 @@ class CommunityListActivity: BaseActivity() {
                 communityList.add(
                     CommunityListData(
                         payloadIndex.asJsonObject.get("id").asInt,
-                        payloadIndex.asJsonObject.get("title").toString(),
+                        payloadIndex.asJsonObject.get("title").toString().trim('"'),
                         payloadIndex.asJsonObject.get("date").toString(),
                         payloadIndex.asJsonObject.get("editDate").toString(),
-                        payloadIndex.asJsonObject.get("nickName").toString(),
+                        payloadIndex.asJsonObject.get("nickName").toString().trim('"'),
                         payloadIndex.asJsonObject.get("fireCount").asInt,
                         payloadIndex.asJsonObject.get("viewCount").asInt,
                     )
