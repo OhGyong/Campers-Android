@@ -1,10 +1,10 @@
 package com.campers.api
 
-import com.campers.data.community.CommunityDefaultResponse
-import com.campers.data.community.CommunityListResponse
-import com.campers.data.community.CommunityMemberResponse
+import com.campers.data.community.*
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface CommunityService {
@@ -12,7 +12,7 @@ interface CommunityService {
     /**
      * 기본 게시판 목록 15개
      */
-    @GET("/fire//default")
+    @GET("/fire/default")
     fun communityDefault(): Call<CommunityDefaultResponse>
 
     /**
@@ -24,6 +24,12 @@ interface CommunityService {
     /**
      * 기본 게시판 게시물 목록
      */
-    @GET("/fire//default/content/list/{id}")
+    @GET("/fire/default/content/list/{id}")
     fun communityDefaultList(@Path("id")id: Int): Call<CommunityListResponse>
+
+    /**
+     * 기본 게시판 게시물 상세
+     */
+    @POST("/fire/default/content/detail")
+    fun communityDefaultDetailData(@Body body: DefaultBoardDetailRequest): Call<DefaultBoardDetailResponse>
 }

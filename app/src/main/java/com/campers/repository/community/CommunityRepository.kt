@@ -2,9 +2,7 @@ package com.campers.repository.community
 
 import com.campers.api.CommonService.retrofit
 import com.campers.api.CommunityService
-import com.campers.data.community.CommunityDefaultResponse
-import com.campers.data.community.CommunityListResponse
-import com.campers.data.community.CommunityMemberResponse
+import com.campers.data.community.*
 import com.campers.repository.community.CommunityApi.communityResponse
 
 class CommunityRepository {
@@ -31,6 +29,18 @@ class CommunityRepository {
      */
     fun getCommunityDefaultListData(id: Int) : CommunityListResponse {
         val data = communityResponse.communityDefaultList(id).execute().body()
+        return data!!
+    }
+
+    /**
+     * 기본 게시판 게시물 상세
+     */
+    fun getCommunityDefaultDetailData(defaultBoardContentsId: Int, memberId: Int): DefaultBoardDetailResponse {
+        val request = DefaultBoardDetailRequest(
+            defaultBoardContentsId,
+            memberId
+        )
+        val data = communityResponse.communityDefaultDetailData(request).execute().body()
         return data!!
     }
 

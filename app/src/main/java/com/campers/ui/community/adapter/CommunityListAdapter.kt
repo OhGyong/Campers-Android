@@ -24,6 +24,13 @@ class CommunityListAdapter: RecyclerView.Adapter<CommunityListAdapter.CommunityL
             binding.communityUserName.text = data.nickName
             binding.viewNum.text = data.viewCount.toString()
             binding.bornfireNum.text = data.fireCount.toString()
+            binding.tvCommunityListDate.text = data.date.toString().trim('"')
+
+            if(adapterPosition != RecyclerView.NO_POSITION){
+                binding.root.setOnClickListener {
+                    clickListener?.setOnItemClick(binding, data)
+                }
+            }
         }
     }
 

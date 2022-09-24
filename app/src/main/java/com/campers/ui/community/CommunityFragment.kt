@@ -128,6 +128,7 @@ class CommunityFragment: Fragment() {
             ) {
                 val intent = Intent(context, CommunityListActivity::class.java)
                 intent.putExtra("id", data.id)
+                intent.putExtra("type", "default")
                 startActivity(intent)
             }
         })
@@ -139,6 +140,7 @@ class CommunityFragment: Fragment() {
             ) {
                 val intent = Intent(context, CommunityListActivity::class.java)
                 intent.putExtra("id", data.id)
+                intent.putExtra("type", "member")
                 startActivity(intent)
             }
 

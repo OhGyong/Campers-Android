@@ -1,5 +1,6 @@
 package com.campers.ui.community
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -7,6 +8,7 @@ import androidx.lifecycle.Observer
 import com.campers.R
 import com.campers.data.community.CommunityListData
 import com.campers.databinding.ActivityCommunityListBinding
+import com.campers.databinding.ItemListCommunityBinding
 import com.campers.ui.BaseActivity
 import com.campers.ui.community.adapter.CommunityListAdapter
 import com.campers.ui.community.viewmodel.CommunityListViewModel
@@ -18,7 +20,9 @@ class CommunityListActivity: BaseActivity() {
     private lateinit var mCommunityListAdapter: CommunityListAdapter
 
     private var communityList: ArrayList<CommunityListData> = arrayListOf()
+
     private var id = 0
+    private var type = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,7 @@ class CommunityListActivity: BaseActivity() {
         topActionBarListener()
         observeLiveData()
         setAdapter()
+        clickListener()
     }
 
     private fun topActionBarListener() {
@@ -67,6 +72,7 @@ class CommunityListActivity: BaseActivity() {
                         payloadIndex.asJsonObject.get("nickName").toString().trim('"'),
                         payloadIndex.asJsonObject.get("fireCount").asInt,
                         payloadIndex.asJsonObject.get("viewCount").asInt,
+                        payloadIndex.asJsonObject.get("defaultBoardId").asInt
                     )
                 )
             }
@@ -77,6 +83,7 @@ class CommunityListActivity: BaseActivity() {
     private fun showCommunityList() {
         // TODO : 기본 게시판인지, 사용자 게시판인지 구분 필요
         id = intent.getIntExtra("id", 99999)
+        type = intent.getStringExtra("type").toString()
 
         if(id == 99999){
             // TODO : 에러 화면 표시
@@ -84,7 +91,13 @@ class CommunityListActivity: BaseActivity() {
         }
 
         showLoading(this)
-        mViewModel.getCommunityDefaultList(id)
+        if(type == "default") {
+            mViewModel.getCommunityDefaultList(id)
+        }else {
+            // todo : 사용자 게시판 호출
+        }
+
+
 
     }
 
@@ -93,5 +106,26 @@ class CommunityListActivity: BaseActivity() {
         mCommunityListAdapter = CommunityListAdapter()
         mBinding.communityRecyclerView.adapter = mCommunityListAdapter
 
+    }
+
+    private fun clickListener() {
+        mCommunityListAdapter.setOnItemClickListener(object : CommunityListAdapter.OnItemClickListener {
+            override fun setOnItemClick(
+                binding: ItemListCommunityBinding,
+                data: CommunityListData
+            ) {
+                val intent = Intent(this@CommunityListActivity, CommunityDetailActivity::class.java)
+                intent.putExtra("memberId", data.id)
+                if(type == "default") {
+                    intent.putExtra("boardId", data.defaultBoardId)
+                    intent.putExtra("boardType", "default")
+
+                }else {
+                    // todo : 사용자 게시판 정보 보내기
+                }
+                startActivity(intent)
+            }
+
+        })
     }
 }

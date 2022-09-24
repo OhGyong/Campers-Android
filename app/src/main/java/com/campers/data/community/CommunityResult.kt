@@ -40,7 +40,30 @@ data class CommunityListData(
     val editDate: String,
     val nickName: String,
     val fireCount: Int,
-    val viewCount: Int
+    val viewCount: Int,
+    val defaultBoardId: Int? = null
+)
+
+/**
+ * 기본 게시판 게시물 상세
+ */
+data class DefaultBoardDetailResult(
+    val success: DefaultBoardDetailResponse? = null,
+    val failure: Exception? = null
+)
+
+data class DefaultBoardDetailData(
+    val id: Int,
+    val title: String,
+    val date: String,
+    val editDate: String,
+    val nickName: String,
+    val fireCount: Int,
+    val viewCount: Int,
+    val contents: String,
+    val hotContents: Int,
+    val hotDate: String? = null,
+    val memberId: Int
 )
 
 /**
@@ -53,10 +76,18 @@ data class CommunityDetailData(
     val nickName: String,
     val fireCount: Int,
     val viewCount: Int,
-    val hotContents: Int,
-    val hotDate: String,
+    val hotContents: Int? = 1,
+    val hotDate: String? = "1",
     val reportCount: Int,
     val memberId: Int
+)
+
+/**
+ * 게시물 상세 본문
+ */
+data class CommunityDetailContent(
+    val path: String? = null,
+    val contents: String? = null
 )
 
 /**
@@ -71,6 +102,8 @@ data class CommunityCommentData(
     val fireCount: Int,
     val memberId: Int
 )
+
+
 
 /**
  * 임시 데이터

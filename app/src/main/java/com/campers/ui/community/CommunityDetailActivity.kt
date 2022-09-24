@@ -6,11 +6,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.campers.R
 import com.campers.data.community.CommunityCommentData
+import com.campers.data.community.CommunityDetailContent
 import com.campers.data.community.CommunityDetailData
 import com.campers.databinding.ActivityCommunityDetailBinding
 import com.campers.ui.BaseActivity
 import com.campers.ui.community.adapter.CommunityCommentAdapter
 import com.campers.ui.community.viewmodel.CommunityDetailViewModel
+import com.google.gson.Gson
+import org.json.JSONObject
 
 class CommunityDetailActivity: BaseActivity() {
 
@@ -20,6 +23,9 @@ class CommunityDetailActivity: BaseActivity() {
 
     private var type = 0
     private var id = 0
+    private var boardId = 0
+    private var memberId = 0
+    private var boardType = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +114,82 @@ class CommunityDetailActivity: BaseActivity() {
                 }
             }
         })
+
+        mViewModel.communityDefaultDetailData.observe(this, Observer {
+            hideLoading()
+
+            if(it.failure != null){
+                // TODO : 에러 화면 표시
+                return@Observer
+            }
+
+            val success = it.success
+
+            if(success == null){
+                // TODO : 에러 화면 표시
+                return@Observer
+            }
+
+            val hotContentData = success.payload.get(0).asJsonArray[0].asJsonObject
+            val hotCommentListData = success.payload.get(1).asJsonArray
+
+            mBinding.communityDetailItem = CommunityDetailData(
+                hotContentData["id"].asInt,
+                hotContentData["title"].asString,
+                hotContentData["date"].asString,
+                hotContentData["nickName"].asString,
+                hotContentData["fireCount"].asInt,
+                hotContentData["viewCount"].asInt,
+                hotContentData["hotContents"].asInt,
+                "11",
+                1,
+                hotContentData["memberId"].asInt
+            )
+
+            println(hotContentData["contents"].javaClass)
+
+
+            mBinding.roadRichEditor.html = hotContentData["contents"].toString()
+            mBinding.roadRichEditor.isFocusable = false // 키보드가 뜨지 않도록 터치 잠금
+
+
+            /**
+             * 댓글이 있는 경우
+             * - type == 1, 유저 게시판
+             * - type == 2, 기본 게시판
+             */
+            if(hotCommentListData.size() != 0 && type == 1){
+                for (i in 0 until hotCommentListData.size()) {
+                    communityCommentList.add(
+                        CommunityCommentData(
+                            hotCommentListData[i].asJsonObject["id"].asInt,
+                            hotCommentListData[i].asJsonObject["memberBoardContentsId"].asInt,
+                            0,
+                            hotCommentListData[i].asJsonObject["info"].asString,
+                            hotCommentListData[i].asJsonObject["editDate"].asString,
+                            hotCommentListData[i].asJsonObject["fireCount"].asInt,
+                            hotCommentListData[i].asJsonObject["memberId"].asInt
+                        )
+                    )
+                }
+
+                mBinding.communityCommentRecyclerView.adapter = CommunityCommentAdapter(communityCommentList)
+            }else if(hotCommentListData.size() != 0 && type == 2){
+                for (i in 0 until hotCommentListData.size()) {
+                    communityCommentList.add(
+                        CommunityCommentData(
+                            hotCommentListData[i].asJsonObject["id"].asInt,
+                            0,
+                            hotCommentListData[i].asJsonObject["defaultBoardContentsId"].asInt,
+                            hotCommentListData[i].asJsonObject["info"].asString,
+                            hotCommentListData[i].asJsonObject["editDate"].asString,
+                            hotCommentListData[i].asJsonObject["fireCount"].asInt,
+                            hotCommentListData[i].asJsonObject["memberId"].asInt
+                        )
+                    )
+                }
+            }
+        })
     }
 
 
@@ -117,18 +199,32 @@ class CommunityDetailActivity: BaseActivity() {
      * - isHot으로 핫한 상세 게시물인지 체크 (유저 게시판인지 기본 게시판인지 확인)
      */
     private fun showCommunityDetail() {
+        showLoading(this)
+
         type = intent.getIntExtra("type", 99999)
         id = intent.getIntExtra("id", 99999)
         val isHot = intent.getBooleanExtra("isHot", false)
 
-        if(type == 99999 || id == 99999){
+        if(isHot){
+            if(type == 99999 || id == 99999){
+                // TODO : 에러 화면 표시
+                return
+            }
+            mViewModel.getHotCommunityDetailData(type, id)
+            return
+        }
+
+        memberId = intent.getIntExtra("memberId", 99999)
+        boardId = intent.getIntExtra("boardId", 99999)
+        boardType = intent.getStringExtra("boardType").toString()
+
+        if(memberId == 99999 || boardId == 99999){
             // TODO : 에러 화면 표시
             return
         }
 
-        if(isHot){
-            showLoading(this)
-            mViewModel.getHotCommunityDetailData(type, id)
+        if(boardType == "default") {
+            mViewModel.getCommunityDefaultDetailData(boardId, memberId)
         }
     }
 }

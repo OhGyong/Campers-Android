@@ -33,3 +33,13 @@ data class CommunityListResponse(
     @SerializedName("payload")
     val payload: JsonArray
 )
+
+/**
+ * 기본 게시판 게시물 상세
+ */
+data class DefaultBoardDetailResponse(
+    @SerializedName("status")
+    val status: Int,
+    @SerializedName("payload")
+    val payload: JsonArray
+)
