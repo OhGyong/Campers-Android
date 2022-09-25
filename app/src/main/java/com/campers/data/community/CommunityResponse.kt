@@ -43,3 +43,8 @@ data class DefaultBoardDetailResponse(
     @SerializedName("payload")
     val payload: JsonArray
 )
+
+data class test(
+    val path: String? = null,
+    val contents: String? = null
+)

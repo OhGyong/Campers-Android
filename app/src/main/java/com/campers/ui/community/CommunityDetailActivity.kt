@@ -13,6 +13,7 @@ import com.campers.ui.BaseActivity
 import com.campers.ui.community.adapter.CommunityCommentAdapter
 import com.campers.ui.community.viewmodel.CommunityDetailViewModel
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import org.json.JSONObject
 
 class CommunityDetailActivity: BaseActivity() {
@@ -146,10 +147,8 @@ class CommunityDetailActivity: BaseActivity() {
                 hotContentData["memberId"].asInt
             )
 
-            println(hotContentData["contents"].javaClass)
-
-
-            mBinding.roadRichEditor.html = hotContentData["contents"].toString()
+            val contents = JSONObject(hotContentData["contents"].asJsonPrimitive.asString)["contents"].toString()
+            mBinding.roadRichEditor.html = contents
             mBinding.roadRichEditor.isFocusable = false // 키보드가 뜨지 않도록 터치 잠금
 
 
