@@ -131,23 +131,23 @@ class CommunityDetailActivity: BaseActivity() {
                 return@Observer
             }
 
-            val hotContentData = success.payload.get(0).asJsonArray[0].asJsonObject
-            val hotCommentListData = success.payload.get(1).asJsonArray
+            val defaultDetailData = success.payload.get(0).asJsonArray[0].asJsonObject
+            val defaultDetailCommentListData = success.payload.get(1).asJsonArray
 
             mBinding.communityDetailItem = CommunityDetailData(
-                hotContentData["id"].asInt,
-                hotContentData["title"].asString,
-                hotContentData["date"].asString,
-                hotContentData["nickName"].asString,
-                hotContentData["fireCount"].asInt,
-                hotContentData["viewCount"].asInt,
-                hotContentData["hotContents"].asInt,
-                "11",
-                1,
-                hotContentData["memberId"].asInt
+                defaultDetailData["id"].asInt,
+                defaultDetailData["title"].asString,
+                defaultDetailData["date"].asString,
+                defaultDetailData["nickName"].asString,
+                defaultDetailData["fireCount"].asInt,
+                defaultDetailData["viewCount"].asInt,
+                defaultDetailData["hotContents"].asInt,
+                defaultDetailData["hotDate"].toString(),
+                0,
+                defaultDetailData["memberId"].asInt
             )
 
-            val contents = JSONObject(hotContentData["contents"].asJsonPrimitive.asString)["contents"].toString()
+            val contents = JSONObject(defaultDetailData["contents"].asJsonPrimitive.asString)["contents"].toString()
             mBinding.roadRichEditor.html = contents
             mBinding.roadRichEditor.isFocusable = false // 키보드가 뜨지 않도록 터치 잠금
 
@@ -157,33 +157,33 @@ class CommunityDetailActivity: BaseActivity() {
              * - type == 1, 유저 게시판
              * - type == 2, 기본 게시판
              */
-            if(hotCommentListData.size() != 0 && type == 1){
-                for (i in 0 until hotCommentListData.size()) {
+            if(defaultDetailCommentListData.size() != 0 && type == 1){
+                for (i in 0 until defaultDetailCommentListData.size()) {
                     communityCommentList.add(
                         CommunityCommentData(
-                            hotCommentListData[i].asJsonObject["id"].asInt,
-                            hotCommentListData[i].asJsonObject["memberBoardContentsId"].asInt,
+                            defaultDetailCommentListData[i].asJsonObject["id"].asInt,
+                            defaultDetailCommentListData[i].asJsonObject["memberBoardContentsId"].asInt,
                             0,
-                            hotCommentListData[i].asJsonObject["info"].asString,
-                            hotCommentListData[i].asJsonObject["editDate"].asString,
-                            hotCommentListData[i].asJsonObject["fireCount"].asInt,
-                            hotCommentListData[i].asJsonObject["memberId"].asInt
+                            defaultDetailCommentListData[i].asJsonObject["info"].asString,
+                            defaultDetailCommentListData[i].asJsonObject["editDate"].asString,
+                            defaultDetailCommentListData[i].asJsonObject["fireCount"].asInt,
+                            defaultDetailCommentListData[i].asJsonObject["memberId"].asInt
                         )
                     )
                 }
 
                 mBinding.communityCommentRecyclerView.adapter = CommunityCommentAdapter(communityCommentList)
-            }else if(hotCommentListData.size() != 0 && type == 2){
-                for (i in 0 until hotCommentListData.size()) {
+            }else if(defaultDetailCommentListData.size() != 0 && type == 2){
+                for (i in 0 until defaultDetailCommentListData.size()) {
                     communityCommentList.add(
                         CommunityCommentData(
-                            hotCommentListData[i].asJsonObject["id"].asInt,
+                            defaultDetailCommentListData[i].asJsonObject["id"].asInt,
                             0,
-                            hotCommentListData[i].asJsonObject["defaultBoardContentsId"].asInt,
-                            hotCommentListData[i].asJsonObject["info"].asString,
-                            hotCommentListData[i].asJsonObject["editDate"].asString,
-                            hotCommentListData[i].asJsonObject["fireCount"].asInt,
-                            hotCommentListData[i].asJsonObject["memberId"].asInt
+                            defaultDetailCommentListData[i].asJsonObject["defaultBoardContentsId"].asInt,
+                            defaultDetailCommentListData[i].asJsonObject["info"].asString,
+                            defaultDetailCommentListData[i].asJsonObject["editDate"].asString,
+                            defaultDetailCommentListData[i].asJsonObject["fireCount"].asInt,
+                            defaultDetailCommentListData[i].asJsonObject["memberId"].asInt
                         )
                     )
                 }

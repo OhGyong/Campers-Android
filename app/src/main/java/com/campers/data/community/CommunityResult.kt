@@ -56,11 +56,10 @@ data class DefaultBoardDetailData(
     val id: Int,
     val title: String,
     val date: String,
-    val editDate: String,
+    val editDate: String? = null,
     val nickName: String,
     val fireCount: Int,
     val viewCount: Int,
-    val contents: String,
     val hotContents: Int,
     val hotDate: String? = null,
     val memberId: Int
@@ -76,8 +75,8 @@ data class CommunityDetailData(
     val nickName: String,
     val fireCount: Int,
     val viewCount: Int,
-    val hotContents: Int? = 1,
-    val hotDate: String? = "1",
+    val hotContents: Int,
+    val hotDate: String? = null,
     val reportCount: Int,
     val memberId: Int
 )
