@@ -11,11 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.campers.R
 import com.campers.data.community.CommunityBoardData
+import com.campers.data.community.CommunityListData
 import com.campers.databinding.FragmentCommunityBinding
 import com.campers.databinding.ItemListCommunityBoardBinding
 import com.campers.ui.BaseActivity
 import com.campers.ui.community.adapter.CommunityBoardAdapter
 import com.campers.ui.community.viewmodel.CommunityViewModel
+import com.google.gson.Gson
 
 class CommunityFragment: Fragment() {
 
@@ -71,16 +73,10 @@ class CommunityFragment: Fragment() {
             }
 
             val communityDefaultJson = success.payload
+            communityDefaultList = Gson()
+                .fromJson(communityDefaultJson, Array<CommunityBoardData>::class.java)
+                .toCollection(ArrayList())
 
-            for(i in 0 until communityDefaultJson.size()){
-                val payloadIndex = communityDefaultJson.get(i)
-                communityDefaultList.add(
-                    CommunityBoardData(
-                        payloadIndex.asJsonObject.get("id").asInt,
-                        payloadIndex.asJsonObject.get("name").toString().trim('"')
-                    )
-                )
-            }
             mCommunityDefaultAdapter.setData(communityDefaultList)
         })
 
@@ -105,16 +101,9 @@ class CommunityFragment: Fragment() {
             }
 
             val communityMemberJson = success.payload
-
-            for(i in 0 until communityMemberJson.size()){
-                val payloadIndex = communityMemberJson.get(i)
-                communityMemberList.add(
-                    CommunityBoardData
-                        (payloadIndex.asJsonObject.get("id").asInt,
-                        payloadIndex.asJsonObject.get("name").toString().trim('"')
-                    )
-                )
-            }
+            communityMemberList = Gson()
+                .fromJson(communityMemberJson, Array<CommunityBoardData>::class.java)
+                .toCollection(ArrayList())
 
             mCommunityMemberAdapter.setData(communityMemberList)
         })

@@ -12,6 +12,7 @@ import com.campers.databinding.ItemListCommunityBinding
 import com.campers.ui.BaseActivity
 import com.campers.ui.community.adapter.CommunityListAdapter
 import com.campers.ui.community.viewmodel.CommunityListViewModel
+import com.google.gson.Gson
 
 class CommunityListActivity: BaseActivity() {
 
@@ -60,22 +61,10 @@ class CommunityListActivity: BaseActivity() {
             }
 
             val communityDefaultListJson = success.payload
+            communityList = Gson()
+                .fromJson(communityDefaultListJson, Array<CommunityListData>::class.java)
+                .toCollection(ArrayList())
 
-            for (i in 0 until communityDefaultListJson.size()) {
-                val payloadIndex = communityDefaultListJson.get(i)
-                communityList.add(
-                    CommunityListData(
-                        payloadIndex.asJsonObject.get("id").asInt,
-                        payloadIndex.asJsonObject.get("title").toString().trim('"'),
-                        payloadIndex.asJsonObject.get("date").toString(),
-                        payloadIndex.asJsonObject.get("editDate").toString(),
-                        payloadIndex.asJsonObject.get("nickName").toString().trim('"'),
-                        payloadIndex.asJsonObject.get("fireCount").asInt,
-                        payloadIndex.asJsonObject.get("viewCount").asInt,
-                        payloadIndex.asJsonObject.get("defaultBoardId").asInt
-                    )
-                )
-            }
             mCommunityListAdapter.setData(communityList)
         })
     }

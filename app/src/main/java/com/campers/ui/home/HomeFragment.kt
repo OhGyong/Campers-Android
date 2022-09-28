@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.campers.R
+import com.campers.data.community.CommunityBoardData
 import com.campers.data.home.HotCommunityListData
 import com.campers.data.home.RankingListData
 import com.campers.data.mypage.ProfileData
@@ -20,6 +21,7 @@ import com.campers.ui.community.CommunityDetailActivity
 import com.campers.ui.home.adapter.HotCommunityAdapter
 import com.campers.ui.home.adapter.RankingAdapter
 import com.campers.ui.home.viewmodel.HomeViewModel
+import com.google.gson.Gson
 
 class HomeFragment: Fragment() {
 
@@ -114,19 +116,13 @@ class HomeFragment: Fragment() {
                 return@Observer
             }
 
-            val hotCommunityJson = success.payload
             mBinding.tvEmptyHotcommunity.visibility = View.GONE
             mBinding.homeHotcommunityRecyclerView.visibility =View.VISIBLE
 
-            for(i in 0 until hotCommunityJson.size()){
-                val payloadIndex = hotCommunityJson.get(i)
-                val type = payloadIndex.asJsonObject.get("type").asInt
-                val id = payloadIndex.asJsonObject.get("id").asInt
-                val title = payloadIndex.asJsonObject.get("title").toString().trim('"')
-                val date = payloadIndex.asJsonObject.get("date").toString().trim('"')
-                val nickName = payloadIndex.asJsonObject.get("nickName").toString().trim('"') // 따옴표 지우기
-                hotCommunityList.add(HotCommunityListData(type, id, title, date, nickName))
-            }
+            val hotCommunityJson = success.payload
+            hotCommunityList = Gson()
+                .fromJson(hotCommunityJson, Array<HotCommunityListData>::class.java)
+                .toCollection(ArrayList())
 
             mHotCommunityAdapter.setList(hotCommunityList)
         })
