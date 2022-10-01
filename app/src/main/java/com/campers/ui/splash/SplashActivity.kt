@@ -11,6 +11,7 @@ import com.campers.MainActivity
 import com.campers.R
 import com.campers.util.CommonSharedPreferences
 
+// TODO : accessToken을 리프레시 하는 방법을 고민 해야함.
 
 /**
  * 스플래시 화면
