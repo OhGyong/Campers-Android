@@ -50,7 +50,7 @@
         android:label="CampingzoneDetailFragment" />
     <fragment
         android:id="@+id/communityRegistFragment"
-        android:name="com.campers.ui.community.CommunityRegistFragment"
+        android:name="com.campers.ui.community.CommunityRegistActivity"
         android:label="CommunityRegistFragment" >
         <action
             android:id="@+id/action_communityRegistFragment_to_communityDetailFragment"/>

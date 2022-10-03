@@ -41,25 +41,30 @@
             android:exported="true" >
         </activity>
 
-        <!-- 메인 Activity -->
+        <!-- 메인  -->
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize">
         </activity>
 
-        <!-- 로그인 Activity -->
+        <!-- 로그인  -->
         <activity android:name="com.campers.ui.login.LoginActivity">
         </activity>
 
-        <!-- 앱 인트로 Activity -->
+        <!-- 앱 인트로  -->
         <activity android:name="com.campers.ui.splash.AppIntroActivity">
         </activity>
 
-        <!-- 캠핑존 게시판 리스트 Activity -->
+        <!-- 캠핑존 게시판 리스트  -->
         <activity android:name="com.campers.ui.community.CommunityListActivity">
         </activity>
 
+        <!--  캠핑존 게시물 상세  -->
         <activity android:name="com.campers.ui.community.CommunityDetailActivity">
+        </activity>
+
+        <!-- 캠핑존 리스트 게시물 등록  -->
+        <activity android:name="com.campers.ui.community.CommunityRegistActivity">
         </activity>
 
     </application>

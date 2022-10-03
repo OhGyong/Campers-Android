@@ -116,5 +116,10 @@ class CommunityListActivity: BaseActivity() {
             }
 
         })
+
+        mBinding.ivListAdd.setOnClickListener {
+            val intent = Intent(this@CommunityListActivity, CommunityRegistActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -31,6 +31,7 @@
             tools:listitem="@layout/item_list_community" />
 
         <ImageView
+            android:id="@+id/iv_list_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/add_circle_outline_image"
