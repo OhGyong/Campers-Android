@@ -85,9 +85,6 @@ class CommunityListActivity: BaseActivity() {
         }else {
             // todo : 사용자 게시판 호출
         }
-
-
-
     }
 
     private fun setAdapter() {
@@ -114,7 +111,6 @@ class CommunityListActivity: BaseActivity() {
                 }
                 startActivity(intent)
             }
-
         })
 
         mBinding.ivListAdd.setOnClickListener {
