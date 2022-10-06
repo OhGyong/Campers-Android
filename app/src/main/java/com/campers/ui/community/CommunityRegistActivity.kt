@@ -41,6 +41,8 @@ class CommunityRegistActivity : BaseActivity() {
         mBinding = ActivityCommunityRegistBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
+        topActionBarListener()
+
         // reachEditor 설정
         mBinding.richEditor.setPlaceholder("내용을 입력하세요")
 
@@ -68,5 +70,9 @@ class CommunityRegistActivity : BaseActivity() {
 //                }
 //            )
 //        }
+    }
+
+    private fun topActionBarListener() {
+        mBinding.topActionBar.ivBack.setOnClickListener { finish() }
     }
 }
