@@ -28,6 +28,12 @@ interface CommunityService {
     fun communityDefaultList(@Path("id")id: Int): Call<CommunityListResponse>
 
     /**
+     * 사용자 게시판 게시물 목록
+     */
+    @GET("/fire/member/content/list/{id}")
+    fun communityMemberList(@Path("id")id: Int): Call<CommunityListResponse>
+
+    /**
      * 기본 게시판 게시물 상세
      */
     @POST("/fire/default/content/detail")

@@ -26,7 +26,7 @@ data class CommunityMemberResult(
 
 /**
  * 게시글 리스트
- * - 기본 게시판 게시물 목록
+ * - 기본 게시판 게시물 목록, 사용자 게시판 게시물 목록
  */
 data class CommunityListResult(
     val success: CommunityListResponse? = null,

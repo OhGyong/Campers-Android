@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class CommunityListViewModel: ViewModel() {
     val communityDefaultListData: MutableLiveData<CommunityListResult> = MutableLiveData()
+    val communityMemberListData: MutableLiveData<CommunityListResult> = MutableLiveData()
 
     /**
      * 기본 게시판 게시물 목록
@@ -23,6 +24,23 @@ class CommunityListViewModel: ViewModel() {
                 )
             } catch (e: Exception) {
                 communityDefaultListData.postValue(
+                    CommunityListResult(failure = e)
+                )
+            }
+        }
+    }
+
+    /**
+     * 사용자 게시판 게시물 목록
+     */
+    fun getCommunityMemberList(id: Int ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                communityMemberListData.postValue(
+                    CommunityListResult(success = CommunityRepository().getCommunityDefaultListData(id))
+                )
+            } catch (e: Exception) {
+                communityMemberListData.postValue(
                     CommunityListResult(failure = e)
                 )
             }

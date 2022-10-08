@@ -67,6 +67,32 @@ class CommunityListActivity: BaseActivity() {
 
             mCommunityListAdapter.setData(communityList)
         })
+
+        /**
+         * 사용자 게시판 게시물 목록
+         */
+        mViewModel.communityMemberListData.observe(this, Observer {
+            hideLoading()
+
+            if(it.failure != null) {
+                println("사용자 게시판 게시물 목록 호출 에러")
+                return@Observer
+            }
+
+            val success = it.success
+
+            if(success?.payload == null) {
+                println("사용자 게시판 게시물 목록 호출 에러")
+                return@Observer
+            }
+
+            val communityDefaultListJson = success.payload
+            communityList = Gson()
+                .fromJson(communityDefaultListJson, Array<CommunityListData>::class.java)
+                .toCollection(ArrayList())
+
+            mCommunityListAdapter.setData(communityList)
+        })
     }
 
     private fun showCommunityList() {
@@ -84,6 +110,7 @@ class CommunityListActivity: BaseActivity() {
             mViewModel.getCommunityDefaultList(id)
         }else {
             // todo : 사용자 게시판 호출
+            mViewModel.getCommunityMemberList(id)
         }
     }
 
@@ -108,6 +135,8 @@ class CommunityListActivity: BaseActivity() {
 
                 }else {
                     // todo : 사용자 게시판 정보 보내기
+                    intent.putExtra("boardId", data.defaultBoardId)
+                    intent.putExtra("boardType", "member")
                 }
                 startActivity(intent)
             }

@@ -20,7 +20,6 @@ class CommunityRepository {
      */
     fun getCommunityMemberData() : CommunityMemberResponse {
         val data = communityResponse.communityMember().execute().body()
-
         return data!!
     }
 
