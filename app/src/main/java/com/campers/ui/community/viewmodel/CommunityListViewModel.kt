@@ -37,7 +37,7 @@ class CommunityListViewModel: ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 communityMemberListData.postValue(
-                    CommunityListResult(success = CommunityRepository().getCommunityDefaultListData(id))
+                    CommunityListResult(success = CommunityRepository().getCommunityMemberListData(id))
                 )
             } catch (e: Exception) {
                 communityMemberListData.postValue(

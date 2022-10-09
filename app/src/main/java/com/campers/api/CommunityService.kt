@@ -37,5 +37,11 @@ interface CommunityService {
      * 기본 게시판 게시물 상세
      */
     @POST("/fire/default/content/detail")
-    fun communityDefaultDetailData(@Body body: DefaultBoardDetailRequest): Call<DefaultBoardDetailResponse>
+    fun communityDefaultDetailData(@Body body: DefaultBoardDetailRequest): Call<BoardDetailResponse>
+
+    /**
+     * 사용자 게시판 게시물 상세
+     */
+    @POST("/fire/default/content/detail")
+    fun communityMemberDetailData(@Body body: MemberBoardDetailRequest): Call<BoardDetailResponse>
 }

@@ -41,14 +41,15 @@ data class CommunityListData(
     val nickName: String,
     val fireCount: Int,
     val viewCount: Int,
-    val defaultBoardId: Int? = null
+    val defaultBoardId: Int? = null,
+    val memberBoardId: Int? = null
 )
 
 /**
  * 기본 게시판 게시물 상세
  */
-data class DefaultBoardDetailResult(
-    val success: DefaultBoardDetailResponse? = null,
+data class BoardDetailResult(
+    val success: BoardDetailResponse? = null,
     val failure: Exception? = null
 )
 

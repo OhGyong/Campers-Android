@@ -24,8 +24,7 @@ class CommunityRepository {
     }
 
     /**
-     * 게시글 리스트
-     * - 기본 게시판 게시물 목록
+     * 기본 게시판 게시물 목록
      */
     fun getCommunityDefaultListData(id: Int) : CommunityListResponse {
         val data = communityResponse.communityDefaultList(id).execute().body()
@@ -33,9 +32,17 @@ class CommunityRepository {
     }
 
     /**
+     * 사용자 게시판 게시물 목록
+     */
+    fun getCommunityMemberListData(id: Int): CommunityListResponse {
+        val data = communityResponse.communityMemberList(id).execute().body()
+        return data!!
+    }
+
+    /**
      * 기본 게시판 게시물 상세
      */
-    fun getCommunityDefaultDetailData(defaultBoardContentsId: Int, memberId: Int): DefaultBoardDetailResponse {
+    fun getCommunityDefaultDetailData(defaultBoardContentsId: Int, memberId: Int): BoardDetailResponse {
         val request = DefaultBoardDetailRequest(
             defaultBoardContentsId,
             memberId
@@ -44,6 +51,17 @@ class CommunityRepository {
         return data!!
     }
 
+    /**
+     * 사용자 게시판 게시물 상세
+     */
+    fun getCommunityMemberDetailData(memberBoardContentsId: Int, memberId: Int): BoardDetailResponse {
+        val request = MemberBoardDetailRequest(
+            memberBoardContentsId,
+            memberId
+        )
+        val data = communityResponse.communityMemberDetailData(request).execute().body()
+        return data!!
+    }
 }
 
 object CommunityApi {

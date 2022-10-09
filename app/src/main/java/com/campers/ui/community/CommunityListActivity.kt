@@ -134,8 +134,7 @@ class CommunityListActivity: BaseActivity() {
                     intent.putExtra("boardType", "default")
 
                 }else {
-                    // todo : 사용자 게시판 정보 보내기
-                    intent.putExtra("boardId", data.defaultBoardId)
+                    intent.putExtra("boardId", data.memberBoardId)
                     intent.putExtra("boardType", "member")
                 }
                 startActivity(intent)

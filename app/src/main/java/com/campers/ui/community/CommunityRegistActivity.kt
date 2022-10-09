@@ -3,20 +3,10 @@ package com.campers.ui.community
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
-import com.campers.R
 import com.campers.databinding.ActivityCommunityRegistBinding
 import com.campers.ui.BaseActivity
-import jp.wasabeef.richeditor.RichEditor
 
 class CommunityRegistActivity : BaseActivity() {
 

@@ -25,7 +25,7 @@ data class CommunityMemberResponse(
 
 /**
  * 게시글 리스트
- * - 기본 게시판 게시물 목록
+ * - 기본 게시판 게시물 목록, 사용자 게시판 게시물 목록
  */
 data class CommunityListResponse(
     @SerializedName("status")
@@ -35,9 +35,10 @@ data class CommunityListResponse(
 )
 
 /**
- * 기본 게시판 게시물 상세
+ * 게시판 게시물 상세
+ * 기본 게시판 게시물 상세, 사용자 게시판 게시물 상세
  */
-data class DefaultBoardDetailResponse(
+data class BoardDetailResponse(
     @SerializedName("status")
     val status: Int,
     @SerializedName("payload")
