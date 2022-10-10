@@ -22,8 +22,8 @@ class CommunityListActivity: BaseActivity() {
 
     private var communityList: ArrayList<CommunityListData> = arrayListOf()
 
-    private var id = 0
-    private var type = ""
+    private var boardId = 0 // 게시판 id
+    private var boardType = "" // 게시판 type
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,20 +97,20 @@ class CommunityListActivity: BaseActivity() {
 
     private fun showCommunityList() {
         // TODO : 기본 게시판인지, 사용자 게시판인지 구분 필요
-        id = intent.getIntExtra("id", 99999)
-        type = intent.getStringExtra("type").toString()
+        boardId = intent.getIntExtra("id", 99999)
+        boardType = intent.getStringExtra("type").toString()
 
-        if(id == 99999){
+        if(boardId == 99999){
             // TODO : 에러 화면 표시
             return
         }
 
         showLoading(this)
-        if(type == "default") {
-            mViewModel.getCommunityDefaultList(id)
+        if(boardType == "default") {
+            mViewModel.getCommunityDefaultList(boardId)
         }else {
             // todo : 사용자 게시판 호출
-            mViewModel.getCommunityMemberList(id)
+            mViewModel.getCommunityMemberList(boardId)
         }
     }
 
@@ -129,12 +129,12 @@ class CommunityListActivity: BaseActivity() {
             ) {
                 val intent = Intent(this@CommunityListActivity, CommunityDetailActivity::class.java)
                 intent.putExtra("memberId", data.id)
-                if(type == "default") {
-                    intent.putExtra("boardId", data.defaultBoardId)
+                if(boardType == "default") {
+                    intent.putExtra("boardId", data.defaultBoardId) // boardId
                     intent.putExtra("boardType", "default")
 
                 }else {
-                    intent.putExtra("boardId", data.memberBoardId)
+                    intent.putExtra("boardId", data.memberBoardId) // boardId
                     intent.putExtra("boardType", "member")
                 }
                 startActivity(intent)
@@ -143,6 +143,14 @@ class CommunityListActivity: BaseActivity() {
 
         mBinding.ivListAdd.setOnClickListener {
             val intent = Intent(this@CommunityListActivity, CommunityRegistActivity::class.java)
+            if(boardType == "default") {
+                intent.putExtra("boardId", boardId)
+                intent.putExtra("boardType", "default")
+
+            }else {
+                intent.putExtra("boardId", boardId)
+                intent.putExtra("boardType", "member")
+            }
             startActivity(intent)
         }
     }

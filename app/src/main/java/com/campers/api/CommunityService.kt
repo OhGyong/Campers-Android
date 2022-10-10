@@ -44,4 +44,10 @@ interface CommunityService {
      */
     @POST("/fire/default/content/detail")
     fun communityMemberDetailData(@Body body: MemberBoardDetailRequest): Call<BoardDetailResponse>
+
+    /**
+     * 사용자 게시판 게시물 글쓰기
+     */
+    @POST("/fire/member/content")
+    fun communityMemberContentRegist(@Body body: CommunityContentRegistRequest): Call<CommonObjectResponse>
 }

@@ -102,16 +102,3 @@ data class CommunityCommentData(
     val fireCount: Int,
     val memberId: Int
 )
-
-
-
-/**
- * 임시 데이터
- */
-data class CommunityData(
-    val userName: String,
-    val communityTitle: String,
-    val bornfireNum: Int,
-    val commentNum: Int,
-    val viewNum: Int
-)

@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.campers.R
+import com.campers.data.CommonData.Companion.userId
+import com.campers.data.CommonData.Companion.userNickName
 import com.campers.data.community.CommunityBoardData
 import com.campers.data.home.HotCommunityListData
 import com.campers.data.home.RankingListData
@@ -149,11 +151,14 @@ class HomeFragment: Fragment() {
             }
 
             // "이름" 으로 결과를 받기 때문에 "을 제거
-            var nickName = success.payload.get(0).asJsonObject.get("nickName").toString()
-            nickName = nickName.substring((1 until nickName.length-1))
+            val nickName = success.payload.get(0).asJsonObject.get("nickName").toString()
+
+            userId = success.payload.get(0).asJsonObject.get("id").asInt
+            userNickName = nickName.substring((1 until nickName.length-1))
+
             mBinding.nickName = ProfileData(
-                success.payload.get(0).asJsonObject.get("id").asInt,
-                nickName,
+                userId,
+                userNickName,
                 success.payload.get(0).asJsonObject.get("totalFire").asInt,
                 success.payload.get(0).asJsonObject.get("rank").asInt
             )

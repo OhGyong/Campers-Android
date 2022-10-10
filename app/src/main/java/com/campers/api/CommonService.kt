@@ -1,5 +1,8 @@
 package com.campers.api
 
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,3 +25,27 @@ object CommonService {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 }
+
+data class CommonArrayResponse (
+    @SerializedName("status")
+    val status: Int,
+    @SerializedName("payload")
+    val payload: JsonArray
+)
+
+data class CommonArrayResult (
+    val success: CommonArrayResponse? = null,
+    val failure: Exception? = null
+)
+
+data class CommonObjectResponse (
+    @SerializedName("status")
+    val status: Int,
+    @SerializedName("payload")
+    val payload: JsonObject
+)
+
+data class CommonObjectResult (
+    val success: CommonObjectResponse? = null,
+    val failure: Exception? = null
+)
