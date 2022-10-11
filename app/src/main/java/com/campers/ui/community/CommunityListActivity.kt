@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.campers.R
+import com.campers.data.CommonData.Companion.userId
 import com.campers.data.community.CommunityListData
 import com.campers.databinding.ActivityCommunityListBinding
 import com.campers.databinding.ItemListCommunityBinding
@@ -127,14 +128,15 @@ class CommunityListActivity: BaseActivity() {
                 binding: ItemListCommunityBinding,
                 data: CommunityListData
             ) {
+                println(data)
                 val intent = Intent(this@CommunityListActivity, CommunityDetailActivity::class.java)
-                intent.putExtra("memberId", data.id)
+                intent.putExtra("memberId", userId)
                 if(boardType == "default") {
-                    intent.putExtra("boardId", data.defaultBoardId) // boardId
+                    intent.putExtra("boardId", boardId) // boardId
                     intent.putExtra("boardType", "default")
 
                 }else {
-                    intent.putExtra("boardId", data.memberBoardId) // boardId
+                    intent.putExtra("boardId", boardId) // boardId
                     intent.putExtra("boardType", "member")
                 }
                 startActivity(intent)

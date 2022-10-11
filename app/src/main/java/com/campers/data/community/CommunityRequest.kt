@@ -23,7 +23,7 @@ data class DefaultBoardDetailRequest(
  * 사용자 게시판 게시물 상세
  */
 data class MemberBoardDetailRequest(
-    @SerializedName("defaultBoardContentsId")
+    @SerializedName("memberBoardContentsId")
     val memberBoardContentsId: Int,
     @SerializedName("memberId")
     val memberId: Int

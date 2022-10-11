@@ -42,7 +42,7 @@ interface CommunityService {
     /**
      * 사용자 게시판 게시물 상세
      */
-    @POST("/fire/default/content/detail")
+    @POST("/fire/member/content/detail")
     fun communityMemberDetailData(@Body body: MemberBoardDetailRequest): Call<BoardDetailResponse>
 
     /**

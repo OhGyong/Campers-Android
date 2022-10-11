@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.campers.R
+import com.campers.data.CommonData.Companion.userId
 import com.campers.data.community.CommunityCommentData
 import com.campers.data.community.CommunityDetailData
 import com.campers.databinding.ActivityCommunityDetailBinding
@@ -300,7 +301,8 @@ class CommunityDetailActivity: BaseActivity() {
         }
         // 사용자 게시판 게심루 상세 호출
         else {
-            mViewModel.getCommunityMemberDetailData(boardId, memberId)
+            println("$boardId  $memberId")
+            mViewModel.getCommunityMemberDetailData(boardId, userId)
         }
     }
 }
