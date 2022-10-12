@@ -13,8 +13,6 @@ import com.campers.data.community.CommunityContentRegistRequest
 import com.campers.databinding.ActivityCommunityRegistBinding
 import com.campers.ui.BaseActivity
 import com.campers.ui.community.viewmodel.CommunityRegistViewModel
-import com.google.gson.JsonArray
-import org.json.JSONArray
 import org.json.JSONObject
 
 class CommunityRegistActivity : BaseActivity() {
@@ -59,9 +57,7 @@ class CommunityRegistActivity : BaseActivity() {
 
             // TODO : 상세 화면 이동
 
-
         })
-
     }
 
     private fun topActionBarListener() {
@@ -80,7 +76,7 @@ class CommunityRegistActivity : BaseActivity() {
         mBinding.ibImgAdd.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
-            resultListener.launch(intent)
+            galleryRegisterResult.launch(intent)
         }
 
         // 완료 버튼
@@ -104,8 +100,6 @@ class CommunityRegistActivity : BaseActivity() {
                 userId
             )
 
-            println(request)
-
             // 기본 게시판 게시물 글쓰기
             if(boardType == "default") {
 
@@ -117,16 +111,17 @@ class CommunityRegistActivity : BaseActivity() {
         }
     }
 
-    private val resultListener =
+    /**
+     * 갤러리 이미지
+     */
+    private val galleryRegisterResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             val imageIntent = it.data
-
-            println("이미지 확인 ${imageIntent?.dataString}")
             try {
                 mBinding.richEditor.insertImage(imageIntent?.dataString, "", 300, 150)
 
             } catch (error: Error) {
-                println("에러")
+                println("갤러리 이미지 불러오기 에러")
             }
         }
 }
