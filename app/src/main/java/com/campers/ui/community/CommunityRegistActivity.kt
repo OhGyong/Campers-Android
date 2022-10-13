@@ -55,7 +55,13 @@ class CommunityRegistActivity : BaseActivity() {
                 return@Observer
             }
 
-            // TODO : 상세 화면 이동
+            val boardId = it.success?.payload?.get("insertId")?.asInt
+            val intent = Intent(this@CommunityRegistActivity, CommunityDetailActivity::class.java)
+            intent.putExtra("memberId", userId)
+            intent.putExtra("boardId", boardId) // boardId
+            intent.putExtra("boardType", "member")
+            startActivity(intent)
+            finish()
 
         })
     }
