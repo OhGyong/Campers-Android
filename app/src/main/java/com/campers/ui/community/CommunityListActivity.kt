@@ -98,7 +98,7 @@ class CommunityListActivity: BaseActivity() {
 
     private fun showCommunityList() {
         // TODO : 기본 게시판인지, 사용자 게시판인지 구분 필요
-        boardId = intent.getIntExtra("id", 99999)
+        boardId = intent.getIntExtra("boardId", 99999)
         boardType = intent.getStringExtra("type").toString()
 
         if(boardId == 99999){
@@ -132,11 +132,11 @@ class CommunityListActivity: BaseActivity() {
                 val intent = Intent(this@CommunityListActivity, CommunityDetailActivity::class.java)
                 intent.putExtra("memberId", userId)
                 if(boardType == "default") {
-                    intent.putExtra("boardId", boardId) // boardId
+                    intent.putExtra("boardId", data.id) // 게시물 id
                     intent.putExtra("boardType", "default")
 
                 }else {
-                    intent.putExtra("boardId", boardId) // boardId
+                    intent.putExtra("boardId", data.id) // 게시물 id
                     intent.putExtra("boardType", "member")
                 }
                 startActivity(intent)

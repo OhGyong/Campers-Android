@@ -116,8 +116,8 @@ class CommunityFragment: Fragment() {
                 data: CommunityBoardData
             ) {
                 val intent = Intent(context, CommunityListActivity::class.java)
-                intent.putExtra("id", data.id)
-                intent.putExtra("type", "default")
+                intent.putExtra("boardId", data.id) // 게시판 id
+                intent.putExtra("type", "default") // 게시판 타입
                 startActivity(intent)
             }
         })
@@ -128,8 +128,8 @@ class CommunityFragment: Fragment() {
                 data: CommunityBoardData
             ) {
                 val intent = Intent(context, CommunityListActivity::class.java)
-                intent.putExtra("id", data.id)
-                intent.putExtra("type", "member")
+                intent.putExtra("boardId", data.id) // 게시판 id
+                intent.putExtra("type", "member") // 게시판 타입
                 startActivity(intent)
             }
 
