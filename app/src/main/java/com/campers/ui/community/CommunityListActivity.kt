@@ -144,6 +144,8 @@ class CommunityListActivity: BaseActivity() {
         })
 
         mBinding.ivListAdd.setOnClickListener {
+            // TODO : registerForActivity로 처리해야할 것 같음
+
             val intent = Intent(this@CommunityListActivity, CommunityRegistActivity::class.java)
             if(boardType == "default") {
                 intent.putExtra("boardId", boardId)
