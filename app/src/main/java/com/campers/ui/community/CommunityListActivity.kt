@@ -102,7 +102,6 @@ class CommunityListActivity: BaseActivity() {
     }
 
     private fun showCommunityList() {
-        // TODO : 기본 게시판인지, 사용자 게시판인지 구분 필요
         boardId = intent.getIntExtra("boardId", 99999)
         boardType = intent.getStringExtra("type").toString()
 
@@ -115,7 +114,6 @@ class CommunityListActivity: BaseActivity() {
         if(boardType == "default") {
             mViewModel.getCommunityDefaultList(boardId)
         }else {
-            // todo : 사용자 게시판 호출
             mViewModel.getCommunityMemberList(boardId)
         }
     }
@@ -149,8 +147,6 @@ class CommunityListActivity: BaseActivity() {
         })
 
         mBinding.ivListAdd.setOnClickListener {
-            // TODO : registerForActivity로 처리해야할 것 같음
-
             val intent = Intent(this@CommunityListActivity, CommunityRegistActivity::class.java)
             if(boardType == "default") {
                 intent.putExtra("boardId", boardId)
