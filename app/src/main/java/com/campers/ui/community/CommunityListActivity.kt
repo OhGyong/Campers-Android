@@ -31,11 +31,16 @@ class CommunityListActivity: BaseActivity() {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_community_list)
 
-        showCommunityList()
+
         topActionBarListener()
         observeLiveData()
         setAdapter()
         clickListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showCommunityList()
     }
 
     private fun topActionBarListener() {
