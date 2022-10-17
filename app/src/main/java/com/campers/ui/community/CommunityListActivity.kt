@@ -45,6 +45,7 @@ class CommunityListActivity: BaseActivity() {
 
     private fun topActionBarListener() {
         mBinding.topActionBar.ivBack.setOnClickListener { finish() }
+        mBinding.topActionBar.tvTitle.text = intent.getStringExtra("boardTitle")
     }
 
     private fun observeLiveData() {

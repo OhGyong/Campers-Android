@@ -301,7 +301,6 @@ class CommunityDetailActivity: BaseActivity() {
         }
         // 사용자 게시판 게심루 상세 호출
         else {
-            println("$boardId  $memberId")
             mViewModel.getCommunityMemberDetailData(boardId, userId)
         }
     }
