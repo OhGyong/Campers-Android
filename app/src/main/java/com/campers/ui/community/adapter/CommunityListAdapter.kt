@@ -25,6 +25,7 @@ class CommunityListAdapter: RecyclerView.Adapter<CommunityListAdapter.CommunityL
             binding.viewNum.text = data.viewCount.toString()
             binding.bornfireNum.text = data.fireCount.toString()
             binding.tvCommunityListDate.text = data.date.trim('"')
+            binding.tvCommentNum.text = "0"
 
             if(adapterPosition != RecyclerView.NO_POSITION){
                 binding.root.setOnClickListener {

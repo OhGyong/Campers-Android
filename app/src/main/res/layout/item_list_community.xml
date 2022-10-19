@@ -109,11 +109,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/commentNum"
+            android:id="@+id/tv_comment_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="@dimen/community_not_title"
+            android:layout_marginStart="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/communityCommentImage"
             app:layout_constraintTop_toTopOf="parent" />
@@ -125,7 +126,7 @@
             android:layout_marginStart="5dp"
             android:src="@drawable/community_view"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/commentNum"
+            app:layout_constraintStart_toEndOf="@+id/tv_comment_num"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
