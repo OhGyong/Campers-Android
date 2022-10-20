@@ -1,8 +1,6 @@
 package com.campers.repository.community
 
-import com.campers.api.CommonArrayResponse
 import com.campers.api.CommonObjectResponse
-import com.campers.api.CommonObjectResult
 import com.campers.api.CommonService.retrofit
 import com.campers.api.CommunityService
 import com.campers.data.community.*

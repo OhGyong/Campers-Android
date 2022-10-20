@@ -7,7 +7,6 @@ import com.campers.data.home.HotCommunityDetailResponse
 import com.campers.data.home.HotCommunityListResponse
 import com.campers.data.home.RankingListResponse
 import com.campers.repository.home.HomeApi.homeResponse
-import kotlinx.coroutines.runBlocking
 
 class HomeRepository {
 

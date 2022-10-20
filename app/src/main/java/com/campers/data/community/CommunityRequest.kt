@@ -1,8 +1,6 @@
 package com.campers.data.community
 
-import com.google.gson.JsonArray
 import com.google.gson.annotations.SerializedName
-import org.json.JSONArray
 import org.json.JSONObject
 
 /**
