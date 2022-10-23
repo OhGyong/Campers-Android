@@ -12,6 +12,7 @@ import com.campers.databinding.ActivityCommunityDetailBinding
 import com.campers.ui.BaseActivity
 import com.campers.ui.community.adapter.CommunityCommentAdapter
 import com.campers.ui.community.viewmodel.CommunityDetailViewModel
+import com.google.gson.Gson
 import org.json.JSONObject
 
 class CommunityDetailActivity: BaseActivity() {
@@ -19,6 +20,7 @@ class CommunityDetailActivity: BaseActivity() {
     private lateinit var mBinding: ActivityCommunityDetailBinding
     private val mViewModel: CommunityDetailViewModel by viewModels()
     private var communityCommentList: ArrayList<CommunityCommentData> = arrayListOf()
+    private lateinit var mCommunityCommentAdapter: CommunityCommentAdapter
 
     private var type = 0
     private var id = 0
@@ -34,6 +36,7 @@ class CommunityDetailActivity: BaseActivity() {
         topActionBarListener()
         showCommunityDetail()
         observeLiveData()
+        setAdapter()
     }
 
     private fun topActionBarListener() {
@@ -82,6 +85,10 @@ class CommunityDetailActivity: BaseActivity() {
              * - type == 2, 기본 게시판
              */
             if(hotCommentListData.size() != 0 && type == 1){
+//                communityCommentList = Gson()
+//                    .fromJson(hotCommentListData, Array<CommunityCommentData>::class.java)
+//                    .toCollection(ArrayList())
+
                 for (i in 0 until hotCommentListData.size()) {
                     communityCommentList.add(
                         CommunityCommentData(
@@ -229,6 +236,7 @@ class CommunityDetailActivity: BaseActivity() {
              * - type == 1, 유저 게시판
              * - type == 2, 기본 게시판
              */
+            println(memberDetailCommentListData)
             if(memberDetailCommentListData.size() != 0 && type == 1){
                 for (i in 0 until memberDetailCommentListData.size()) {
                     communityCommentList.add(
@@ -244,7 +252,7 @@ class CommunityDetailActivity: BaseActivity() {
                     )
                 }
 
-                mBinding.communityCommentRecyclerView.adapter = CommunityCommentAdapter(communityCommentList)
+                mBinding.communityCommentRecyclerView.adapter = mCommunityCommentAdapter
             }else if(memberDetailCommentListData.size() != 0 && type == 2){
                 for (i in 0 until memberDetailCommentListData.size()) {
                     communityCommentList.add(
@@ -303,5 +311,9 @@ class CommunityDetailActivity: BaseActivity() {
         else {
             mViewModel.getCommunityMemberDetailData(boardId, userId)
         }
+    }
+
+    private fun setAdapter() {
+        mCommunityCommentAdapter = CommunityCommentAdapter(communityCommentList)
     }
 }
