@@ -104,7 +104,7 @@ class CommunityDetailActivity: BaseActivity() {
                     )
                 }
 
-                mBinding.communityCommentRecyclerView.adapter = CommunityCommentAdapter(communityCommentList)
+//                mBinding.communityCommentRecyclerView.adapter = CommunityCommentAdapter(communityCommentList)
             }else if(hotCommentListData.size() != 0 && type == 2){
                 for (i in 0 until hotCommentListData.size()) {
                     communityCommentList.add(
@@ -180,7 +180,7 @@ class CommunityDetailActivity: BaseActivity() {
                     )
                 }
 
-                mBinding.communityCommentRecyclerView.adapter = CommunityCommentAdapter(communityCommentList)
+//                mBinding.communityCommentRecyclerView.adapter = CommunityCommentAdapter(communityCommentList)
             }else if(defaultDetailCommentListData.size() != 0 && type == 2){
                 for (i in 0 until defaultDetailCommentListData.size()) {
                     communityCommentList.add(
@@ -235,43 +235,27 @@ class CommunityDetailActivity: BaseActivity() {
             mBinding.roadRichEditor.isFocusable = false // 키보드가 뜨지 않도록 터치 잠금
 
 
-            /**
-             * 댓글이 있는 경우
-             * - type == 1, 유저 게시판
-             * - type == 2, 기본 게시판
-             */
+            // 댓글 있는 경우
             if(memberDetailCommentListData.size() != 0){
-                for (i in 0 until memberDetailCommentListData.size()) {
-                    communityCommentList.add(
-                        CommunityCommentData(
-                            memberDetailCommentListData[i].asJsonObject["id"].asInt,
-                            memberDetailCommentListData[i].asJsonObject["memberBoardContentsId"].asInt,
-                            0,
-                            memberDetailCommentListData[i].asJsonObject["info"].asString,
-                            memberDetailCommentListData[i].asJsonObject["editDate"].asString,
-                            memberDetailCommentListData[i].asJsonObject["fireCount"].asInt,
-                            memberDetailCommentListData[i].asJsonObject["memberId"].asInt,
-                            memberDetailCommentListData[i].asJsonObject["nickName"].asString
-                        )
-                    )
-                }
+                communityCommentList = Gson()
+                    .fromJson(memberDetailCommentListData, Array<CommunityCommentData>::class.java)
+                    .toCollection(ArrayList())
+//                for (i in 0 until memberDetailCommentListData.size()) {
+//                    communityCommentList.add(
+//                        CommunityCommentData(
+//                            memberDetailCommentListData[i].asJsonObject["id"].asInt,
+//                            memberDetailCommentListData[i].asJsonObject["memberBoardContentsId"].asInt,
+//                            0,
+//                            memberDetailCommentListData[i].asJsonObject["info"].asString,
+//                            memberDetailCommentListData[i].asJsonObject["editDate"].asString,
+//                            memberDetailCommentListData[i].asJsonObject["fireCount"].asInt,
+//                            memberDetailCommentListData[i].asJsonObject["memberId"].asInt,
+//                            memberDetailCommentListData[i].asJsonObject["nickName"].asString
+//                        )
+//                    )
+//                }
 
-                mBinding.communityCommentRecyclerView.adapter = mCommunityCommentAdapter
-            }else if(memberDetailCommentListData.size() != 0 && type == 2){
-                for (i in 0 until memberDetailCommentListData.size()) {
-                    communityCommentList.add(
-                        CommunityCommentData(
-                            memberDetailCommentListData[i].asJsonObject["id"].asInt,
-                            0,
-                            memberDetailCommentListData[i].asJsonObject["defaultBoardContentsId"].asInt,
-                            memberDetailCommentListData[i].asJsonObject["info"].asString,
-                            memberDetailCommentListData[i].asJsonObject["editDate"].asString,
-                            memberDetailCommentListData[i].asJsonObject["fireCount"].asInt,
-                            memberDetailCommentListData[i].asJsonObject["memberId"].asInt,
-                            memberDetailCommentListData[i].asJsonObject["nickName"].asString
-                        )
-                    )
-                }
+                mCommunityCommentAdapter.setData(communityCommentList)
             }
         })
     }
@@ -319,6 +303,7 @@ class CommunityDetailActivity: BaseActivity() {
     }
 
     private fun setAdapter() {
-        mCommunityCommentAdapter = CommunityCommentAdapter(communityCommentList)
+        mCommunityCommentAdapter = CommunityCommentAdapter()
+        mBinding.communityCommentRecyclerView.adapter = mCommunityCommentAdapter
     }
 }

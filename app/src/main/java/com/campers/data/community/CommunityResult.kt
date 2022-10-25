@@ -95,11 +95,15 @@ data class CommunityDetailContent(
  */
 data class CommunityCommentData(
     val id: Int,
-    val memberBoardContentsId: Int,
-    val defaultBoardContentsId: Int,
+    val memberBoardContentsId: Int = 0,
+    val defaultBoardContentsId: Int= 0,
     val info: String,
     val editDate: String,
     val fireCount: Int,
     val memberId: Int,
     val nickName: String
 )
+
+/**
+ * 게시물 상세 댓글, 기본 게시판
+ */
