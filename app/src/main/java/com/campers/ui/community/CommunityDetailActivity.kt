@@ -85,9 +85,9 @@ class CommunityDetailActivity: BaseActivity() {
              * - type == 2, 기본 게시판
              */
             if(hotCommentListData.size() != 0 && type == 1){
-//                communityCommentList = Gson()
-//                    .fromJson(hotCommentListData, Array<CommunityCommentData>::class.java)
-//                    .toCollection(ArrayList())
+    //                communityCommentList = Gson()
+    //                    .fromJson(hotCommentListData, Array<CommunityCommentData>::class.java)
+    //                    .toCollection(ArrayList())
 
                 for (i in 0 until hotCommentListData.size()) {
                     communityCommentList.add(
@@ -98,7 +98,8 @@ class CommunityDetailActivity: BaseActivity() {
                             hotCommentListData[i].asJsonObject["info"].asString,
                             hotCommentListData[i].asJsonObject["editDate"].asString,
                             hotCommentListData[i].asJsonObject["fireCount"].asInt,
-                            hotCommentListData[i].asJsonObject["memberId"].asInt
+                            hotCommentListData[i].asJsonObject["memberId"].asInt,
+                            hotCommentListData[i].asJsonObject["nickName"].asString
                         )
                     )
                 }
@@ -114,7 +115,8 @@ class CommunityDetailActivity: BaseActivity() {
                             hotCommentListData[i].asJsonObject["info"].asString,
                             hotCommentListData[i].asJsonObject["editDate"].asString,
                             hotCommentListData[i].asJsonObject["fireCount"].asInt,
-                            hotCommentListData[i].asJsonObject["memberId"].asInt
+                            hotCommentListData[i].asJsonObject["memberId"].asInt,
+                            hotCommentListData[i].asJsonObject["nickName"].asString
                         )
                     )
                 }
@@ -172,7 +174,8 @@ class CommunityDetailActivity: BaseActivity() {
                             defaultDetailCommentListData[i].asJsonObject["info"].asString,
                             defaultDetailCommentListData[i].asJsonObject["editDate"].asString,
                             defaultDetailCommentListData[i].asJsonObject["fireCount"].asInt,
-                            defaultDetailCommentListData[i].asJsonObject["memberId"].asInt
+                            defaultDetailCommentListData[i].asJsonObject["memberId"].asInt,
+                            defaultDetailCommentListData[i].asJsonObject["nickName"].asString
                         )
                     )
                 }
@@ -188,7 +191,8 @@ class CommunityDetailActivity: BaseActivity() {
                             defaultDetailCommentListData[i].asJsonObject["info"].asString,
                             defaultDetailCommentListData[i].asJsonObject["editDate"].asString,
                             defaultDetailCommentListData[i].asJsonObject["fireCount"].asInt,
-                            defaultDetailCommentListData[i].asJsonObject["memberId"].asInt
+                            defaultDetailCommentListData[i].asJsonObject["memberId"].asInt,
+                            defaultDetailCommentListData[i].asJsonObject["nickName"].asString
                         )
                     )
                 }
@@ -236,8 +240,7 @@ class CommunityDetailActivity: BaseActivity() {
              * - type == 1, 유저 게시판
              * - type == 2, 기본 게시판
              */
-            println(memberDetailCommentListData)
-            if(memberDetailCommentListData.size() != 0 && type == 1){
+            if(memberDetailCommentListData.size() != 0){
                 for (i in 0 until memberDetailCommentListData.size()) {
                     communityCommentList.add(
                         CommunityCommentData(
@@ -247,7 +250,8 @@ class CommunityDetailActivity: BaseActivity() {
                             memberDetailCommentListData[i].asJsonObject["info"].asString,
                             memberDetailCommentListData[i].asJsonObject["editDate"].asString,
                             memberDetailCommentListData[i].asJsonObject["fireCount"].asInt,
-                            memberDetailCommentListData[i].asJsonObject["memberId"].asInt
+                            memberDetailCommentListData[i].asJsonObject["memberId"].asInt,
+                            memberDetailCommentListData[i].asJsonObject["nickName"].asString
                         )
                     )
                 }
@@ -263,7 +267,8 @@ class CommunityDetailActivity: BaseActivity() {
                             memberDetailCommentListData[i].asJsonObject["info"].asString,
                             memberDetailCommentListData[i].asJsonObject["editDate"].asString,
                             memberDetailCommentListData[i].asJsonObject["fireCount"].asInt,
-                            memberDetailCommentListData[i].asJsonObject["memberId"].asInt
+                            memberDetailCommentListData[i].asJsonObject["memberId"].asInt,
+                            memberDetailCommentListData[i].asJsonObject["nickName"].asString
                         )
                     )
                 }

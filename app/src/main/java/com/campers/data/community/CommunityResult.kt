@@ -100,5 +100,6 @@ data class CommunityCommentData(
     val info: String,
     val editDate: String,
     val fireCount: Int,
-    val memberId: Int
+    val memberId: Int,
+    val nickName: String
 )

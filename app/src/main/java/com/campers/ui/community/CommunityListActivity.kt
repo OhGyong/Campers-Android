@@ -132,7 +132,6 @@ class CommunityListActivity: BaseActivity() {
                 binding: ItemListCommunityBinding,
                 data: CommunityListData
             ) {
-                println(data)
                 val intent = Intent(this@CommunityListActivity, CommunityDetailActivity::class.java)
                 intent.putExtra("memberId", userId)
                 if(boardType == "default") {
