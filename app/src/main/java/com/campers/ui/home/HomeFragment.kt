@@ -52,6 +52,10 @@ class HomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        println("onViewCreated")
+        (activity as BaseActivity).showLoading(requireContext())
+        // TODO : 네비게이션 컨트롤러 특징인듯 (뒤로가기 시
+
 
         (activity as BaseActivity).showLoading(requireContext())
         mViewModel.getRankingList()
@@ -63,11 +67,17 @@ class HomeFragment: Fragment() {
         observeLiveData()
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
     private fun observeLiveData() {
         /**
          * 회원 랭킹 리스트
          */
         mViewModel.rankingData.observe(viewLifecycleOwner, Observer{
+            rankingList.clear()
+            (activity as BaseActivity).hideLoading()
             if(it.failure != null) {
                 // TODO : 빈 랭킹 리스트 표시
                 println("랭킹 리스트 호출 에러")
@@ -99,20 +109,22 @@ class HomeFragment: Fragment() {
          * 핫한 게시물 리스트
          */
         mViewModel.hotCommunityData.observe(viewLifecycleOwner, Observer{
+            hotCommunityList.clear()
+            (activity as BaseActivity).hideLoading()
+
             if(it.failure != null) {
                 // TODO : 빈 랭킹 리스트 표시
-                println("핫한 게시물 리스트 호출 에러")
+                println("핫한 게시물 리스트 호출 에러1")
                 mBinding.tvEmptyHotcommunity.visibility = View.VISIBLE
                 mBinding.homeHotcommunityRecyclerView.visibility =View.GONE
                 return@Observer
             }
 
             val success = it.success
-            println(success)
 
             if(success?.payload == null || success.payload.size() == 0) {
                 // TODO : 빈 랭킹 리스트 표시
-                println("핫한 게시물 리스트 호출 에러")
+                println("핫한 게시물 리스트 없음")
                 mBinding.tvEmptyHotcommunity.visibility = View.VISIBLE
                 mBinding.homeHotcommunityRecyclerView.visibility =View.GONE
                 return@Observer
