@@ -21,8 +21,9 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/top_action_bar">
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/top_action_bar"
+            app:layout_constraintBottom_toTopOf="@id/ct_community_comment_add">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -159,17 +160,53 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/community_comment_recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginTop="10dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/community_content_boundary_comment"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:listitem="@layout/item_list_community_comment"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ct_community_comment_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <EditText
+                android:id="@+id/et_community_comment_add"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:background="@drawable/border_edittext"
+                android:paddingStart="10dp"
+                android:paddingEnd="30dp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_image"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toTopOf="@id/et_community_comment_add"
+                app:layout_constraintBottom_toBottomOf="@id/et_community_comment_add"
+                app:layout_constraintEnd_toEndOf="@+id/et_community_comment_add" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </layout>
