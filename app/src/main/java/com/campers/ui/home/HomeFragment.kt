@@ -52,9 +52,8 @@ class HomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("onViewCreated")
         (activity as BaseActivity).showLoading(requireContext())
-        // TODO : 네비게이션 컨트롤러 특징인듯 (뒤로가기 시
+        // TODO : 네비게이션 컨트롤러 특징인듯 (뒤로가기 시 리스트 쌓임)
 
 
         (activity as BaseActivity).showLoading(requireContext())
