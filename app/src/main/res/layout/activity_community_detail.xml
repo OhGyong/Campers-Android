@@ -27,7 +27,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp">
 
                 <TextView
@@ -176,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -184,11 +184,13 @@
             <EditText
                 android:id="@+id/et_community_comment_add"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:background="@drawable/border_edittext"
                 android:paddingStart="10dp"
                 android:paddingEnd="30dp"
+                android:hint="@string/comment_add_hint"
                 android:textColor="@color/black"
+                android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -201,12 +203,6 @@
                 app:layout_constraintTop_toTopOf="@id/et_community_comment_add"
                 app:layout_constraintBottom_toBottomOf="@id/et_community_comment_add"
                 app:layout_constraintEnd_toEndOf="@+id/et_community_comment_add" />
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

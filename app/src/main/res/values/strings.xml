@@ -43,6 +43,7 @@
     <string name="community_member">사용자 게시판</string>
     <string name="complete">완료</string>
     <string name="write">글쓰기</string>
+    <string name="comment_add_hint">댓글을 입력하세요.</string>
 
     <!--  CommonBottomSheetDialog에 사용할 string  -->
     <string name="check">확인</string>
