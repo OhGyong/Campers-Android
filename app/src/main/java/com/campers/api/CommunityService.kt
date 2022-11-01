@@ -50,4 +50,10 @@ interface CommunityService {
      */
     @POST("/fire/member/content")
     fun communityMemberContentRegist(@Body body: CommunityContentRegistRequest): Call<CommonObjectResponse>
+
+    /**
+     * 사용자 게시판 게시물 댓글 작성
+     */
+    @POST("/fire/member/comment")
+    fun communityMemberCommentRegist(@Body body: CommunityCommentRegistRequest): Call<CommonObjectResponse>
 }

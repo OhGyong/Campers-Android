@@ -45,3 +45,18 @@ data class CommunityContentRegistRequest(
     @SerializedName("memberId")
     val memberId: Int
 )
+
+/**
+ * 사용자 게시판 게시물 댓글 작성
+ */
+data class CommunityCommentRegistRequest(
+    @SerializedName("memberBoardContentsId")
+    val memberBoardContentsId: Int,
+    @SerializedName("info")
+    val info: String,
+    @SerializedName("editDate")
+    val editDate: String,
+    @SerializedName("memberId")
+    val memberId: Int
+)
+

@@ -1,12 +1,14 @@
 package com.campers.ui.community
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.campers.R
 import com.campers.data.CommonData.Companion.userId
 import com.campers.data.community.CommunityCommentData
+import com.campers.data.community.CommunityCommentRegistRequest
 import com.campers.data.community.CommunityDetailData
 import com.campers.databinding.ActivityCommunityDetailBinding
 import com.campers.ui.BaseActivity
@@ -14,6 +16,9 @@ import com.campers.ui.community.adapter.CommunityCommentAdapter
 import com.campers.ui.community.viewmodel.CommunityDetailViewModel
 import com.google.gson.Gson
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CommunityDetailActivity: BaseActivity() {
 
@@ -34,6 +39,7 @@ class CommunityDetailActivity: BaseActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_community_detail)
 
         topActionBarListener()
+        addCommentListener()
         showCommunityDetail()
         observeLiveData()
         setAdapter()
@@ -258,6 +264,17 @@ class CommunityDetailActivity: BaseActivity() {
                 mCommunityCommentAdapter.setData(communityCommentList)
             }
         })
+
+        mViewModel.communityMemberCommentData.observe(this, Observer {
+            hideLoading()
+
+            if(it.failure != null){
+                // TODO : 에러 화면 표시
+                return@Observer
+            }
+
+            showCommunityDetail()
+        })
     }
 
 
@@ -296,10 +313,32 @@ class CommunityDetailActivity: BaseActivity() {
         if(boardType == "default") {
             mViewModel.getCommunityDefaultDetailData(boardId, memberId)
         }
-        // 사용자 게시판 게심루 상세 호출
+        // 사용자 게시판 게시물 상세 호출
         else {
             mViewModel.getCommunityMemberDetailData(boardId, userId)
         }
+    }
+
+    private fun addCommentListener() {
+        mBinding.etCommunityCommentAdd.setOnEditorActionListener { v, actionId, _ ->
+            val date = Date(System.currentTimeMillis())
+            val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.KOREA).format(date)
+            println(sdf)
+
+            if(actionId == EditorInfo.IME_ACTION_DONE) {
+                val data = CommunityCommentRegistRequest(
+                    boardId,
+                    v.text.toString(),
+                    sdf,
+                    userId
+
+                )
+                showLoading(this)
+                mViewModel.getCommunityMemberCommentRegist(data)
+            }
+            false
+        }
+
     }
 
     private fun setAdapter() {

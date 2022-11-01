@@ -2,7 +2,6 @@ package com.campers.ui.community.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.campers.api.CommonArrayResult
 import com.campers.api.CommonObjectResult
 import com.campers.data.community.CommunityContentRegistRequest
 import com.campers.repository.community.CommunityRepository

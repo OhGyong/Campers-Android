@@ -45,6 +45,9 @@ data class CommonObjectResponse (
     val payload: JsonObject
 )
 
+/**
+ * 사용자 게시판 게시물 글쓰기, 사용자 게시판 게시물 댓글 작성
+ */
 data class CommonObjectResult (
     val success: CommonObjectResponse? = null,
     val failure: Exception? = null

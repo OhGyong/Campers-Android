@@ -71,6 +71,14 @@ class CommunityRepository {
         val data = communityResponse.communityMemberContentRegist(request).execute().body()
         return data!!
     }
+
+    /**
+     * 사용자 게시판 게시물 댓글 작성
+     */
+    fun getCommunityMemberCommentRegistData(request: CommunityCommentRegistRequest) : CommonObjectResponse {
+        val data = communityResponse.communityMemberCommentRegist(request).execute().body()
+        return data!!
+    }
 }
 
 object CommunityApi {
