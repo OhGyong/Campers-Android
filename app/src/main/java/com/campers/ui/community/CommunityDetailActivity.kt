@@ -323,7 +323,6 @@ class CommunityDetailActivity: BaseActivity() {
         mBinding.etCommunityCommentAdd.setOnEditorActionListener { v, actionId, _ ->
             val date = Date(System.currentTimeMillis())
             val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.KOREA).format(date)
-            println(sdf)
 
             if(actionId == EditorInfo.IME_ACTION_DONE) {
                 val data = CommunityCommentRegistRequest(
@@ -336,6 +335,7 @@ class CommunityDetailActivity: BaseActivity() {
                 showLoading(this)
                 mViewModel.getCommunityMemberCommentRegist(data)
             }
+            mBinding.etCommunityCommentAdd.text.clear()
             false
         }
 
