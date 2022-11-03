@@ -41,6 +41,7 @@ data class CommunityListData(
     val nickName: String,
     val fireCount: Int,
     val viewCount: Int,
+    val commentCount: Int,
     val defaultBoardId: Int? = null,
     val memberBoardId: Int? = null
 )
