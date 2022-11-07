@@ -98,19 +98,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{Integer.toString(communityDetailItem.fireCount)}"
+                    android:textColor="#ED1D1D"
                     android:textSize="@dimen/community_text_size"
                     android:textStyle="bold"
-                    android:layout_marginStart="2dp"
-                    android:textColor="#ED1D1D"
+                    app:layout_constraintBottom_toBottomOf="@+id/bonfire_num_image"
                     app:layout_constraintStart_toEndOf="@+id/bonfire_num_image"
-                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image"
+                    tools:text="0" />
 
                 <ImageView
                     android:id="@+id/comment_num_image"
                     android:layout_width="@dimen/community_image_size"
                     android:layout_height="@dimen/community_image_size"
                     android:src="@drawable/community_comment"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     app:layout_constraintStart_toEndOf="@+id/community_detail_bonfire_num"
                     app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
 
@@ -118,20 +119,21 @@
                     android:id="@+id/community_detail_comment_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
                     android:text="0"
                     android:textColor="@color/black"
                     android:textSize="@dimen/community_text_size"
                     android:textStyle="bold"
-                    android:layout_marginStart="2dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/comment_num_image"
                     app:layout_constraintStart_toEndOf="@+id/comment_num_image"
-                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+                    app:layout_constraintTop_toTopOf="@+id/comment_num_image" />
 
                 <ImageView
                     android:id="@+id/community_view_num_image"
                     android:layout_width="@dimen/community_image_size"
                     android:layout_height="@dimen/community_image_size"
                     android:src="@drawable/community_view"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     app:layout_constraintStart_toEndOf="@+id/community_detail_comment_num"
                     app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
 
@@ -139,13 +141,15 @@
                     android:id="@+id/community_detail_view_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
                     android:text="@{Integer.toString(communityDetailItem.viewCount)}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/community_text_size"
                     android:textStyle="bold"
-                    android:layout_marginStart="2dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/community_view_num_image"
                     app:layout_constraintStart_toEndOf="@+id/community_view_num_image"
-                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+                    app:layout_constraintTop_toTopOf="@+id/community_view_num_image"
+                    tools:text="0" />
 
                 <View
                     android:id="@+id/community_content_boundary_comment"
