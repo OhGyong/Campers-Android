@@ -49,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/hotcommunity_board_title" />
 
         <ImageView
-            android:id="@+id/bonfire_num_image"
+            android:id="@+id/iv_bornfire"
             android:layout_width="13dp"
             android:layout_height="13dp"
             android:layout_marginStart="190dp"
@@ -69,7 +69,7 @@
             android:textStyle="bold"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toStartOf="@+id/comment_num_image"
-            app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+            app:layout_constraintTop_toTopOf="@+id/iv_bornfire" />
 
         <ImageView
             android:id="@+id/comment_num_image"
@@ -92,7 +92,7 @@
             android:textStyle="bold"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+            app:layout_constraintTop_toTopOf="@+id/iv_bornfire" />
 
         <View
             android:layout_width="0dp"

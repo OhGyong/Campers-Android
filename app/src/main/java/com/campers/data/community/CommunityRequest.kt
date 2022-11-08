@@ -60,3 +60,14 @@ data class CommunityCommentRegistRequest(
     val memberId: Int
 )
 
+/**
+ * 사용자 게시판 게시물 좋아요
+ */
+data class CommunityMemberContentFireRequest(
+    @SerializedName("memberBoardContentsId")
+    val memberBoardContentsId: Int,
+    @SerializedName("memberId")
+    val memberId: Int,
+    @SerializedName("memberBoardId")
+    val memberBoardId: Int
+)

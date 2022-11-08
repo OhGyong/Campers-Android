@@ -2,10 +2,7 @@ package com.campers.api
 
 import com.campers.data.community.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface CommunityService {
 
@@ -56,4 +53,10 @@ interface CommunityService {
      */
     @POST("/fire/member/comment")
     fun communityMemberCommentRegist(@Body body: CommunityCommentRegistRequest): Call<CommonObjectResponse>
+
+    /**
+     * 사용자 게시판 게시물 좋아요
+     */
+    @PATCH("/fire/member/content/fire")
+    fun communityMemberContentFire(@Body body: CommunityMemberContentFireRequest): Call<CommonArrayResponse>
 }

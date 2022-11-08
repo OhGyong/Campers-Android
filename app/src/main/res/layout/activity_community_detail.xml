@@ -85,7 +85,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/community_title_boundary_content" />
 
                 <ImageView
-                    android:id="@+id/bonfire_num_image"
+                    android:id="@+id/iv_bornfire"
                     android:layout_width="@dimen/community_image_size"
                     android:layout_height="@dimen/community_image_size"
                     android:src="@drawable/bonfire"
@@ -101,9 +101,9 @@
                     android:textColor="#ED1D1D"
                     android:textSize="@dimen/community_text_size"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/bonfire_num_image"
-                    app:layout_constraintStart_toEndOf="@+id/bonfire_num_image"
-                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_bornfire"
+                    app:layout_constraintStart_toEndOf="@+id/iv_bornfire"
+                    app:layout_constraintTop_toTopOf="@+id/iv_bornfire"
                     tools:text="0" />
 
                 <ImageView
@@ -113,7 +113,7 @@
                     android:src="@drawable/community_comment"
                     android:layout_marginStart="10dp"
                     app:layout_constraintStart_toEndOf="@+id/community_detail_bonfire_num"
-                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_bornfire" />
 
                 <TextView
                     android:id="@+id/community_detail_comment_num"
@@ -135,7 +135,7 @@
                     android:src="@drawable/community_view"
                     android:layout_marginStart="10dp"
                     app:layout_constraintStart_toEndOf="@+id/community_detail_comment_num"
-                    app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_bornfire" />
 
                 <TextView
                     android:id="@+id/community_detail_view_num"

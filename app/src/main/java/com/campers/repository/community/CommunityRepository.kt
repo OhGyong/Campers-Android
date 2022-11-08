@@ -1,5 +1,6 @@
 package com.campers.repository.community
 
+import com.campers.api.CommonArrayResponse
 import com.campers.api.CommonObjectResponse
 import com.campers.api.CommonService.retrofit
 import com.campers.api.CommunityService
@@ -77,6 +78,14 @@ class CommunityRepository {
      */
     fun getCommunityMemberCommentRegistData(request: CommunityCommentRegistRequest) : CommonObjectResponse {
         val data = communityResponse.communityMemberCommentRegist(request).execute().body()
+        return data!!
+    }
+
+    /**
+     * 사용자 게시판 게시물 좋아요
+     */
+    fun getCommunityContentFireData(request: CommunityMemberContentFireRequest) : CommonArrayResponse {
+        val data = communityResponse.communityMemberContentFire(request).execute().body()
         return data!!
     }
 }

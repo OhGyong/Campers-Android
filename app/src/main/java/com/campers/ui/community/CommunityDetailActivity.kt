@@ -10,6 +10,7 @@ import com.campers.data.CommonData.Companion.userId
 import com.campers.data.community.CommunityCommentData
 import com.campers.data.community.CommunityCommentRegistRequest
 import com.campers.data.community.CommunityDetailData
+import com.campers.data.community.CommunityMemberContentFireRequest
 import com.campers.databinding.ActivityCommunityDetailBinding
 import com.campers.ui.BaseActivity
 import com.campers.ui.community.adapter.CommunityCommentAdapter
@@ -43,6 +44,7 @@ class CommunityDetailActivity: BaseActivity() {
         showCommunityDetail()
         observeLiveData()
         setAdapter()
+        clickListener()
     }
 
     private fun topActionBarListener() {
@@ -275,6 +277,17 @@ class CommunityDetailActivity: BaseActivity() {
 
             showCommunityDetail()
         })
+
+        mViewModel.communityMemberContentFireData.observe(this, Observer {
+            hideLoading()
+
+            if(it.failure != null){
+                // TODO : 에러 처리
+                return@Observer
+            }
+
+            showCommunityDetail()
+        })
     }
 
 
@@ -339,6 +352,18 @@ class CommunityDetailActivity: BaseActivity() {
             false
         }
 
+    }
+
+    private fun clickListener() {
+        mBinding.ivBornfire.setOnClickListener {
+            showLoading(this)
+            val request = CommunityMemberContentFireRequest(
+                boardId,
+                userId,
+                boardId
+            )
+            mViewModel.getCommunityMemberContentFireData(request)
+        }
     }
 
     private fun setAdapter() {

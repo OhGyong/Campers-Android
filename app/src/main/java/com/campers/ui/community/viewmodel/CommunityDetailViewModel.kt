@@ -2,9 +2,11 @@ package com.campers.ui.community.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.campers.api.CommonArrayResult
 import com.campers.api.CommonObjectResult
 import com.campers.data.community.BoardDetailResult
 import com.campers.data.community.CommunityCommentRegistRequest
+import com.campers.data.community.CommunityMemberContentFireRequest
 import com.campers.data.home.HotCommunityDetailResult
 import com.campers.repository.community.CommunityRepository
 import com.campers.repository.home.HomeRepository
@@ -18,6 +20,7 @@ class CommunityDetailViewModel: ViewModel() {
     val communityDefaultDetailData: MutableLiveData<BoardDetailResult> = MutableLiveData()
     val communityMemberDetailData:  MutableLiveData<BoardDetailResult> = MutableLiveData()
     val communityMemberCommentData: MutableLiveData<CommonObjectResult> = MutableLiveData()
+    val communityMemberContentFireData: MutableLiveData<CommonArrayResult> = MutableLiveData()
 
     /**
      * 핫 게시글 상세
@@ -78,6 +81,23 @@ class CommunityDetailViewModel: ViewModel() {
             try {
                 communityMemberCommentData.postValue(
                     CommonObjectResult(success = CommunityRepository().getCommunityMemberCommentRegistData(request))
+                )
+            } catch (e: Exception) {
+                communityMemberCommentData.postValue(
+                    CommonObjectResult(failure = e)
+                )
+            }
+        }
+    }
+
+    /**
+     * 사용자 게시판 게시물 좋아요
+     */
+    fun getCommunityMemberContentFireData(request: CommunityMemberContentFireRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                communityMemberContentFireData.postValue(
+                    CommonArrayResult(success = CommunityRepository().getCommunityContentFireData(request))
                 )
             } catch (e: Exception) {
                 communityMemberCommentData.postValue(

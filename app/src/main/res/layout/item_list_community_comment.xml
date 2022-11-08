@@ -47,7 +47,7 @@
             app:layout_constraintTop_toBottomOf="@+id/community_comment_nickName" />
 
         <ImageView
-            android:id="@+id/bonfire_num_image"
+            android:id="@+id/iv_bornfire"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginEnd="1dp"
@@ -65,7 +65,7 @@
             android:textStyle="bold"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/bonfire_num_image" />
+            app:layout_constraintTop_toTopOf="@+id/iv_bornfire" />
 
         <View
             android:layout_width="0dp"
