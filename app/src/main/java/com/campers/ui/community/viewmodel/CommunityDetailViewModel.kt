@@ -42,11 +42,11 @@ class CommunityDetailViewModel: ViewModel() {
     /**
      * 기본 게시물 상세
      */
-    fun getCommunityDefaultDetailData(defaultBoardContentsId: Int, memberId: Int) {
+    fun getCommunityDefaultDetailData(defaultBoardContentsId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 communityDefaultDetailData.postValue(
-                    BoardDetailResult(success = CommunityRepository().getCommunityDefaultDetailData(defaultBoardContentsId, memberId))
+                    BoardDetailResult(success = CommunityRepository().getCommunityDefaultDetailData(defaultBoardContentsId))
                 )
             } catch (e: Exception) {
                 communityDefaultDetailData.postValue(
@@ -59,11 +59,11 @@ class CommunityDetailViewModel: ViewModel() {
     /**
      * 사용자 게시물 상세
      */
-    fun getCommunityMemberDetailData(memberBoardContentsId: Int, memberId: Int) {
+    fun getCommunityMemberDetailData(memberBoardContentsId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 communityMemberDetailData.postValue(
-                    BoardDetailResult(success = CommunityRepository().getCommunityMemberDetailData(memberBoardContentsId, memberId))
+                    BoardDetailResult(success = CommunityRepository().getCommunityMemberDetailData(memberBoardContentsId))
                 )
             } catch (e: Exception) {
                 communityMemberDetailData.postValue(

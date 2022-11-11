@@ -6,7 +6,11 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.campers.R
-import com.campers.data.CommonData.Companion.userId
+import com.campers.data.CommonData
+import com.campers.data.CommonData.Companion.boardContentId
+import com.campers.data.CommonData.Companion.boardId
+import com.campers.data.CommonData.Companion.boardType
+import com.campers.data.CommonData.Companion.myId
 import com.campers.data.community.CommunityCommentData
 import com.campers.data.community.CommunityCommentRegistRequest
 import com.campers.data.community.CommunityDetailData
@@ -30,9 +34,6 @@ class CommunityDetailActivity: BaseActivity() {
 
     private var type = 0
     private var id = 0
-    private var boardId = 0
-    private var memberId = 0
-    private var boardType = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -313,22 +314,18 @@ class CommunityDetailActivity: BaseActivity() {
             return
         }
 
-        memberId = intent.getIntExtra("memberId", 99999)
-        boardId = intent.getIntExtra("boardId", 99999)
-        boardType = intent.getStringExtra("boardType").toString()
-
-        if(memberId == 99999 || boardId == 99999){
+        if(boardId == 0){
             // TODO : 에러 화면 표시
             return
         }
 
         // 기본 게시판 게시물 상세 호출
         if(boardType == "default") {
-            mViewModel.getCommunityDefaultDetailData(boardId, memberId)
+            mViewModel.getCommunityDefaultDetailData(boardContentId)
         }
         // 사용자 게시판 게시물 상세 호출
         else {
-            mViewModel.getCommunityMemberDetailData(boardId, userId)
+            mViewModel.getCommunityMemberDetailData(boardContentId)
         }
     }
 
@@ -339,10 +336,10 @@ class CommunityDetailActivity: BaseActivity() {
 
             if(actionId == EditorInfo.IME_ACTION_DONE) {
                 val data = CommunityCommentRegistRequest(
-                    boardId,
+                    boardContentId,
                     v.text.toString(),
                     sdf,
-                    userId
+                    CommonData.myId
 
                 )
                 showLoading(this)
@@ -358,8 +355,8 @@ class CommunityDetailActivity: BaseActivity() {
         mBinding.ivBornfire.setOnClickListener {
             showLoading(this)
             val request = CommunityMemberContentFireRequest(
-                boardId,
-                userId,
+                boardContentId,
+                myId,
                 boardId
             )
             mViewModel.getCommunityMemberContentFireData(request)

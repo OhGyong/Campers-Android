@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.campers.R
+import com.campers.data.CommonData.Companion.boardContentId
+import com.campers.data.CommonData.Companion.boardId
+import com.campers.data.CommonData.Companion.boardType
 import com.campers.data.community.CommunityBoardData
 import com.campers.data.community.CommunityListData
 import com.campers.databinding.FragmentCommunityBinding
@@ -115,10 +118,10 @@ class CommunityFragment: Fragment() {
                 binding: ItemListCommunityBoardBinding,
                 data: CommunityBoardData
             ) {
+                boardId = data.id // 기본 게시판 id
+                boardType = "default" // 게시판 타입
                 val intent = Intent(context, CommunityListActivity::class.java)
                 intent.putExtra("boardTitle", data.name) // 게시판 타이틀
-                intent.putExtra("boardId", data.id) // 게시판 id
-                intent.putExtra("type", "default") // 게시판 타입
                 startActivity(intent)
             }
         })
@@ -128,13 +131,12 @@ class CommunityFragment: Fragment() {
                 binding: ItemListCommunityBoardBinding,
                 data: CommunityBoardData
             ) {
+                boardId = data.id // 사용자 게시판 id
+                boardType = "member" // 게시판 타입
                 val intent = Intent(context, CommunityListActivity::class.java)
                 intent.putExtra("boardTitle", data.name) // 게시판 타이틀
-                intent.putExtra("boardId", data.id) // 게시판 id
-                intent.putExtra("type", "member") // 게시판 타입
                 startActivity(intent)
             }
-
         })
 
     }

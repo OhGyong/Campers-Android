@@ -12,9 +12,7 @@ import org.json.JSONObject
  */
 data class DefaultBoardDetailRequest(
     @SerializedName("defaultBoardContentsId")
-    val defaultBoardContentsId: Int,
-    @SerializedName("memberId")
-    val memberId: Int
+    val defaultBoardContentsId: Int
 )
 
 /**
@@ -22,9 +20,7 @@ data class DefaultBoardDetailRequest(
  */
 data class MemberBoardDetailRequest(
     @SerializedName("memberBoardContentsId")
-    val memberBoardContentsId: Int,
-    @SerializedName("memberId")
-    val memberId: Int
+    val memberBoardContentsId: Int
 )
 
 /**

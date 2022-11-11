@@ -44,11 +44,8 @@ class CommunityRepository {
     /**
      * 기본 게시판 게시물 상세
      */
-    fun getCommunityDefaultDetailData(defaultBoardContentsId: Int, memberId: Int): BoardDetailResponse {
-        val request = DefaultBoardDetailRequest(
-            defaultBoardContentsId,
-            memberId
-        )
+    fun getCommunityDefaultDetailData(defaultBoardContentsId: Int): BoardDetailResponse {
+        val request = DefaultBoardDetailRequest(defaultBoardContentsId)
         val data = communityResponse.communityDefaultDetailData(request).execute().body()
         return data!!
     }
@@ -56,11 +53,8 @@ class CommunityRepository {
     /**
      * 사용자 게시판 게시물 상세
      */
-    fun getCommunityMemberDetailData(memberBoardContentsId: Int, memberId: Int): BoardDetailResponse {
-        val request = MemberBoardDetailRequest(
-            memberBoardContentsId,
-            memberId
-        )
+    fun getCommunityMemberDetailData(memberBoardContentsId: Int): BoardDetailResponse {
+        val request = MemberBoardDetailRequest(memberBoardContentsId)
         val data = communityResponse.communityMemberDetailData(request).execute().body()
         return data!!
     }

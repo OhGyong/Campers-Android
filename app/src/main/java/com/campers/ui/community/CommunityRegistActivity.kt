@@ -7,8 +7,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import com.campers.data.CommonData.Companion.userId
-import com.campers.data.CommonData.Companion.userNickName
+import com.campers.data.CommonData.Companion.boardContentId
+import com.campers.data.CommonData.Companion.boardId
+import com.campers.data.CommonData.Companion.boardType
+import com.campers.data.CommonData.Companion.myId
+import com.campers.data.CommonData.Companion.myNickName
 import com.campers.data.community.CommunityContentRegistRequest
 import com.campers.databinding.ActivityCommunityRegistBinding
 import com.campers.ui.BaseActivity
@@ -19,9 +22,6 @@ class CommunityRegistActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityCommunityRegistBinding
     private val mViewModel : CommunityRegistViewModel by viewModels()
-
-    private var boardId = 0 // 게시판 id
-    private var boardType = "" // 게시판 type
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +55,9 @@ class CommunityRegistActivity : BaseActivity() {
                 return@Observer
             }
 
-            val boardId = it.success?.payload?.get("insertId")?.asInt
+            boardContentId = it.success?.payload?.get("insertId")?.asInt!!
+            boardType = "member"
             val intent = Intent(this@CommunityRegistActivity, CommunityDetailActivity::class.java)
-            intent.putExtra("memberId", userId)
-            intent.putExtra("boardId", boardId) // boardId
-            intent.putExtra("boardType", "member")
             startActivity(intent)
             finish()
 
@@ -89,26 +87,23 @@ class CommunityRegistActivity : BaseActivity() {
         mBinding.btCommunityRegistComplete.setOnClickListener {
             showLoading(this)
 
-            boardId = intent.getIntExtra("boardId", 99999)
-            boardType = intent.getStringExtra("boardType").toString()
-
-            if(boardId == 99999){
+            if(boardId == 0){
                 // TODO : 에러 처리
                 return@setOnClickListener
             }
 
             val request = CommunityContentRegistRequest(
                 mBinding.etTitleRegist.text.toString(),
-                userNickName,
+                myNickName,
                 JSONObject().put("contents", mBinding.richEditor.html),
                 boardId,
                 null,
-                userId
+                myId
             )
 
             // 기본 게시판 게시물 글쓰기
             if(boardType == "default") {
-
+                // TODO : 추후 작업
             }
             // 사용자 게시판 게시물 글쓰기
             else {
@@ -125,7 +120,6 @@ class CommunityRegistActivity : BaseActivity() {
             val imageIntent = it.data
             try {
                 mBinding.richEditor.insertImage(imageIntent?.dataString, "", 300, 150)
-
             } catch (error: Error) {
                 println("갤러리 이미지 불러오기 에러")
             }
