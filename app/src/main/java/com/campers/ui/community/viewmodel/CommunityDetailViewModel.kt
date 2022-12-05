@@ -100,8 +100,8 @@ class CommunityDetailViewModel: ViewModel() {
                     CommonArrayResult(success = CommunityRepository().getCommunityContentFireData(request))
                 )
             } catch (e: Exception) {
-                communityMemberCommentData.postValue(
-                    CommonObjectResult(failure = e)
+                communityMemberContentFireData.postValue(
+                    CommonArrayResult(failure = e)
                 )
             }
         }

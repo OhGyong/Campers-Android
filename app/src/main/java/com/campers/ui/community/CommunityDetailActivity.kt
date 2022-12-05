@@ -275,17 +275,27 @@ class CommunityDetailActivity: BaseActivity() {
                 // TODO : 에러 화면 표시
                 return@Observer
             }
+            println("")
 
             showCommunityDetail()
         })
 
+        /**
+         * 사용자 게시판 게시물 좋아요
+         */
         mViewModel.communityMemberContentFireData.observe(this, Observer {
             hideLoading()
 
             if(it.failure != null){
                 // TODO : 에러 처리
+                println("사용자 게시판 게시물 좋아요")
+                println("failure → ${it.failure}")
+
                 return@Observer
             }
+
+            println("사용자 게시판 게시물 좋아요")
+            println("success → ${it.success}")
 
             showCommunityDetail()
         })
@@ -329,6 +339,10 @@ class CommunityDetailActivity: BaseActivity() {
         }
     }
 
+
+    /**
+     * 댓글 작성
+     */
     private fun addCommentListener() {
         mBinding.etCommunityCommentAdd.setOnEditorActionListener { v, actionId, _ ->
             val date = Date(System.currentTimeMillis())
@@ -352,6 +366,9 @@ class CommunityDetailActivity: BaseActivity() {
     }
 
     private fun clickListener() {
+        /**
+         * 좋아요 버튼
+         */
         mBinding.ivBornfire.setOnClickListener {
             showLoading(this)
             val request = CommunityMemberContentFireRequest(
