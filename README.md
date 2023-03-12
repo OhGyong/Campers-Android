@@ -1,5 +1,7 @@
 # Campers-Android
 
+![캠퍼스](https://user-images.githubusercontent.com/52282493/224542344-6371ba3e-4931-4216-94fe-89ba1bc3a463.png)
+
 ## MVVM 클래스 계층 구조
 - api : retrofit을 사용한 서버와의 통신
 - data : data 클래스
