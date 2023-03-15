@@ -9,11 +9,6 @@
 - ui : 사용자에게 데이터를 표시하는데 도움이 되는 Activity, Fragment, ViewModel.
 - util : 도우미 클래스 및 함수.
 
-## 데이터 클래스 명 정의
-Response : 서버 응답 데이터
-Request : 서버 요청 데이터
-Result : 서버 응답 데이터를 success와 failure로 정리한 데이터 / 서버 응답 데이터에서 사용할 데이터
-
 <pre>
   .
   ├── api
@@ -29,6 +24,14 @@ Result : 서버 응답 데이터를 success와 failure로 정리한 데이터 / 
   │   ├── splash
   ├── util
 </pre>
+
+## 기술 정리
+- Naver, Google 소셜 로그인.
+- Naver maps API, 고캠핑 Open API
+- WYSIWYG HTML Editor인 richEditor 라이브러리
+- AAC(LiveData, DataBinding, ViewModel)
+- Retrofit, Coroutine
+- Glide
 
 ## 일과
 - 2022.11.07~11.11<br/>
